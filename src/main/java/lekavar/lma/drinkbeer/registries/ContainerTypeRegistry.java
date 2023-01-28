@@ -17,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(modid = DrinkBeer.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ContainerTypeRegistry {
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, DrinkBeer.MOD_ID);
-    public static final RegistryObject<MenuType<BeerBarrelContainer>> BEER_BARREL_CONTAINER = CONTAINERS.register("beer_barrel_container", () -> IForgeMenuType.create((windowId, inv, data) -> new BeerBarrelContainer(windowId, data.readBlockPos(), inv, inv.player)));
+    public static final RegistryObject<MenuType<BeerBarrelContainer>> BEER_BARREL_CONTAINER = CONTAINERS.register("beer_barrel_container", () -> IForgeMenuType.create((windowId, inv, data) -> new BeerBarrelContainer(windowId, inv, data, inv.player)));
     public static final RegistryObject<MenuType<BartendingTableContainer>> bartendingTableContainer = CONTAINERS.register("bartending_table_normal_container", () -> IForgeMenuType .create(BartendingTableContainer::new));
     public static final RegistryObject<MenuType<TradeBoxContainer>> tradeBoxContainer = CONTAINERS.register("trade_box_normal_container", () -> IForgeMenuType .create(TradeBoxContainer::new));
 

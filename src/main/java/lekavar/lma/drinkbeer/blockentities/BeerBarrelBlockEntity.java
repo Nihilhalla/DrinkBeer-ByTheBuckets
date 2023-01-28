@@ -262,7 +262,7 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new BeerBarrelContainer(id, , inventory, player);
+        return new BeerBarrelContainer(id, worldPosition, inventory, player, syncData);
     }
 
     @Override
@@ -338,11 +338,11 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     }
 
     @Override
-    public boolean stillValid(Player p_70300_1_) {
+    public boolean stillValid(Player player) {
         if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return !(p_70300_1_.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
+            return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
         }
     }
 

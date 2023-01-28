@@ -1,7 +1,7 @@
 # eclipse and vscode
 .vscode
+bin\*
 bin
-bin/*
 *.launch
 .settings
 .metadata
@@ -21,8 +21,10 @@ build
 
 # other
 eclipse
+run\*
 run
 
 # Files from Forge MDK
 forge*changelog.txt
-*.class
+**.class
+run/usernamecache.json

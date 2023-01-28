@@ -30,6 +30,7 @@
   },
   "brewing_time": 24000,
   "result": {
+    "fluid": "drinkbeer:apple_lambic",
     "item": "drinkbeer:beer_mug_apple_lambic",
     "count": 4
   }

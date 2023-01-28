@@ -1,5 +1,6 @@
 package lekavar.lma.drinkbeer.gui;
 
+import lekavar.lma.drinkbeer.registries.BlockRegistry;
 import lekavar.lma.drinkbeer.registries.ContainerTypeRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.SoundEventRegistry;
@@ -18,6 +19,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -30,16 +33,28 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 public class BeerBarrelContainer extends AbstractContainerMenu {
     private static final int STATUS_CODE = 1;
     private static final int BREWING_REMAINING_TIME = 0;
-    private final Container brewingSpace;
-    private final ContainerData syncData;
-    private BlockEntity blockEntity;
+    private static BlockEntity blockEntity;
     private Player playerEntity;
     private IItemHandler playerInventory;
+    private final ContainerData syncData;
+    
+    public boolean getIsBrewing() {
+        return syncData.get(STATUS_CODE) == 1;
+    }
 
-    public BeerBarrelContainer(int windowId, BlockPos pos, Inventory pInventory, Player player) {
+    public int getStandardBrewingTime() {
+        return syncData.get(BREWING_REMAINING_TIME);
+    }
+
+    public int getRemainingBrewingTime() {
+        return syncData.get(BREWING_REMAINING_TIME);
+    }
+    public BeerBarrelContainer(int windowId, BlockPos pos, Inventory pInventory, Player player, ContainerData syncData) {
         super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
+        this.playerEntity = player;
         this.playerInventory = new InvWrapper(pInventory);
+        this.syncData = syncData;
         // Prepare
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
@@ -47,12 +62,12 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(h, 1, 46, 26));
                 addSlot(new SlotItemHandler(h, 2, 28, 44));
                 addSlot(new SlotItemHandler(h, 3, 46, 44));
-                addSlot(new OutputSlot(h, 5, 128, 34));
+                addSlot(new OutputSlot(h, 5, 128, 34, syncData));
                 addSlot(new SlotItemHandler(h, 4, 73, 50));
             });
         };
     
-        layoutPlayerInventorySlots(10, 70);
+        layoutPlayerInventorySlots(8, 84);
         trackFluids();
         // Player Inventory
 
@@ -66,7 +81,16 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
         addDataSlots(syncData);
     }
 
+    public BeerBarrelContainer(int id, Inventory playerInventory, FriendlyByteBuf data, Player player) {
+        this(id, playerInventory, data.readBlockPos(), player);
+    }
+
+    public BeerBarrelContainer(int windowId, Inventory playerInventory, BlockPos pos, Player player) {
+        this(windowId, pos, playerInventory, player, ((BeerBarrelBlockEntity) player.level.getBlockEntity(pos)).syncData);
+    }
+
     private final void trackFluids() {
+        //This function will be our workhorse for both the initial brewing of the beer, and the subsequent pouring and handling of it.
 
     }
 
@@ -152,32 +176,15 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
     }
 
     @Override
-    public boolean stillValid(Player p_75145_1_) {
-        return this.brewingSpace.stillValid(p_75145_1_);
+    public boolean stillValid(Player playerIn) {
+        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, BlockRegistry.BEER_BARREL.get());
     }
 
-    public boolean getIsBrewing() {
-        return syncData.get(STATUS_CODE) == 1;
-    }
 
-    public int getStandardBrewingTime() {
-        return syncData.get(BREWING_REMAINING_TIME);
-    }
-
-    public int getRemainingBrewingTime() {
-        return syncData.get(BREWING_REMAINING_TIME);
-    }
 
     @Override
     public void removed(Player player) {
         if (!player.level.isClientSide()) {
-            // Return Item to Player;
-            for (int i = 0; i < 5; i++) {
-                if (!brewingSpace.getItem(i).isEmpty()) {
-                    ItemHandlerHelper.giveItemToPlayer(player, brewingSpace.removeItem(i, brewingSpace.getItem(i).getCount()));
-                }
-            }
-        } else {
             // Play Closing Barrel Sound
             player.level.playSound(player, player.blockPosition(), SoundEvents.BARREL_CLOSE, SoundSource.BLOCKS, 1f, 1f);
         }
@@ -185,13 +192,13 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
     }
 
     static class OutputSlot extends SlotItemHandler {
-        private final ContainerData syncData;
-        private final BeerBarrelBlockEntity beerBarrelBlockEntity;
+        private ContainerData syncData;
 
-        public OutputSlot(IItemHandler p_i1824_1_, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_) {
+
+        public OutputSlot(IItemHandler p_i1824_1_, int p_i1824_2_, int p_i1824_3_, int p_i1824_4_, ContainerData syncData) {
             super(p_i1824_1_, p_i1824_2_, p_i1824_3_, p_i1824_4_);
             this.syncData = syncData;
-            this.beerBarrelBlockEntity = beerBarrelBlockEntity;
+
         }
 
         // After player picking up product, play pour sound effect
@@ -199,11 +206,11 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
         @Override
         public void onTake(Player player, ItemStack p_190901_2_) {
             if (p_190901_2_.getItem() == ItemRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get()) {
-                player.level.playSound((Player) null, beerBarrelBlockEntity.getBlockPos(), SoundEventRegistry.POURING_CHRISTMAS.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.level.playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING_CHRISTMAS.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 //p_190901_1_.level.playSound(p_190901_1_, p_190901_1_.blockPosition(), SoundEventRegistry.POURING_CHRISTMAS_VER.get(), SoundCategory.BLOCKS, 1f, 1f);
 
             } else {
-                player.level.playSound((Player) null, beerBarrelBlockEntity.getBlockPos(), SoundEventRegistry.POURING.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.level.playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 //p_190901_1_.level.playSound(p_190901_1_, p_190901_1_.blockPosition(), SoundEventRegistry.POURING.get(), SoundCategory.BLOCKS, 1f, 1f);
                 //}
             }

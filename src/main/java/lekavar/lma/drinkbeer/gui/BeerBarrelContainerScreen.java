@@ -40,7 +40,7 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         int j = (this.height - this.getYSize()) / 2;
         blit(stack, i, j, 0, 0, imageWidth, imageHeight);
     }
-
+/* 
     @Override
     protected void renderLabels(PoseStack stack, int x, int y) {
         drawCenteredString(stack, this.font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 4210752);
@@ -48,7 +48,7 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         String str = menu.getIsBrewing() ? convertTickToTime(menu.getRemainingBrewingTime()) : convertTickToTime(menu.getStandardBrewingTime());
         this.font.draw(stack, str, (float) 128, (float) 54, new Color(64, 64, 64, 255).getRGB());
     }
-
+*/
     public String convertTickToTime(int tick) {
         String result;
         if (tick > 0) {
