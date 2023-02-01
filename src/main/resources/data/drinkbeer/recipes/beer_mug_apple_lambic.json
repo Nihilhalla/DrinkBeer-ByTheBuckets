@@ -19,19 +19,16 @@
     ],
     {
       "item": "minecraft:apple"
-    },
-    {
-      "item": "minecraft:water_bucket"
     }
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
+
   "brewing_time": 24000,
   "result": {
-    "fluid": "drinkbeer:apple_lambic",
-    "item": "drinkbeer:beer_mug_apple_lambic",
-    "count": 4
+    "name": "drinkbeer:apple_lambic",
+    "amount": 1000
   }
 }

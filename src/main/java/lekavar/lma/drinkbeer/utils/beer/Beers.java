@@ -24,7 +24,7 @@ public enum  Beers {
     BEER_MUG_SWEET_BERRY_KRIEK(5, ItemRegistry.BEER_MUG_SWEET_BERRY_KRIEK.get(), true/*, new BeerRecipe()
             .setBeerResultNum(4).setBrewingTime(24000)
             .addMaterial(2, Items.WHEAT).addMaterial(Items.SWEET_BERRIES).addMaterial(Items.WATER_BUCKET)*/),
-    BEER_MUG_HAARS_ICEY_PALE_LAGER(6, ItemRegistry.BEER_MUG_HAARS_ICEY_PALE_LAGER.get(), true/*, new BeerRecipe()
+    BEER_MUG_HAARS_ICEY_PALE_LAGER(6, ItemRegistry.BEER_MUG_HAARS_ICY_PALE_LAGER.get(), true/*, new BeerRecipe()
             .setBeerResultNum(4).setBrewingTime(24000)
             .addMaterial(3, Items.WHEAT).addMaterial(Items.ICE, Items.BLUE_ICE, Items.PACKED_ICE)*/),
     BEER_MUG_PUMPKIN_KVASS(7, ItemRegistry.BEER_MUG_PUMPKIN_KVASS.get(), false/*, new BeerRecipe()

@@ -1,7 +1,7 @@
 {
     "loader": "mantle:fluid_texture",
     "textures": {
-        "still": "drinkbeer:block/fluid/beertexture/still",
-        "flowing": "drinkbeer:block/fluid/beertexture/flowing"
+        "still": "drinkbeer:block/fluid/frothy_pink_egg_nog/still",
+        "flowing": "drinkbeer:block/fluid/frothy_pink_egg_nog/flowing"
     }
 }

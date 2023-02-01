@@ -29,13 +29,14 @@
       "item": "minecraft:milk_bucket"
     }
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
-  "brewing_time": 12000,
+
+  "brewing_time": 24000,
   "result": {
-    "item": "drinkbeer:beer_mug_frothy_pink_eggnog",
-    "count": 4
+    "name": "drinkbeer:frothy_pink_egg_nog",
+    "amount": 1000
   }
 }

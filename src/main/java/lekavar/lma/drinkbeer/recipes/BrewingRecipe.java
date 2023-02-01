@@ -3,7 +3,11 @@ package lekavar.lma.drinkbeer.recipes;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import lekavar.lma.drinkbeer.DrinkBeer;
+import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.RecipeRegistry;
+import net.minecraft.CrashReport;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -14,25 +18,40 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidAttributes.Water;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.mantle.fluid.tooltip.FluidUnit;
+import slimeknights.mantle.network.MantleNetwork;
+import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.MantleRecipeSerializers;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import slimeknights.mantle.util.JsonHelper;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import javax.json.Json;
+import javax.json.JsonException;
 
-public class BrewingRecipe implements Recipe<IBrewingInventory> {
+import java.util.List;
+import java.util.function.Consumer;
+
+public class BrewingRecipe implements ICustomOutputRecipe<IBrewingInventory> {
     private final ResourceLocation id;
     private final NonNullList<Ingredient> input;
-    private final ItemStack cup;
     private final int brewingTime;
-    private final ItemStack result;
+    private final FluidStack result;
+    private final FluidStack fluid;
 
-    public BrewingRecipe(ResourceLocation id, NonNullList<Ingredient> input, ItemStack cup, int brewingTime, ItemStack result) {
+    public BrewingRecipe(ResourceLocation id, NonNullList<Ingredient> input, FluidStack fluid, int brewingTime, FluidStack result) {
         this.id = id;
         this.input = input;
-        this.cup = cup;
         this.brewingTime = brewingTime;
         this.result = result;
+        this.fluid = fluid;
     }
 
     @Deprecated
@@ -46,42 +65,59 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
     public NonNullList<Ingredient> getIngredients(){
         NonNullList<Ingredient> result = NonNullList.create();
         result.addAll(input);
+        DrinkBeer.LOG.atDebug().log(result.toString());
         return result;
     }
-
+/*
     @Deprecated
     public ItemStack geBeerCup(){
         return cup.copy();
     }
 
-    public ItemStack getBeerCup(){
-        return cup.copy();
+    public FluidIngredient getFluidIsIngredient(){
+        return fluid.of(result);
     }
-
-    @Override
-    public boolean matches(IBrewingInventory p_77569_1_, Level p_77569_2_) {
-        List<Ingredient> testTarget = Lists.newArrayList(input);
-        List<ItemStack> tested = p_77569_1_.getIngredients();
-        for (ItemStack itemStack : tested) {
-            int i = getLatestMatched(testTarget, itemStack);
-            if (i == -1) return false;
-            else testTarget.remove(i);
+ */
+@Override
+public boolean matches(IBrewingInventory brewInv, Level level) {
+    List<Ingredient> recipeList = Lists.newArrayList(input);
+    List<ItemStack> invItems = brewInv.getIngredients();
+    List<ItemStack> iterableListItems = Lists.newArrayList(invItems);
+    Consumer<ItemStack> removeEmpty = itemStack -> {
+        if (itemStack == ItemStack.EMPTY) {
+            iterableListItems.remove(itemStack);
         }
-        return testTarget.isEmpty();
-    }
-
-    private int getLatestMatched(List<Ingredient> testTarget, ItemStack tested) {
-        for (int i = 0; i < testTarget.size(); i++) {
-            if (testTarget.get(i).test(tested)) return i;
+    };
+    for (int i = iterableListItems.size() - 1; i >= 0; i--) {
+        if (iterableListItems.get(i) == ItemStack.EMPTY) {
+            iterableListItems.remove(i);
         }
-        return -1;
     }
+        //iterableListItems.forEach(removeEmpty);
+    if (!iterableListItems.isEmpty()) {
+        for (ItemStack itemStack : iterableListItems) {
+            int j = getLatestMatched(recipeList, itemStack);
+            if (j == -1) return false;
+            else recipeList.remove(j);
+            //DrinkBeer.LOG.atDebug().log();
+        }
+    }
+    return recipeList.isEmpty();
+}
+
+private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
+    for (int i = 0; i < recipeList.size(); i++) {
+        if (recipeList.get(i).test(invItem)) return i;
+    }
+    return -1;
+}
 
     /**
      * Returns an Item that is the result of this recipe
      */
-    @Override
-    public ItemStack assemble(IBrewingInventory inventory) {
+
+    public FluidStack makeFluid(IBrewingInventory inventory) {
+        inventory.getFluidIngredient();
         return result.copy();
     }
 
@@ -97,8 +133,8 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
      * If your recipe has more than one possible result (e.g. it's dynamic and depends on its inputs),
      * then return an empty stack.
      */
-    @Override
-    public ItemStack getResultItem() {
+
+    public FluidStack getResult() {
         //For Safety, I use #copy
         return result.copy();
     }
@@ -122,13 +158,13 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
     public RecipeType<?> getType() {
         return RecipeRegistry.RECIPE_TYPE_BREWING.get();
     }
-
+/*
     public int getRequiredCupCount() {
         return cup.getCount();
     }
-
+*/
     public boolean isCupQualified(IBrewingInventory inventory) {
-        return inventory.getCup().getItem() == cup.getItem() && inventory.getCup().getCount() >= cup.getCount();
+        return inventory.getCup().getItem() == ItemRegistry.EMPTY_BEER_MUG.get();
     }
 
     public int getBrewingTime() {
@@ -137,13 +173,14 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BrewingRecipe> {
 
+        
         @Override
         public BrewingRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
             NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(jsonObject, "ingredients"));
-            ItemStack cup = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(jsonObject, "cup"), true);
+            FluidStack fluid =  fluidFromJson(jsonObject);
             int brewing_time = GsonHelper.getAsInt(jsonObject, "brewing_time");
-            ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(jsonObject, "result"), true);
-            return new BrewingRecipe(resourceLocation, ingredients, cup, brewing_time, result);
+            FluidStack result = fluidResultFromJson(jsonObject);
+            return new BrewingRecipe(resourceLocation, ingredients, fluid, brewing_time, result);
         }
 
         private static NonNullList<Ingredient> itemsFromJson(JsonArray jsonArray) {
@@ -154,6 +191,21 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
             }
             return ingredients;
         }
+        private static FluidStack fluidFromJson(JsonObject jsonObj) {
+            FluidIngredient fluid = FluidIngredient.deserialize(jsonObj, "fluid");
+            if (fluid.getFluids().isEmpty()) {
+                return null;
+            }
+            return fluid.getFluids().get(0);
+        }
+        private static FluidStack fluidResultFromJson(JsonObject jsonObj) {
+            FluidIngredient fluidlist = FluidIngredient.deserialize(jsonObj, "result");
+            //DrinkBeer.LOG.atDebug().log(fluidlist.getFluids().get(0).toString());
+            if (fluidlist.getFluids().isEmpty()) {
+                return null;
+            }
+            return fluidlist.getFluids().get(0);
+        }
 
         @Nullable
         @Override
@@ -162,11 +214,13 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
             NonNullList<Ingredient> ingredients = NonNullList.withSize(i, Ingredient.EMPTY);
             for (int j = 0; j < ingredients.size(); ++j) {
                 ingredients.set(j, Ingredient.fromNetwork(packetBuffer));
+                DrinkBeer.LOG.atDebug().log("this was in the packet buffer for the network " + packetBuffer);
             }
-            ItemStack cup = packetBuffer.readItem();
+            FluidStack fluid = packetBuffer.readFluidStack();
             int brewingTime = packetBuffer.readVarInt();
-            ItemStack result = packetBuffer.readItem();
-            return new BrewingRecipe(resourceLocation, ingredients, cup, brewingTime, result);
+            FluidStack result = packetBuffer.readFluidStack();
+            DrinkBeer.LOG.atDebug().log("We found these values from the packets boss " + resourceLocation.toString(), ingredients.toString(), fluid.getFluid().toString(), brewingTime, result.getFluid().toString());
+            return new BrewingRecipe(resourceLocation, ingredients, fluid, brewingTime, result);
         }
 
         @Override
@@ -175,10 +229,14 @@ public class BrewingRecipe implements Recipe<IBrewingInventory> {
             for (Ingredient ingredient : brewingRecipe.input) {
                 ingredient.toNetwork(packetBuffer);
             }
-            packetBuffer.writeItem(brewingRecipe.cup);
+            packetBuffer.writeFluidStack(brewingRecipe.fluid);
             packetBuffer.writeVarInt(brewingRecipe.brewingTime);
-            packetBuffer.writeItem(brewingRecipe.result);
+            packetBuffer.writeFluidStack(brewingRecipe.result);
 
+        }
+
+        private void RecipeException(String string) throws JsonException {
+            throw new JsonException(string);
         }
     }
 }

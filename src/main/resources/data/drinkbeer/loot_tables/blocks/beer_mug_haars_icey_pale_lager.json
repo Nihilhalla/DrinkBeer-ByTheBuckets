@@ -6,13 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "drinkbeer:beer_mug_haars_icey_pale_lager"
+          "name": "drinkbeer:beer_mug_haars_icy_pale_lager"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "drinkbeer:beer_mug_haars_icey_pale_lager",
+          "block": "drinkbeer:beer_mug_haars_icy_pale_lager",
           "properties": {
             "amount": "1"
           }
@@ -24,13 +24,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "drinkbeer:beer_mug_haars_icey_pale_lager"
+          "name": "drinkbeer:beer_mug_haars_icy_pale_lager"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "drinkbeer:beer_mug_haars_icey_pale_lager",
+          "block": "drinkbeer:beer_mug_haars_icy_pale_lager",
           "properties": {
             "amount": "2"
           }
@@ -42,13 +42,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "drinkbeer:beer_mug_haars_icey_pale_lager"
+          "name": "drinkbeer:beer_mug_haars_icy_pale_lager"
         }
       ],
       "conditions": [
         {
           "condition": "minecraft:block_state_property",
-          "block": "drinkbeer:beer_mug_haars_icey_pale_lager",
+          "block": "drinkbeer:beer_mug_haars_icy_pale_lager",
           "properties": {
             "amount": "3"
           }

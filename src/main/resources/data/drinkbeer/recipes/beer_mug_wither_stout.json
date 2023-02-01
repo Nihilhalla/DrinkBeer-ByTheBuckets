@@ -14,18 +14,16 @@
     },
     {
       "item": "minecraft:wither_rose"
-    },
-    {
-      "item": "minecraft:water_bucket"
     }
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
-  "brewing_time": 18000,
+
+  "brewing_time": 24000,
   "result": {
-    "item": "drinkbeer:beer_mug_wither_stout",
-    "count": 4
+    "name": "drinkbeer:wither_stout",
+    "amount": 1000
   }
 }

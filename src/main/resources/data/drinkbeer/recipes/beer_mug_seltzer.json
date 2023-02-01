@@ -24,18 +24,16 @@
       {
         "tag": "minecraft:coals"
       }
-    ],
-    {
-      "item": "minecraft:water_bucket"
-    }
+    ]
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
+
   "brewing_time": 24000,
   "result": {
-    "item": "drinkbeer:beer_mug_seltzer",
-    "count": 4
+    "name": "drinkbeer:seltzer",
+    "amount": 1000
   }
 }

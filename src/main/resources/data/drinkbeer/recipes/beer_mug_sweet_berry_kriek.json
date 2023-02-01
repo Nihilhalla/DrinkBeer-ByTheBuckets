@@ -19,18 +19,16 @@
     ],
     {
       "item": "minecraft:sweet_berries"
-    },
-    {
-      "item": "minecraft:water_bucket"
     }
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
+
   "brewing_time": 24000,
   "result": {
-    "item": "drinkbeer:beer_mug_sweet_berry_kriek",
-    "count": 4
+    "name": "drinkbeer:sweet_berry_kriek",
+    "amount": 1000
   }
 }

@@ -24,11 +24,19 @@ import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import slimeknights.mantle.util.sync.LambdaDataSlot;
 
 public class BeerBarrelContainer extends AbstractContainerMenu {
     private static final int STATUS_CODE = 1;
@@ -37,6 +45,7 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
     private Player playerEntity;
     private IItemHandler playerInventory;
     private final ContainerData syncData;
+    static Capability<IFluidHandler> FLUID_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<IFluidHandler>() {});
     
     public boolean getIsBrewing() {
         return syncData.get(STATUS_CODE) == 1;
@@ -49,6 +58,7 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
     public int getRemainingBrewingTime() {
         return syncData.get(BREWING_REMAINING_TIME);
     }
+
     public BeerBarrelContainer(int windowId, BlockPos pos, Inventory pInventory, Player player, ContainerData syncData) {
         super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
@@ -65,10 +75,13 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
                 addSlot(new OutputSlot(h, 5, 128, 34, syncData));
                 addSlot(new SlotItemHandler(h, 4, 73, 50));
             });
+            //blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(j -> {
+            //});
         };
     
         layoutPlayerInventorySlots(8, 84);
-        trackFluids();
+        
+
         // Player Inventory
 
         // Input Ingredients
@@ -91,9 +104,8 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
 
     private final void trackFluids() {
         //This function will be our workhorse for both the initial brewing of the beer, and the subsequent pouring and handling of it.
-
+        addDataSlot(new LambdaDataSlot(0, null, null));
     }
-
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
@@ -225,7 +237,7 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
         // Only when the statusCode is 2 (waiting for pickup), pickup is allowed.
         @Override
         public boolean mayPickup(Player p_82869_1_) {
-            return syncData.get(STATUS_CODE) == 2;
+            return true;
         }
     }
 }

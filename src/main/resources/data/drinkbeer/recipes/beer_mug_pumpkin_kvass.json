@@ -9,18 +9,16 @@
     },
     {
       "item": "minecraft:pumpkin"
-    },
-    {
-      "item": "minecraft:water_bucket"
     }
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
-  "brewing_time": 12000,
+
+  "brewing_time": 24000,
   "result": {
-    "item": "drinkbeer:beer_mug_pumpkin_kvass",
-    "count": 4
+    "name": "drinkbeer:pumpkin_kvass",
+    "amount": 1000
   }
 }

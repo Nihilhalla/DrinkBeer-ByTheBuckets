@@ -40,6 +40,7 @@ public class EventHandler {
             }
         }
     }
+
     //Checking for a collision
     public boolean isColliding(List<AABB> blockBox, AABB playerBox) {
         for (AABB aabb : blockBox) { 

@@ -24,18 +24,17 @@
       {
         "tag": "forge:crops/wheat"
       }
-    ],
-    {
-      "item": "minecraft:water_bucket"
-    }
+    ]
   ],
-  "cup": {
-    "item": "drinkbeer:empty_beer_mug",
-    "count": 4
+  
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 1000
   },
-  "brewing_time": 24000,
+
+  "brewing_time": 240,
   "result": {
-    "item": "drinkbeer:beer_mug",
-    "count": 4
+    "name": "drinkbeer:miner_pale_ale",
+    "amount": 1000
   }
 }

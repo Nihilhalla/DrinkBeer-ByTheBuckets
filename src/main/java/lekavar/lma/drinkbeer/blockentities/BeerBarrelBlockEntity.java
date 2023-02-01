@@ -4,10 +4,12 @@ import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.gui.BeerBarrelContainer;
 import lekavar.lma.drinkbeer.handlers.BeerFluidHandler;
 import lekavar.lma.drinkbeer.handlers.BeerListHandler;
+import lekavar.lma.drinkbeer.items.BeerMugItem;
 import lekavar.lma.drinkbeer.recipes.BrewingRecipe;
 import lekavar.lma.drinkbeer.recipes.IBrewingInventory;
 import lekavar.lma.drinkbeer.registries.BlockEntityRegistry;
 import lekavar.lma.drinkbeer.registries.FluidRegistry;
+import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -18,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.recipebook.ServerPlaceRecipe;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -25,6 +28,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -49,6 +53,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FillFluidContainerTransfer;
 import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
@@ -57,8 +63,11 @@ import slimeknights.mantle.util.JsonHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.lang.model.util.ElementScanner14;
 
 import com.google.common.collect.Lists;
+
+import io.netty.handler.codec.http2.HttpConversionUtil.ExtensionHeaderNames;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -67,7 +76,13 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     // This int will not only indicate remainingBrewTime, but also represent Standard Brewing Time if valid in "waiting for ingredients" stage
     private int remainingBrewTime;
-    private FluidTank fluidTank = new FluidTank(FluidAttributes.BUCKET_VOLUME);
+    private FluidStack outPour = FluidStack.EMPTY;
+    private FluidTank fluidTank = new FluidTank(5000);
+    private FluidTank waterTank = new FluidTank(5000);
+    private CompoundTag waterTag = new CompoundTag();
+    private CompoundTag fluidTag = new CompoundTag();
+    private CompoundTag recipeTag = new CompoundTag();
+
     // 0 - waiting for ingredient, 1 - brewing, 2 - waiting for pickup product
     private int statusCode;
     public FluidTransferHelper fluidUtil;
@@ -107,63 +122,88 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     }
 
     public void tickServer() {
-        // waiting for ingredient
-        if (statusCode == 0) {
-            // ingredient slots must have no empty slot
-            if (!getIngredients().contains(ItemStack.EMPTY)) {
-                // Try match Recipe
-                BrewingRecipe recipe = level.getRecipeManager().getRecipeFor(RecipeRegistry.RECIPE_TYPE_BREWING.get(), this, this.level).orElse(null);
-                if (canBrew(recipe)) {
-                    // Show Standard Brewing Time & Result
-                    showPreview(recipe);
-                    // Check Weather have enough cup.
-                    if (hasEnoughEmptyCap(recipe)) {
-                        startBrewing(recipe);
-
-                    }
-                }
-                // Time remainingBrewTime will be reset since it also represents Standard Brewing Time if valid in this stage
-                else {
-                    clearPreview();
-                }
-            } else {
-                clearPreview();
-            }
-        }
-        // brewing
-        else if (statusCode == 1) {
-            if (remainingBrewTime > 0) {
-                remainingBrewTime--;
-            }
-            // Enter "waiting for pickup"
-            else {
-                // Prevent wired glitch such as remainingTime been set to one;
-                remainingBrewTime = 0;
-                // Enter Next Stage
-                statusCode = 2;
-            }
-            setChanged();
-        }
-        // waiting for pickup
-        else if (statusCode == 2) {
-            // Reset Stage to 0 (waiting for ingredients) after pickup Item
-            if (items.get(5).isEmpty()) {
-                statusCode = 0;
+        //showPreview();
+        //DrinkBeer.LOG.atDebug().log(statusCode);
+        //DrinkBeer.LOG.atDebug().log(fluidTank.getFluid().getFluid().getRegistryName().toString());
+        //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
+        if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250) {
+            int amountServed = (fluidTank.getFluidAmount() / 250);
+            //DrinkBeer.LOG.atDebug().log("There should be this many cups worth of fluid: " + amountServed);
+            //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluid().getFluid().getRegistryName().toString() + ", Amount: " + fluidTank.getFluidAmount());
+            //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
+            if (amountServed >= 1) {
+                int amountPoured = Math.min(amountServed, items.get(4).getCount());
+                //DrinkBeer.LOG.atDebug().log("We've made a beer!");
+                items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), amountPoured));
+                //DrinkBeer.LOG.atDebug().log(items.get(5).toString());
+                items.get(4).shrink(amountPoured);
+                fluidTank.drain(250 * amountPoured, FluidAction.EXECUTE);
                 setChanged();
             }
         }
-        // Error status reset
-        else {
-            remainingBrewTime = 0;
-            statusCode = 0;
-            setChanged();
-        }
+        // waiting for ingredient
+        if (statusCode == 0) {
+            getIngredients();
+                //DrinkBeer.LOG.atDebug().log(getIngredients().toString());
+                //do sweet fuck all because we actually just need this to do it's thing.
+            // ingredient slots must have no empty slot
+            for (int i = 0; i < 4; i++) {
+                if (items.get(i).getItem() == Items.WATER_BUCKET && waterTank.getFluidAmount() < 5000) {
+                    //DrinkBeer.LOG.atDebug().log("We see a bucket!");
+                    items.set(i, Items.BUCKET.getDefaultInstance());
+                    waterTank.fill(waterBucketFill, FluidAction.EXECUTE);
+                    //DrinkBeer.LOG.atDebug().log("Water level is now: " + waterTank.getFluidAmount());
+                    setChanged();
+                }
+                setChanged();
+
+            }
+            // Try match Recipe
+            BrewingRecipe recipe = level.getRecipeManager().getRecipeFor(RecipeRegistry.RECIPE_TYPE_BREWING.get(), this, this.level).orElse(null);
+            if (recipe != null) {
+                //DrinkBeer.LOG.atDebug().log("Recipe is: " + recipe.getResult().getFluid().getRegistryName().toString());
+            }
+            //DrinkBeer.LOG.atDebug().log(recipe.getResult().getFluid().getRegistryName().toString());
+            if (canBrew(recipe) && (waterTank.getFluidAmount() >= recipe.getResult().getAmount()) && ((fluidTank.getFluid().getFluid() == recipe.getResult().getFluid()) || (fluidTank.getFluid().getFluid() == FluidStack.EMPTY.getFluid()))) {
+            // Show Standard Brewing Time & Result
+                startBrewing(recipe);
+                setChanged();
+                
+                // Check Weather have enough cup.
+            } 
+        } else if (statusCode == 1) {
+            // brewing
+                    if (remainingBrewTime > 0) {
+                        remainingBrewTime--;
+                        DrinkBeer.LOG.atDebug().log("We are timing a brew! Present time remaining is: " + remainingBrewTime + " and OutPour is: " + outPour.getFluid().toString());
+                    } else {
+                        if (remainingBrewTime == 0) {
+                            fluidTank.fill(outPour, FluidAction.EXECUTE);
+                            statusCode = 0;
+                        }
+                        // Prevent wired glitch such as remainingTime been set to one;
+                        remainingBrewTime = 0;
+                        // Enter Next Stage
+                    } 
+                    
+                // Enter "waiting for pickup"
+                    setChanged();
+        } else if (statusCode == 2 && items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get()) {
+                    statusCode = 0;
+                }
+                // Error status reset
+                else {
+                    remainingBrewTime = 0;
+                    statusCode = 0;
+                    setChanged();
+                }
+                
     }
-
-
     private boolean canBrew(@Nullable BrewingRecipe recipe) {
         if (recipe != null) {
+            //DrinkBeer.LOG.atDebug().log("Recipe is " + recipe);
             return recipe.matches(this, this.level);
+
         } else {
             return false;
         }
@@ -176,29 +216,33 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
 
 
     private void startBrewing(BrewingRecipe recipe) {
-        // Pre-set beer to output Slot
-        // This Step must be done first
-        items.set(5, recipe.assemble(this));
+        //DrinkBeer.LOG.atDebug().log("Starting a Brew!");
         // Consume Ingredient & Cup;
         for (int i = 0; i < 4; i++) {
-            ItemStack ingred = items.get(i);
-            if (isBucket(ingred) && ingred.is(Items.WATER_BUCKET)) {
-                //Check the Fluid in the bucket, empty the bucket, and fill the tank.
+            if (items.get(i) == null || items.get(i) == ItemStack.EMPTY) {
+                //Do Fuck All, because we don't have an item in this slot.
+            } else if (isBucket(items.get(i))) {
                 items.set(i, Items.BUCKET.getDefaultInstance());
+            } else {
+
+                ItemStack ingred = items.get(i);
+                ingred.shrink(1);
+
             }
-            else ingred.shrink(1);
+            statusCode = 1;
         }
-        items.get(4).shrink(recipe.getRequiredCupCount());
+        waterTank.drain(recipe.getResult().getAmount(), FluidAction.EXECUTE);
         // Set Remaining Time;
         remainingBrewTime = recipe.getBrewingTime();
-        // Change Status Code to 1 (brewing)
-        statusCode = 1;
+
 
         setChanged();
+        outPour = recipe.getResult();
+
     }
 
     private boolean isBucket(ItemStack itemStack) {
-        return itemStack.getItem() instanceof BucketItem || itemStack.getItem() instanceof MilkBucketItem;
+        return itemStack.getItem() instanceof MilkBucketItem;
     }
 
     private void clearPreview() {
@@ -207,10 +251,13 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
         setChanged();
     }
 
-    private void showPreview(BrewingRecipe recipe) {
-        items.set(5, recipe.assemble(this));
-        remainingBrewTime = recipe.getBrewingTime();
-        setChanged();
+    private void showPreview() {
+        if (items.get(4).getItem() == ItemStack.EMPTY.getItem() && fluidTank.getFluidAmount() >= 250) {
+
+            items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), 1));
+            setChanged();
+            statusCode = 2; 
+        }
     }
 
 
@@ -229,14 +276,24 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     public ItemStack getCup() {
         return items.get(4).copy();
     }
-
     @Override
     public void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+
 
         ContainerHelper.saveAllItems(tag, this.items);
         tag.putShort("RemainingBrewTime", (short) this.remainingBrewTime);
         tag.putShort("statusCode", (short) this.statusCode);
+        
+        waterTank.writeToNBT(waterTag);
+        fluidTank.writeToNBT(fluidTag);
+        outPour.writeToNBT(recipeTag);
+        
+        tag.put("WaterLevel", waterTag);
+        tag.put("FluidLevel", fluidTag);
+        tag.put("Recipe", recipeTag);
+
+        super.saveAdditional(tag);
+        //DrinkBeer.LOG.atDebug().log(tag.getInt("FluidAmount0"));
     }
 
     @Override
@@ -247,6 +304,13 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
         ContainerHelper.loadAllItems(tag, this.items);
         this.remainingBrewTime = tag.getShort("RemainingBrewTime");
         this.statusCode = tag.getShort("statusCode");
+        waterTag = tag.getCompound("WaterLevel");
+        fluidTag = tag.getCompound("FluidLevel");
+        recipeTag = tag.getCompound("Recipe");
+        outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
+        waterTank.readFromNBT(waterTag);
+        fluidTank.readFromNBT(fluidTag);
+
     }
 
     @Override
@@ -280,12 +344,15 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
-
+/* 
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
         ContainerHelper.saveAllItems(tag, this.items);
         tag.putShort("RemainingBrewTime", (short) this.remainingBrewTime);
+
+        waterTank.writeToNBT(waterTag);
+        fluidTank.writeToNBT(fluidTag);
         return tag;
     }
 
@@ -293,8 +360,10 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     public void handleUpdateTag(CompoundTag tag) {
         ContainerHelper.loadAllItems(tag, this.items);
         this.remainingBrewTime = tag.getShort("RemainingBrewTime");
+        waterTank.readFromNBT(waterTag);
+        fluidTank.readFromNBT(fluidTag);
     }
-
+*/
     @Override
     public int getContainerSize() {
         return items.size();
@@ -372,7 +441,7 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
 
     public boolean isFluidBeer(FluidStack fluid) {
         if (fluid.getFluid() != null) {                
-            if (BeerListHandler.acceptedFluids.contains(fluid.getFluid())) {
+            if (BeerListHandler.beers.contains(fluid.getFluid())) {
                 return true;
             }
             return false;
@@ -382,12 +451,12 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     
     @Override
     public int getTanks() {
-        return 1;
+        return 2;
     }
 
     @Override
     public FluidStack getFluidInTank(int tank) {
-        return fluidTank.getFluid();
+        return fluidTank.getFluidInTank(tank);
     }
 
     @Override
@@ -397,10 +466,19 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
 
     @Override
     public boolean isFluidValid(int tank, FluidStack stack) {
-        if (isFluidBeer(stack)){
-            if(stack == getFluidInTank(tank) || getFluidInTank(tank) == FluidStack.EMPTY){
+        if (isFluidBeer(stack) && tank == 1){
+            if(stack.getFluid() == getFluidInTank(tank).getFluid() || getFluidInTank(tank) == FluidStack.EMPTY){
+                return true;
+            } else if (getFluidInTank(tank).getFluid() == Fluids.WATER){
+                return false;
+            }
+        if (!isFluidBeer(stack) && tank == 0) {
+            if(stack.getFluid() == getFluidInTank(tank).getFluid() || getFluidInTank(tank) == FluidStack.EMPTY){
+                return true;
+            } else if (getFluidInTank(tank).getFluid() == Fluids.WATER){
                 return true;
             }
+        }
             return false;
         }
         return false;
@@ -419,5 +497,17 @@ public class BeerBarrelBlockEntity extends BaseContainerBlockEntity implements I
     @Override
     public FluidStack drain(int maxDrain, FluidAction action) {
         return fluidTank.drain(maxDrain, action);
+    }
+
+    @Override
+    public FluidStack getFluidIngredient() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public FluidStack assemble() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

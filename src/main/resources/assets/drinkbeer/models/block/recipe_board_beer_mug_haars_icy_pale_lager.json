@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"ambientocclusion": false,
 	"textures": {
-		"0": "drinkbeer:block/recipe_board_beer_mug_haars_icey_pale_lager",
-		"1": "drinkbeer:block/recipe_board_back_beer_mug_haars_icey_pale_lager",
-		"particle": "drinkbeer:block/recipe_board_beer_mug_haars_icey_pale_lager"
+		"0": "drinkbeer:block/recipe_board_beer_mug_haars_icy_pale_lager",
+		"1": "drinkbeer:block/recipe_board_back_beer_mug_haars_icy_pale_lager",
+		"particle": "drinkbeer:block/recipe_board_beer_mug_haars_icy_pale_lager"
 	},
 	"elements": [
 		{
