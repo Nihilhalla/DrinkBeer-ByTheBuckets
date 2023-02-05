@@ -9,6 +9,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 import javax.swing.plaf.synth.SynthViewportUI;
 
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
+import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.FluidTankAnimated;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,6 +24,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -36,9 +38,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.mantle.util.sync.LambdaDataSlot;
 
-public class BeerBarrelContainer extends AbstractContainerMenu {
+public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity> {
     private static final int STATUS_CODE = 1;
     private static final int BREWING_REMAINING_TIME = 0;
     private static BlockEntity blockEntity;
@@ -60,8 +63,8 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
     }
 
     public BeerBarrelContainer(int windowId, BlockPos pos, Inventory pInventory, Player player, ContainerData syncData) {
-        super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId);
-        blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
+        super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId, pInventory, ((BeerBarrelBlockEntity) player.level.getBlockEntity(pos)));
+        blockEntity = (BeerBarrelBlockEntity) player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(pInventory);
         this.syncData = syncData;
@@ -72,7 +75,7 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
                 addSlot(new SlotItemHandler(h, 1, 46, 26));
                 addSlot(new SlotItemHandler(h, 2, 28, 44));
                 addSlot(new SlotItemHandler(h, 3, 46, 44));
-                addSlot(new OutputSlot(h, 5, 128, 34, syncData));
+                addSlot(new OutputSlot(h, 5, 93, 50, syncData));
                 addSlot(new SlotItemHandler(h, 4, 73, 50));
             });
             //blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(j -> {
@@ -131,7 +134,7 @@ public class BeerBarrelContainer extends AbstractContainerMenu {
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
-
+ 
     @Override
     public ItemStack quickMoveStack(Player p_82846_1_, int p_82846_2_) {
         ItemStack itemstack = ItemStack.EMPTY;

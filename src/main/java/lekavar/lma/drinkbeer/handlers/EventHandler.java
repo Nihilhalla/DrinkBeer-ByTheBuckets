@@ -26,7 +26,7 @@ public class EventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDamage(LivingHurtEvent event) {
         if(event.getEntityLiving() != null) {
-            DrinkBeer.LOG.atDebug().log(event.getEntity().toString() + " has been hit!");
+            //DrinkBeer.LOG.atDebug().log(event.getEntity().toString() + " has been hit!");
             if (event.getEntityLiving().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource() == DamageSource.WITHER) {
                     float newAmount = event.getAmount() / (2F * (event.getEntityLiving().getEffect(MobEffectRegistry.WITHER_RESIST.get()).getAmplifier() + 1F));
 

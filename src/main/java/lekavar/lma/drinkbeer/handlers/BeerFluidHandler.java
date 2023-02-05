@@ -13,9 +13,10 @@ import slimeknights.mantle.fluid.tooltip.FluidUnitList;
 
 public class BeerFluidHandler {
     //Begin Fluid Handler Variables
-    FluidStack witherStout = new FluidStack(FluidRegistry.WITHER_STOUT.get(), 0);
+
     BeerFluidHandler(){
-        //Humble beginnings
+
+        
 
     }
 }
