@@ -4,6 +4,7 @@ import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.gui.BeerBarrelContainer;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.FluidTankAnimated;
 import lekavar.lma.drinkbeer.handlers.BeerListHandler;
+import lekavar.lma.drinkbeer.handlers.CompositeFluidHandler;
 import lekavar.lma.drinkbeer.recipes.BrewingRecipe;
 import lekavar.lma.drinkbeer.recipes.IBrewingInventory;
 import lekavar.lma.drinkbeer.registries.BlockEntityRegistry;
@@ -12,6 +13,7 @@ import lekavar.lma.drinkbeer.registries.RecipeRegistry;
 import lekavar.lma.drinkbeer.utils.beer.Beers;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -29,12 +31,17 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.block.entity.InventoryBlockEntity;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
@@ -45,21 +52,29 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrewingInventory, EntityBlock, IFluidHandler {
+public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrewingInventory {
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     // This int will not only indicate remainingBrewTime, but also represent Standard Brewing Time if valid in "waiting for ingredients" stage
     private int remainingBrewTime;
     private FluidStack outPour = FluidStack.EMPTY;
-    private static FluidTank fluidTank = new FluidTank(5000);
-    private static FluidTank waterTank = new FluidTank(5000);
+    private Player playerEntity;
     private CompoundTag waterTag = new CompoundTag();
     private CompoundTag fluidTag = new CompoundTag();
     private CompoundTag recipeTag = new CompoundTag();
-    private static Component kegName = new TranslatableComponent("block.drinkbeer.beer_barrel");
+    //private final LazyOptional<IFluidHandler> fluidHandler = LazyOptional.of(() -> new CompositeFluidHandler(waterTank, fluidTank));
+    @Getter
+    protected final FluidTankAnimated fluidTank = new FluidTankAnimated(5000, this);
+    @Getter
+    protected final FluidTankAnimated waterTank = new FluidTankAnimated(5000, this);
 
+    private final LazyOptional<IFluidHandler> fluidTankHolder = LazyOptional.of(() -> fluidTank);
+    private final LazyOptional<IFluidHandler> waterTankHolder = LazyOptional.of(() -> waterTank);
+    //public static Player player;
     // 0 - waiting for ingredient, 1 - brewing, 2 - waiting for pickup product
+
     private int statusCode;
     public FluidTransferHelper fluidUtil;
+
     public final ContainerData syncData = new ContainerData() {
         @Override
         public int get(int index) {
@@ -92,15 +107,19 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     };
 
     public BeerBarrelBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.BEER_BARREL_TILEENTITY.get(), pos, state, kegName, false, 64);
-        
+        super(BlockEntityRegistry.BEER_BARREL_TILEENTITY.get(), pos, state, new TranslatableComponent("block.drinkbeer.beer_barrel"), false, 64);
+    }
+    
+    @Override
+    public BeerBarrelContainer createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new BeerBarrelContainer(pContainerId, pPlayerInventory, this);
     }
 
 
     public void tickServer() {
         //showPreview();
         //DrinkBeer.LOG.atDebug().log(statusCode);
-        //DrinkBeer.LOG.atDebug().log(fluidTank.getFluid().getFluid().getRegistryName().toString());
+        //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluidAmount());
         //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
         if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250) {
             int amountServed = (fluidTank.getFluidAmount() / 250);
@@ -121,6 +140,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 items.get(4).shrink(amountPoured);
                 fluidTank.drain(250 * amountPoured, FluidAction.EXECUTE);
                 setChanged();
+                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
             }
         }
         // waiting for ingredient
@@ -136,9 +156,10 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                     waterTank.fill(waterBucketFill, FluidAction.EXECUTE);
                     //DrinkBeer.LOG.atDebug().log("Water level is now: " + waterTank.getFluidAmount());
                     setChanged();
+                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
                 }
                 setChanged();
-
+                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
             }
             // Try match Recipe
             BrewingRecipe recipe = level.getRecipeManager().getRecipeFor(RecipeRegistry.RECIPE_TYPE_BREWING.get(), this, this.level).orElse(null);
@@ -150,6 +171,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
             // Show Standard Brewing Time & Result
                 startBrewing(recipe);
                 setChanged();
+                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
                 
                 // Check Weather have enough cup.
             } 
@@ -170,6 +192,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                     
                 // Enter "waiting for pickup"
                     setChanged();
+                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
         } else if (statusCode == 2 && items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get()) {
                     statusCode = 0;
                 }
@@ -178,6 +201,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                     remainingBrewTime = 0;
                     statusCode = 0;
                     setChanged();
+                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
                 }
                 
     }
@@ -218,9 +242,10 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         remainingBrewTime = recipe.getBrewingTime();
 
 
-        setChanged();
+        
         outPour = recipe.getResult();
-
+        setChanged();
+        level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
     }
 
     private boolean isBucket(ItemStack itemStack) {
@@ -238,10 +263,10 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 
             items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), 1));
             setChanged();
+            level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
             statusCode = 2; 
         }
     }
-
 
     @Nonnull
     @Override
@@ -253,48 +278,67 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         return sample;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            if (side == Direction.UP) {
+                return waterTankHolder.cast();
+            } else if (side != Direction.UP) {
+                return fluidTankHolder.cast();
+            }
+        }
+        return super.getCapability(capability, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.waterTankHolder.invalidate();
+        this.fluidTankHolder.invalidate();
+
+    }
+
     @Nonnull
     @Override
     public ItemStack getCup() {
         return items.get(4).copy();
     }
+ 
     @Override
     public void saveAdditional(CompoundTag tag) {
-
-
+        super.saveAdditional(tag);
         ContainerHelper.saveAllItems(tag, this.items);
         tag.putShort("RemainingBrewTime", (short) this.remainingBrewTime);
         tag.putShort("statusCode", (short) this.statusCode);
-        
+        CompoundTag waterTag = new CompoundTag();
+        CompoundTag fluidTag = new CompoundTag();
+        CompoundTag recipeTag = new CompoundTag();
         waterTank.writeToNBT(waterTag);
-        fluidTank.writeToNBT(fluidTag);
-        outPour.writeToNBT(recipeTag);
-        
         tag.put("WaterLevel", waterTag);
+        fluidTank.writeToNBT(fluidTag);
         tag.put("FluidLevel", fluidTag);
+        outPour.writeToNBT(recipeTag);
         tag.put("Recipe", recipeTag);
 
-        super.saveAdditional(tag);
-        //DrinkBeer.LOG.atDebug().log(tag.getInt("FluidAmount0"));
     }
-
     @Override
     public void load(@Nonnull CompoundTag tag) {
-        super.load(tag);
-
-        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, this.items);
-        this.remainingBrewTime = tag.getShort("RemainingBrewTime");
-        this.statusCode = tag.getShort("statusCode");
-        waterTag = tag.getCompound("WaterLevel");
-        fluidTag = tag.getCompound("FluidLevel");
-        recipeTag = tag.getCompound("Recipe");
-        outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
-        waterTank.readFromNBT(waterTag);
-        fluidTank.readFromNBT(fluidTag);
+            super.load(tag);
+            this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+            ContainerHelper.loadAllItems(tag, this.items);
+            this.remainingBrewTime = tag.getShort("RemainingBrewTime");
+            this.statusCode = tag.getShort("statusCode");
+            CompoundTag waterTag = tag.getCompound("WaterLevel");
+            CompoundTag fluidTag = tag.getCompound("FluidLevel");
+            CompoundTag recipeTag = tag.getCompound("Recipe");
+            outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
+            waterTank.readFromNBT(waterTag);
+            fluidTank.readFromNBT(fluidTag);
 
     }
- 
+    
+    
 
     public Component getDisplayName() {
         return new TranslatableComponent("block.drinkbeer.beer_barrel");
@@ -305,37 +349,69 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         return new TranslatableComponent("block.drinkbeer.beer_barrel");
     }
 
-
+/* 
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         handleUpdateTag(pkt.getTag());
     }
-
+*/
     @Nullable
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
-/* 
+/*
+    @Override
+    protected boolean shouldSyncOnUpdate() {
+        return true;
+    }
+
+    @Override
+    public void saveSynced(CompoundTag tag) {
+        super.saveSynced(tag);
+
+        ContainerHelper.saveAllItems(tag, this.items);
+        tag.putShort("RemainingBrewTime", (short) this.remainingBrewTime);
+        tag.putShort("statusCode", (short) this.statusCode);
+        CompoundTag waterTag = new CompoundTag();
+        CompoundTag fluidTag = new CompoundTag();
+        CompoundTag recipeTag = new CompoundTag();
+        waterTank.writeToNBT(waterTag);
+        tag.put("WaterLevel", waterTag);
+        fluidTank.writeToNBT(fluidTag);
+        tag.put("FluidLevel", fluidTag);
+        outPour.writeToNBT(recipeTag);
+        tag.put("Recipe", recipeTag);
+    }
+*/
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
         ContainerHelper.saveAllItems(tag, this.items);
         tag.putShort("RemainingBrewTime", (short) this.remainingBrewTime);
-
+        tag.putShort("statusCode", (short) this.statusCode);
         waterTank.writeToNBT(waterTag);
+        tag.put("WaterLevel", waterTag);
         fluidTank.writeToNBT(fluidTag);
+        tag.put("FluidLevel", fluidTag);
+        outPour.writeToNBT(recipeTag);
+        tag.put("Recipe", recipeTag);
         return tag;
     }
 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
-        ContainerHelper.loadAllItems(tag, this.items);
-        this.remainingBrewTime = tag.getShort("RemainingBrewTime");
-        waterTank.readFromNBT(waterTag);
-        fluidTank.readFromNBT(fluidTag);
+            this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+            ContainerHelper.loadAllItems(tag, this.items);
+            this.remainingBrewTime = tag.getShort("RemainingBrewTime");
+            CompoundTag waterTag = tag.getCompound("WaterLevel");
+            CompoundTag fluidTag = tag.getCompound("FluidLevel");
+            CompoundTag recipeTag = tag.getCompound("Recipe");
+            outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
+            waterTank.readFromNBT(waterTag);
+            fluidTank.readFromNBT(fluidTag);
     }
-*/
+
     @Override
     public int getContainerSize() {
         return items.size();
@@ -373,7 +449,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         }
     }
 
-
+/*
     @Override
     public boolean stillValid(Player player) {
         if (this.level.getBlockEntity(this.worldPosition) != this) {
@@ -382,21 +458,24 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
             return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
         }
     }
-
+ */
     @Override
     public void clearContent() {
         this.items.clear();
     }
 
-
-    @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new BeerBarrelBlockEntity(pPos, pState);
-    }
     //Fluid Handling for the Barrel
-
-
-
+/*
+    public static FluidTank getTank(int index) {
+        if (index == 0) {
+            return waterTank;
+        } else if (index == 1) {
+            return fluidTank;
+        } else {
+        return null;
+        }
+    }
+*/
 
     public static FluidStack waterBucketFill = new FluidStack(Fluids.WATER, 1000);
     public FluidStack boozeBucketFill (ItemStack stack) {
@@ -416,56 +495,6 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         } 
         return false;
     }
-    
-    @Override
-    public int getTanks() {
-        return 2;
-    }
-
-    @Override
-    public FluidStack getFluidInTank(int tank) {
-        return fluidTank.getFluidInTank(tank);
-    }
-
-    @Override
-    public int getTankCapacity(int tank) {
-        return fluidTank.getCapacity();
-    }
-
-    @Override
-    public boolean isFluidValid(int tank, FluidStack stack) {
-        if (isFluidBeer(stack) && tank == 1){
-            if(stack.getFluid() == getFluidInTank(tank).getFluid() || getFluidInTank(tank) == FluidStack.EMPTY){
-                return true;
-            } else if (getFluidInTank(tank).getFluid() == Fluids.WATER){
-                return false;
-            }
-        if (!isFluidBeer(stack) && tank == 0) {
-            if(stack.getFluid() == getFluidInTank(tank).getFluid() || getFluidInTank(tank) == FluidStack.EMPTY){
-                return true;
-            } else if (getFluidInTank(tank).getFluid() == Fluids.WATER){
-                return true;
-            }
-        }
-            return false;
-        }
-        return false;
-    }
-
-    @Override
-    public int fill(FluidStack resource, FluidAction action) {
-        return fluidTank.fill(resource, action);
-    }
-
-    @Override
-    public FluidStack drain(FluidStack resource, FluidAction action) {
-        return fluidTank.drain(resource, action);
-    }
-
-    @Override
-    public FluidStack drain(int maxDrain, FluidAction action) {
-        return fluidTank.drain(maxDrain, action);
-    }
 
     @Override
     public FluidStack getFluidIngredient() {
@@ -478,14 +507,17 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         // TODO Auto-generated method stub
         return null;
     }
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        
-        return new BeerBarrelContainer(pContainerId, pPlayerInventory, this.getBlockPos(), pPlayer);
-    }
-    @Getter
-    public final IFluidHandler gettableWaterTank = waterTank;
 
-    @Getter
-    public final IFluidHandler gettableFluidTank = fluidTank;
+    @Override
+    public boolean stillValid(Player player) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
+            return false;
+        } else {
+            return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
+        }
+    }
+
 }
+
+
+

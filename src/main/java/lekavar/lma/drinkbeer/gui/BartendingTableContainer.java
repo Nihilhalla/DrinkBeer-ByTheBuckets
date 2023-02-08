@@ -1,20 +1,14 @@
 package lekavar.lma.drinkbeer.gui;
 
 import lekavar.lma.drinkbeer.blockentities.BartendingTableBlockEntity;
-import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
-import lekavar.lma.drinkbeer.items.MixedBeerBlockItem;
 import lekavar.lma.drinkbeer.items.SpiceBlockItem;
 import lekavar.lma.drinkbeer.managers.MixedBeerManager;
 import lekavar.lma.drinkbeer.registries.ContainerTypeRegistry;
-import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.SoundEventRegistry;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
-import lekavar.lma.drinkbeer.utils.beer.Beers;
-import lekavar.lma.drinkbeer.utils.mixedbeer.Spices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,14 +17,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BartendingTableContainer  extends AbstractContainerMenu {
     private final Container bartendingSpace;

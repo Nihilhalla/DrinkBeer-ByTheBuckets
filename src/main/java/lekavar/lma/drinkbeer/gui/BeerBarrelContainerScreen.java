@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.screen.ElementScreen;
@@ -32,8 +33,8 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
     private final int textureHeight = 166;
     private Inventory inventory;
     //private final ElementScreen SCALA = new ElementScreen(134, 0, 52,52,176,166);
-    private final ElementScreen waterTank = new ElementScreen(134, 73, 16, 64, 176, 166);
-    private final ElementScreen fluidTank = new ElementScreen(152, 73, 16, 64, 176, 166);
+    private static final ElementScreen waterTank = new ElementScreen(134, 73, 16, 64, 176, 166);
+    private static final ElementScreen fluidTank = new ElementScreen(152, 73, 16, 64, 176, 166);
     private final GuiTankModule water;
     private final GuiTankModule fluid;
 
@@ -43,8 +44,16 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         this.imageHeight = textureHeight;
         BeerBarrelBlockEntity tileEntity = screenContainer.getTile();
         this.inventory = inv;
-        water = new GuiTankModule(this, tileEntity.gettableWaterTank, 134, 11, 16, 63);
-        fluid = new GuiTankModule(this, tileEntity.gettableFluidTank, 152, 11, 16, 63);
+        if (tileEntity != null) {
+            water = new GuiTankModule(this, tileEntity.getWaterTank(), 134, 11, 16, 63);
+            fluid = new GuiTankModule(this, tileEntity.getFluidTank(), 152, 11, 16, 63);
+
+        } else {
+            water = null;
+            fluid = null;
+        }
+        DrinkBeer.LOG.atDebug().log(tileEntity.getWaterTank().getFluidInTank(0).getAmount());
+        DrinkBeer.LOG.atDebug().log(tileEntity.getFluidTank().getFluidInTank(0).getAmount());
     }
 
     @Override
@@ -52,8 +61,6 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         renderBackground(stack);
         super.render(stack, mouseX, mouseY, partialTicks);
         renderTooltip(stack, mouseX, mouseY);
-
-        
 
     }
 
@@ -64,11 +71,18 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         //int i = (this.width - this.getXSize()) / 2;
         //int j = (this.height - this.getYSize()) / 2;
         //blit(stack, i, j, 0, 0, imageWidth, imageHeight);
+
         waterTank.draw(stack, 134, 73);
         fluidTank.draw(stack, 152, 73);
+
+        if (water != null) water.draw(stack);
+        //water.draw(stack);
+        if (fluid != null) fluid.draw(stack);
         
-        water.draw(stack);
-        fluid.draw(stack);
+
+
+
+
     }
 
     @Override
@@ -84,8 +98,8 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         this.font.draw(stack, str, (float) 90, (float) 72, new Color(64, 64, 64, 255).getRGB());
         int checkX = x - this.leftPos;
         int checkY = y - this.topPos;
-        water.highlightHoveredFluid(stack, checkX, checkY);
-        fluid.highlightHoveredFluid(stack, checkX, checkY);
+        if (water != null) water.highlightHoveredFluid(stack, checkX, checkY);
+        if (fluid != null) fluid.highlightHoveredFluid(stack, checkX, checkY);
         //RenderUtils.setup(BEER_BARREL_CONTAINER_RESOURCE);
         //SCALA.draw(stack, 90, 16);
     }
@@ -94,9 +108,11 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
     public Object getIngredientUnderMouse(double mouseX, double mouseY) {
         Object ingredient = null;
         int checkX = (int) mouseX - leftPos;
-        int checkY = (int) mouseY - topPos;
-        ingredient = water.getIngreientUnderMouse(checkX, checkY);
-        ingredient = fluid.getIngreientUnderMouse(checkX, checkY);
+        int checkY = (int) mouseY - topPos; 
+        if (water != null)
+            ingredient = water.getIngreientUnderMouse(checkX, checkY);
+        if (fluid != null)
+            ingredient = fluid.getIngreientUnderMouse(checkX, checkY);
 
 
         return ingredient;

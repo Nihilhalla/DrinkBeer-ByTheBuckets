@@ -5,50 +5,40 @@ import lekavar.lma.drinkbeer.registries.ContainerTypeRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.SoundEventRegistry;
 
-import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
-import javax.swing.plaf.synth.SynthViewportUI;
-
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
-import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.FluidTankAnimated;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import slimeknights.mantle.inventory.BaseContainerMenu;
-import slimeknights.mantle.util.sync.LambdaDataSlot;
 
 public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity> {
     private static final int STATUS_CODE = 1;
     private static final int BREWING_REMAINING_TIME = 0;
     private static BlockEntity blockEntity;
+    private final ContainerLevelAccess access;
     private Player playerEntity;
     private IItemHandler playerInventory;
     private final ContainerData syncData;
-    static Capability<IFluidHandler> FLUID_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<IFluidHandler>() {});
+    private final Container brewingSpace;
+    //private FluidTank fluidTank;
+    //private FluidTank waterTank;
+    //static Capability<IFluidHandler> FLUID_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<IFluidHandler>() {});
     
     public boolean getIsBrewing() {
         return syncData.get(STATUS_CODE) == 1;
@@ -62,12 +52,14 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         return syncData.get(BREWING_REMAINING_TIME);
     }
 
-    public BeerBarrelContainer(int windowId, BlockPos pos, Inventory pInventory, Player player, ContainerData syncData) {
-        super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId, pInventory, ((BeerBarrelBlockEntity) player.level.getBlockEntity(pos)));
-        blockEntity = (BeerBarrelBlockEntity) player.getCommandSenderWorld().getBlockEntity(pos);
-        this.playerEntity = player;
+    public BeerBarrelContainer(int windowId, Inventory pInventory, BeerBarrelBlockEntity barrel, ContainerData syncData) {
+        super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId, pInventory, barrel);
+        blockEntity = barrel;
+        this.brewingSpace = ((BeerBarrelBlockEntity) Minecraft.getInstance().level.getBlockEntity(barrel.getBlockPos()));
+        this.access = ContainerLevelAccess.create(pInventory.player.level, barrel.getBlockPos());
         this.playerInventory = new InvWrapper(pInventory);
         this.syncData = syncData;
+
         // Prepare
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
@@ -83,7 +75,6 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         };
     
         layoutPlayerInventorySlots(8, 84);
-        
 
         // Player Inventory
 
@@ -97,18 +88,15 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         addDataSlots(syncData);
     }
 
+
     public BeerBarrelContainer(int id, Inventory playerInventory, FriendlyByteBuf data, Player player) {
-        this(id, playerInventory, data.readBlockPos(), player);
+        this(id, playerInventory, getTileEntityFromBuf(data, BeerBarrelBlockEntity.class));
     }
 
-    public BeerBarrelContainer(int windowId, Inventory playerInventory, BlockPos pos, Player player) {
-        this(windowId, pos, playerInventory, player, ((BeerBarrelBlockEntity) player.level.getBlockEntity(pos)).syncData);
+    public BeerBarrelContainer(int windowId, Inventory playerInventory, BeerBarrelBlockEntity barrel) {
+        this(windowId, playerInventory, barrel,  barrel.syncData);
     }
 
-    private final void trackFluids() {
-        //This function will be our workhorse for both the initial brewing of the beer, and the subsequent pouring and handling of it.
-        addDataSlot(new LambdaDataSlot(0, null, null));
-    }
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
@@ -134,7 +122,8 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
- 
+
+    
     @Override
     public ItemStack quickMoveStack(Player p_82846_1_, int p_82846_2_) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -186,17 +175,46 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         return itemstack;
     }
 
+    public FluidStack getWater() {
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.UP).map(f -> f.getFluidInTank(0).copy()).orElse(null);
+    }
+    public FluidStack getFluid() {
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).map(f -> f.getFluidInTank(0).copy()).orElse(null);
+    }
+
     public boolean isEmptyCup(ItemStack itemStack) {
         return itemStack.getItem() == ItemRegistry.EMPTY_BEER_MUG.get();
     }
 
     @Override
-    public boolean stillValid(Player playerIn) {
-        return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, BlockRegistry.BEER_BARREL.get());
+    public boolean stillValid(Player player) {
+        return stillValid(access, player, BlockRegistry.BEER_BARREL.get());
+    }
+/* 
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        if (playerEntity instanceof ServerPlayer sp) {
+            FluidStack newFluid = getFluid();
+            FluidStack newWater = getWater();
+            if (fluid.getAmount() != newFluid.getAmount() || !fluid.isFluidEqual(newFluid)) {
+                PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> sp),
+                        new FluidUpdatePacket(blockEntity.getBlockPos(), newFluid));
+                this.fluid = newFluid;
+            }
+        }
     }
 
-
-
+    @Override
+    public void sendAllDataToRemote() {
+        super.sendAllDataToRemote();
+        if (playerEntity instanceof ServerPlayer sp) {
+            PacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> sp),
+                    new FluidUpdatePacket(blockEntity.getBlockPos(), getFluid()));
+        }
+    }
+}
+*/
     @Override
     public void removed(Player player) {
         if (!player.level.isClientSide()) {
