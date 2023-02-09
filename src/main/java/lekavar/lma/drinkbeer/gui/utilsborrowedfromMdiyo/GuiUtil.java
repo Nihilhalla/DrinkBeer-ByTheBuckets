@@ -1,5 +1,7 @@
 package lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo;
 
+import javax.annotation.Nonnull;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -97,7 +99,7 @@ public final class GuiUtil {
    * @param height    Tank height
    * @param depth     Tank depth
    */
-  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
+  public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, @Nonnull FluidStack stack, int capacity, int x, int y, int width, int height, int depth) {
     renderFluidTank(matrices, screen, stack, stack.getAmount(), capacity, x, y, width, height, depth);
   }
 

@@ -55,7 +55,7 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
     public BeerBarrelContainer(int windowId, Inventory pInventory, BeerBarrelBlockEntity barrel, ContainerData syncData) {
         super(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), windowId, pInventory, barrel);
         blockEntity = barrel;
-        this.brewingSpace = ((BeerBarrelBlockEntity) Minecraft.getInstance().level.getBlockEntity(barrel.getBlockPos()));
+        this.brewingSpace = ((BeerBarrelBlockEntity) pInventory.player.level.getBlockEntity(barrel.getBlockPos()));
         this.access = ContainerLevelAccess.create(pInventory.player.level, barrel.getBlockPos());
         this.playerInventory = new InvWrapper(pInventory);
         this.syncData = syncData;
@@ -174,14 +174,14 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
 
         return itemstack;
     }
-
+/*
     public FluidStack getWater() {
-        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.UP).map(f -> f.getFluidInTank(0).copy()).orElse(null);
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.UP).map(f -> f.getFluidInTank(0).copy()).orElse(FluidStack.EMPTY);
     }
     public FluidStack getFluid() {
-        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).map(f -> f.getFluidInTank(0).copy()).orElse(null);
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).map(g -> g.getFluidInTank(0).copy()).orElse(FluidStack.EMPTY);
     }
-
+ */
     public boolean isEmptyCup(ItemStack itemStack) {
         return itemStack.getItem() == ItemRegistry.EMPTY_BEER_MUG.get();
     }

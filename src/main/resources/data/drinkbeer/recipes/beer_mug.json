@@ -32,7 +32,7 @@
     "amount": 1000
   },
 
-  "brewing_time": 240,
+  "brewing_time": 24000,
   "result": {
     "name": "drinkbeer:miner_pale_ale",
     "amount": 1000

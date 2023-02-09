@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -69,12 +71,13 @@ public class BeerBarrelBlock extends InventoryBlock {
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
     }
+
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
             boolean hitBucket;
             if (FluidTransferHelper.interactWithBucket(world, pos, player, hand, Direction.UP, Direction.UP)) {
-                //world.getBlockEntity(pos).setChanged();
+                world.getBlockEntity(pos).setChanged();
                 world.sendBlockUpdated(pos, state, state, 2);
                 hitBucket = true;
             } else {
@@ -89,7 +92,7 @@ public class BeerBarrelBlock extends InventoryBlock {
             BlockEntity blockentity = world.getBlockEntity(pos);
             if (blockentity instanceof BeerBarrelBlockEntity) {
 
-                openGui(player, world, pos);
+                openGui((ServerPlayer) player, world, pos);
                 //DrinkBeer.LOG.atDebug().log(state.toString());
                 //DrinkBeer.LOG.atDebug().log(world.toString());
                 //DrinkBeer.LOG.atDebug().log(pos.toString());

@@ -7,35 +7,20 @@ import com.google.gson.JsonObject;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.RecipeRegistry;
-import net.minecraft.CrashReport;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidAttributes.Water;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import slimeknights.mantle.fluid.tooltip.FluidUnit;
-import slimeknights.mantle.network.MantleNetwork;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.MantleRecipeSerializers;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.mantle.util.JsonHelper;
-
 import javax.annotation.Nullable;
-import javax.json.Json;
-import javax.json.JsonException;
-
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -194,7 +179,7 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
         private static FluidStack fluidFromJson(JsonObject jsonObj) {
             FluidIngredient fluid = FluidIngredient.deserialize(jsonObj, "fluid");
             if (fluid.getFluids().isEmpty()) {
-                return null;
+                return FluidStack.EMPTY;
             }
             return fluid.getFluids().get(0);
         }
@@ -202,7 +187,7 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
             FluidIngredient fluidlist = FluidIngredient.deserialize(jsonObj, "result");
             //DrinkBeer.LOG.atDebug().log(fluidlist.getFluids().get(0).toString());
             if (fluidlist.getFluids().isEmpty()) {
-                return null;
+                return FluidStack.EMPTY;
             }
             return fluidlist.getFluids().get(0);
         }
@@ -234,9 +219,9 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
             packetBuffer.writeFluidStack(brewingRecipe.result);
 
         }
-
+/* 
         private void RecipeException(String string) throws JsonException {
             throw new JsonException(string);
-        }
+        }*/
     }
 }

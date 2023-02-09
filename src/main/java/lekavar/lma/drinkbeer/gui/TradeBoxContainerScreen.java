@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blocks.TradeboxBlock;
 import lekavar.lma.drinkbeer.managers.TradeBoxManager;
-import lekavar.lma.drinkbeer.networking.NetWorking;
+//import lekavar.lma.drinkbeer.networking.NetWorking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.components.ImageButton;
@@ -103,8 +103,8 @@ public class TradeBoxContainerScreen extends AbstractContainerScreen<TradeBoxCon
         this.addRenderableWidget(new ImageButton(x + 156, y + 5, 15, 15, 210, 0, 0, TRADE_BOX_GUI, (buttonWidget) -> {
             if(container.isTrading()) {
                 BlockPos pos = getHitTradeBoxBlockPos();
-                if (pos != null)
-                    NetWorking.sendRefreshTradebox(pos);
+                if (pos != null);
+//                    NetWorking.sendRefreshTradebox(pos);
             }
         }));
         super.init();

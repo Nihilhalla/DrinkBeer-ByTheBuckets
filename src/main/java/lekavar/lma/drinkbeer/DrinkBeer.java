@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.common.graph.Network;
 
 import lekavar.lma.drinkbeer.client.DrinkBeerClient;
 import lekavar.lma.drinkbeer.effects.WitherStoutEffect;
@@ -66,6 +67,7 @@ public class DrinkBeer {
         eventHandler = new EventHandler();
 
         MinecraftForge.EVENT_BUS.register(eventHandler);
+
         MobEffectRegistry.STATUS_EFFECTS.register(bus);
         ItemRegistry.ITEMS.register(bus);
         BlockRegistry.BLOCKS.register(bus);

@@ -4,7 +4,6 @@ import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.gui.BeerBarrelContainer;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.FluidTankAnimated;
 import lekavar.lma.drinkbeer.handlers.BeerListHandler;
-import lekavar.lma.drinkbeer.handlers.CompositeFluidHandler;
 import lekavar.lma.drinkbeer.recipes.BrewingRecipe;
 import lekavar.lma.drinkbeer.recipes.IBrewingInventory;
 import lekavar.lma.drinkbeer.registries.BlockEntityRegistry;
@@ -304,7 +303,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     public ItemStack getCup() {
         return items.get(4).copy();
     }
- 
+
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
@@ -321,9 +320,10 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         outPour.writeToNBT(recipeTag);
         tag.put("Recipe", recipeTag);
 
-    }
+    } 
     @Override
     public void load(@Nonnull CompoundTag tag) {
+        if (tag != null) {
             super.load(tag);
             this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
             ContainerHelper.loadAllItems(tag, this.items);
@@ -335,7 +335,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
             outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
             waterTank.readFromNBT(waterTag);
             fluidTank.readFromNBT(fluidTag);
-
+        }
     }
     
     
@@ -349,12 +349,12 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         return new TranslatableComponent("block.drinkbeer.beer_barrel");
     }
 
-/* 
+
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         handleUpdateTag(pkt.getTag());
     }
-*/
+
     @Nullable
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
@@ -401,6 +401,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 
     @Override
     public void handleUpdateTag(CompoundTag tag) {
+        if (tag != null) {
             this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
             ContainerHelper.loadAllItems(tag, this.items);
             this.remainingBrewTime = tag.getShort("RemainingBrewTime");
@@ -410,6 +411,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
             outPour = FluidStack.loadFluidStackFromNBT(recipeTag);
             waterTank.readFromNBT(waterTag);
             fluidTank.readFromNBT(fluidTag);
+        }
     }
 
     @Override
