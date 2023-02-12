@@ -75,14 +75,14 @@ public class BeerBarrelBlock extends InventoryBlock {
     @SuppressWarnings("deprecation")
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-            boolean hitBucket;
-            if (FluidTransferHelper.interactWithBucket(world, pos, player, hand, Direction.UP, Direction.UP)) {
-                world.getBlockEntity(pos).setChanged();
-                world.sendBlockUpdated(pos, state, state, 2);
-                hitBucket = true;
-            } else {
-                hitBucket = false;
-            }
+        boolean hitBucket;
+        if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit) && world.getBlockEntity(pos) != null) {
+            world.getBlockEntity(pos).setChanged();
+            world.sendBlockUpdated(pos, state, state, 2);
+            hitBucket = true;
+        } else {
+            hitBucket = false;
+        }
         //DrinkBeer.LOG.atDebug().log(world.getBlockEntity(pos).getTileData().getAllKeys().toArray().toString());
         //boolean fluidHandler = world.getBlockEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).resolve().isPresent();
         //DrinkBeer.LOG.atDebug().log(fluidHandler);

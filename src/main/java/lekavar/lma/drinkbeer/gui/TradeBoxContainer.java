@@ -56,7 +56,7 @@ public class TradeBoxContainer extends AbstractContainerMenu {
     }
 
     public TradeBoxContainer(int id, Inventory playerInventory, BlockPos pos) {
-        this(id, ((TradeBoxBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)), ((TradeBoxBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)).syncData, playerInventory, ((TradeBoxBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)));
+        this(id, ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)), ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)).syncData, playerInventory, ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)));
     }
 
     public TradeBoxContainer(int id, Container goodInventory, ContainerData syncData, Inventory playerInventory, TradeBoxBlockEntity tradeBoxBlockEntity) {

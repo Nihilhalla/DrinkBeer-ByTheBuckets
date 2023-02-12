@@ -56,7 +56,7 @@ public class BartendingTableContainer  extends AbstractContainerMenu {
     }
 
     public BartendingTableContainer(int id, Inventory playerInventory, BlockPos pos) {
-        this(id, ((BartendingTableBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)), ((BartendingTableBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)).syncData, playerInventory, ((BartendingTableBlockEntity) Minecraft.getInstance().level.getBlockEntity(pos)));
+        this(id, ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)), ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)).syncData, playerInventory, ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)));
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

@@ -32,6 +32,7 @@ public class EventHandler {
 
                     if (newAmount < 0.124){
                         event.setCanceled(true);
+                        //DrinkBeer.LOG.atDebug().log("Canceled damage from Wither Effect");
                     } else {
                         //DrinkBeer.LOG.atDebug().log("Mitigating Damage to " + newAmount);
                         event.setAmount(newAmount);

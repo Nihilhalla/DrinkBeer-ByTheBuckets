@@ -52,8 +52,8 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
             water = null;
             fluid = null;
         }
-        DrinkBeer.LOG.atDebug().log(tileEntity.getWaterTank().getFluidInTank(0).getAmount());
-        DrinkBeer.LOG.atDebug().log(tileEntity.getFluidTank().getFluidInTank(0).getAmount());
+        //DrinkBeer.LOG.atDebug().log(tileEntity.getWaterTank().getFluidInTank(0).getAmount());
+        //DrinkBeer.LOG.atDebug().log(tileEntity.getFluidTank().getFluidInTank(0).getAmount());
     }
 
     @Override
