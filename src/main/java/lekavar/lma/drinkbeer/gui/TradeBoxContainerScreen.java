@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blocks.TradeboxBlock;
 import lekavar.lma.drinkbeer.managers.TradeBoxManager;
+import lekavar.lma.drinkbeer.networking.NetWorking;
 //import lekavar.lma.drinkbeer.networking.NetWorking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -104,7 +105,7 @@ public class TradeBoxContainerScreen extends AbstractContainerScreen<TradeBoxCon
             if(container.isTrading()) {
                 BlockPos pos = getHitTradeBoxBlockPos();
                 if (pos != null);
-//                    NetWorking.sendRefreshTradebox(pos);
+                    NetWorking.sendRefreshTradebox(pos);
             }
         }));
         super.init();
