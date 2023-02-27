@@ -121,6 +121,10 @@
   
   
   "_comment": "New stuff added by Nihilhalla",
+  
+  "gui.drinkbeer.barrel": "Barrel",
+  "gui.mantle.fluid.capacity": "Capacity:",
+  "gui.mantle.fluid.available": "Free:",
 
   "drinkbeer.jei.title.brewing": "Brewing",
   "drinkbeer.jei.tooltip.brewing": "Brewing Time: ",

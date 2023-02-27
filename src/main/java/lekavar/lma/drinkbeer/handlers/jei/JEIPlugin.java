@@ -52,7 +52,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(BeerBarrelContainerScreen.class, 152, 11, 16, 63, BREWING);
+        registration.addRecipeClickArea(BeerBarrelContainerScreen.class, 96, 31, 22, 18, BREWING);
     }
     private static <T> RecipeType<T> type(String name, Class<T> clazz) {
         return RecipeType.create(DrinkBeer.MOD_ID, name, clazz);

@@ -4,11 +4,12 @@ import lekavar.lma.drinkbeer.registries.BlockRegistry;
 import lekavar.lma.drinkbeer.registries.ContainerTypeRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.SoundEventRegistry;
-
+import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -30,6 +31,7 @@ import slimeknights.mantle.inventory.BaseContainerMenu;
 public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity> {
     private static final int STATUS_CODE = 1;
     private static final int BREWING_REMAINING_TIME = 0;
+    public static final ResourceLocation TOOLTIP_FORMAT = new ResourceLocation(DrinkBeer.MOD_ID, "barrel");
     private static BlockEntity blockEntity;
     private final ContainerLevelAccess access;
     private Player playerEntity;

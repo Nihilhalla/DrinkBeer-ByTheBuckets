@@ -13,6 +13,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
+import lekavar.lma.drinkbeer.DrinkBeer;
+import lekavar.lma.drinkbeer.gui.BeerBarrelContainer;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.GuiUtil;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -25,22 +27,24 @@ import java.util.function.BiConsumer;
 public class GuiTankModule {
   /** Tooltip for when the capacity is 0, it breaks some stuff */
   private static final Component NO_CAPACITY = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.millibucket"), 0).withStyle(ChatFormatting.GRAY);
-
+  private static final Component TOOLTIP_CAPACITY = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.capacity")).withStyle(ChatFormatting.GRAY);
+  private static final Component TOOLTIP_AVAILABLE = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.available")).withStyle(ChatFormatting.GRAY);
+  
   private static final int TANK_INDEX = 0;
   private final AbstractContainerScreen<?> screen;
   private final IFluidHandler tank;
   @Getter
   private final int x, y, width, height;
-  //private final BiConsumer<Integer,List<Component>> formatter;
+  private final BiConsumer<Integer,List<Component>> formatter;
 
-  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height) {
+  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height, ResourceLocation tooltipId) {
     this.screen = screen;
     this.tank = tank;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    //this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
+    this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
   }
 
   /**
@@ -100,7 +104,8 @@ public class GuiTankModule {
    * @param matrices  Matrix stack instance
    * @param mouseX    Global mouse X position
    * @param mouseY    Global mouse Y position
-   *//* 
+   */
+
   public void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
     int checkX = mouseX - screen.leftPos;
     int checkY = mouseY - screen.topPos;
@@ -122,13 +127,14 @@ public class GuiTankModule {
 
          // add tooltips
         tooltip = new ArrayList<>();
-        tooltip.add(GuiSmelteryTank.TOOLTIP_CAPACITY);
+        tooltip.add(TOOLTIP_CAPACITY);
+        //DrinkBeer.LOG.atDebug().log(TOOLTIP_CAPACITY);
         if (capacity == 0) {
           tooltip.add(NO_CAPACITY);
         } else {
           formatter.accept(capacity, tooltip);
           if (capacity != amount) {
-            tooltip.add(AbstractFluidTooltipProvider.TOOLTIP_AVAILABLE);
+            tooltip.add(TOOLTIP_AVAILABLE);
             formatter.accept(capacity - amount, tooltip);
           }
           // add shift message
@@ -140,7 +146,7 @@ public class GuiTankModule {
       screen.renderComponentTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
-*/
+
   /**
    * Gets the fluid stack under the mouse
    * @param checkX  X position to check

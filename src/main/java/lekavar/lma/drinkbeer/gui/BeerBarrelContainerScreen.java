@@ -45,8 +45,8 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         BeerBarrelBlockEntity tileEntity = screenContainer.getTile();
         this.inventory = inv;
         if (tileEntity != null) {
-            water = new GuiTankModule(this, tileEntity.getWaterTank(), 134, 11, 16, 63);
-            fluid = new GuiTankModule(this, tileEntity.getFluidTank(), 152, 11, 16, 63);
+            water = new GuiTankModule(this, tileEntity.getWaterTank(), 134, 11, 16, 63, BeerBarrelContainer.TOOLTIP_FORMAT);
+            fluid = new GuiTankModule(this, tileEntity.getFluidTank(), 152, 11, 16, 63, BeerBarrelContainer.TOOLTIP_FORMAT);
 
         } else {
             water = null;
@@ -88,6 +88,11 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
     @Override
     protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
         super.renderTooltip(matrices, mouseX, mouseY);
+
+
+        if (water != null) water.renderTooltip(matrices, mouseX, mouseY);
+        if (fluid != null) fluid.renderTooltip(matrices, mouseX, mouseY);
+
     }
 
     @Override

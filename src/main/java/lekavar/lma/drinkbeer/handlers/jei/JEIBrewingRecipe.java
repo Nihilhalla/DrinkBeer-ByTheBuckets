@@ -117,10 +117,10 @@ public class JEIBrewingRecipe implements IRecipeCategory<BrewingRecipe> {
     }
 
     private boolean inCupSlotRange(double mouseX, double mouseY) {
-        return mouseX >= 72 && mouseX < 90 && mouseY >= 39 && mouseY <= 57;
+        return mouseX >= 72 && mouseX < 90 && mouseY >= 49 && mouseY <= 67;
     }
 
     private boolean inTransferBottomRange(double mouseX, double mouseY) {
-        return mouseX >= 156 && mouseX < 169 && mouseY >= 50 && mouseY < 63;
+        return mouseX >= 180 && mouseX < 193 && mouseY >= 50 && mouseY < 63;
     }
 }
