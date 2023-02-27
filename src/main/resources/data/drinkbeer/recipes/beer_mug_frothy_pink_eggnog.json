@@ -24,13 +24,10 @@
       {
         "tag": "forge:egg"
       }
-    ],
-    {
-      "item": "minecraft:milk_bucket"
-    }
+    ]
   ],
   "fluid": {
-    "tag": "mantle:water",
+    "name": "minecraft:milk",
     "amount": 1000
   },
 

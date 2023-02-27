@@ -3,6 +3,7 @@ package lekavar.lma.drinkbeer.registries;
 
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.items.BeerBlockItem;
@@ -10,6 +11,7 @@ import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.client.model.ForgeModelBakery.White;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fluids.FluidAttributes.Water;
@@ -47,7 +50,13 @@ public class FluidRegistry {
         public static final FluidObject<ForgeFlowingFluid> NIGHT_HOWL_KVASS = FLUIDS.register("night_howl_kvass", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> FROTHY_PINK_EGGNOG = FLUIDS.register("frothy_pink_egg_nog", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> MINER_PALE_ALE = FLUIDS.register("miner_pale_ale", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
-
+/* 
+        public static final RegistryObject<UnplaceableFluid> MILK = FLUIDS.registerFluid("milk", () -> new UnplaceableFluid(() -> Items.MILK_BUCKET, FluidAttributes.builder(new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flowing"))
+                .color(0xFFFFFF)
+                .density(1030)
+                .viscosity(3000)
+                ));
+*/
     //All of the code below this comment was written before I decided to make the beer fluid an independent fluid that can be registered in a group calling.
         /*public static final RegistryObject<UnplaceableFluid> BEER_BASE = FLUIDS.register("beer_base", () -> new UnplaceableFluid(ItemRegistry.BEER_BUCKET, FluidAttributes.builder(WATER_STILL_RL, WATER_FLOWING_RL)
         .density(15).luminosity(2).viscosity(5).sound(Items.WATER_BUCKET.getEquipSound()).overlay(WATER_OVERLAY_RL)

@@ -19,14 +19,6 @@
     ],
     [
       {
-        "item": "minecraft:wheat"
-      },
-      {
-        "tag": "forge:crops/wheat"
-      }
-    ],
-    [
-      {
         "item": "minecraft:packed_ice"
       },
       {
@@ -38,7 +30,7 @@
     ]
   ],
   "fluid": {
-    "tag": "mantle:water",
+    "name": "minecraft:water",
     "amount": 1000
   },
 

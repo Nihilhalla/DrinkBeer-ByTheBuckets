@@ -123,7 +123,7 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    
+
     @Override
     public ItemStack quickMoveStack(Player p_82846_1_, int p_82846_2_) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -133,27 +133,27 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
             itemstack = itemstack1.copy();
 
             // Try quick-pickup output
-            if (p_82846_2_ == 41) {
-                if (!this.moveItemStackTo(itemstack1, 0, 36, false)) {
+            if (p_82846_2_ == 3) {
+                if (!this.moveItemStackTo(itemstack1, 6, 41, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
             // Try quick-move item in player inv.
-            else if (p_82846_2_ < 36) {
+            else if (p_82846_2_ < 42 && p_82846_2_ > 5) {
                 // Try to fill cup slot first.
                 if (this.isEmptyCup(itemstack1)) {
-                    if (!this.moveItemStackTo(itemstack1, 40, 41, false)) {
+                    if (!this.moveItemStackTo(itemstack1, 5, 6, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
                 // Try to fill ingredient slot.
-                if (!this.moveItemStackTo(itemstack1, 36, 40, false)) {
+                if (!this.moveItemStackTo(itemstack1, 0, 4, false)) {
                     return ItemStack.EMPTY;
                 }
             }
             // Try quick-move item to player inv.
-            else if (!this.moveItemStackTo(itemstack1, 0, 36, false)) {
+            else if (!this.moveItemStackTo(itemstack1, 6, 42, false)) {
                 return ItemStack.EMPTY;
             }
 
@@ -174,6 +174,7 @@ public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity
 
         return itemstack;
     }
+
 /*
     public FluidStack getWater() {
         return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.UP).map(f -> f.getFluidInTank(0).copy()).orElse(FluidStack.EMPTY);

@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
+import lekavar.lma.drinkbeer.handlers.BeerListHandler;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.RecipeRegistry;
 import net.minecraft.core.NonNullList;
@@ -16,11 +17,14 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -31,7 +35,12 @@ public class BrewingRecipe implements ICustomOutputRecipe<IBrewingInventory> {
     private final FluidStack result;
     private final FluidStack fluid;
 
+
     public BrewingRecipe(ResourceLocation id, NonNullList<Ingredient> input, FluidStack fluid, int brewingTime, FluidStack result) {
+        /*if(fluid == null) {
+            DrinkBeer.LOG.atError().log("FluidIngredient is null in recipe: {}", id);
+        }*/
+        //DrinkBeer.LOG.atDebug().log(fluid.copy().getDisplayName().toString());
         this.id = id;
         this.input = input;
         this.brewingTime = brewingTime;
@@ -50,7 +59,16 @@ public class BrewingRecipe implements ICustomOutputRecipe<IBrewingInventory> {
     public NonNullList<Ingredient> getIngredients(){
         NonNullList<Ingredient> result = NonNullList.create();
         result.addAll(input);
-        DrinkBeer.LOG.atDebug().log(result.toString());
+        //DrinkBeer.LOG.atDebug().log(result.toString());
+        return result;
+    }
+
+    public NonNullList<ItemStack> getIngredientsItems(){
+        NonNullList<ItemStack> result = NonNullList.create();
+            for (Ingredient ingredient : input) {
+                    result.add(ingredient.getItems()[0].copy());
+                }
+            //DrinkBeer.LOG.atDebug().log(result.toString());
         return result;
     }
 /*
@@ -101,9 +119,8 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
      * Returns an Item that is the result of this recipe
      */
 
-    public FluidStack makeFluid(IBrewingInventory inventory) {
-        inventory.getFluidIngredient();
-        return result.copy();
+    public FluidStack getFluidIngredient() {
+        return fluid.copy();
     }
 
     // Can Craft at any dimension
@@ -122,6 +139,11 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
     public FluidStack getResult() {
         //For Safety, I use #copy
         return result.copy();
+    }
+
+    public ItemStack getCupResult() {
+        FluidStack fluidResult = getResult();
+        return new ItemStack(BeerListHandler.buildMugMap(fluidResult.getFluid())).copy();
     }
 
     @Override
@@ -162,10 +184,10 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
         @Override
         public BrewingRecipe fromJson(ResourceLocation resourceLocation, JsonObject jsonObject) {
             NonNullList<Ingredient> ingredients = itemsFromJson(GsonHelper.getAsJsonArray(jsonObject, "ingredients"));
-            FluidStack fluid =  fluidFromJson(jsonObject);
+            FluidStack fluid2 =  fluidFromJson(jsonObject);
             int brewing_time = GsonHelper.getAsInt(jsonObject, "brewing_time");
             FluidStack result = fluidResultFromJson(jsonObject);
-            return new BrewingRecipe(resourceLocation, ingredients, fluid, brewing_time, result);
+            return new BrewingRecipe(resourceLocation, ingredients, fluid2, brewing_time, result);
         }
 
         private static NonNullList<Ingredient> itemsFromJson(JsonArray jsonArray) {
@@ -177,11 +199,11 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
             return ingredients;
         }
         private static FluidStack fluidFromJson(JsonObject jsonObj) {
-            FluidIngredient fluid = FluidIngredient.deserialize(jsonObj, "fluid");
-            if (fluid.getFluids().isEmpty()) {
+            FluidIngredient fluid1 = FluidIngredient.deserialize(jsonObj, "fluid");
+            if (fluid1.getFluids().isEmpty()) {
                 return FluidStack.EMPTY;
             }
-            return fluid.getFluids().get(0);
+            return fluid1.getFluids().get(0);
         }
         private static FluidStack fluidResultFromJson(JsonObject jsonObj) {
             FluidIngredient fluidlist = FluidIngredient.deserialize(jsonObj, "result");
@@ -199,12 +221,12 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
             NonNullList<Ingredient> ingredients = NonNullList.withSize(i, Ingredient.EMPTY);
             for (int j = 0; j < ingredients.size(); ++j) {
                 ingredients.set(j, Ingredient.fromNetwork(packetBuffer));
-                DrinkBeer.LOG.atDebug().log("this was in the packet buffer for the network " + packetBuffer);
+            //    DrinkBeer.LOG.atDebug().log("this was in the packet buffer for the network " + packetBuffer);
             }
             FluidStack fluid = packetBuffer.readFluidStack();
             int brewingTime = packetBuffer.readVarInt();
             FluidStack result = packetBuffer.readFluidStack();
-            DrinkBeer.LOG.atDebug().log("We found these values from the packets boss " + resourceLocation.toString(), ingredients.toString(), fluid.getFluid().toString(), brewingTime, result.getFluid().toString());
+            //DrinkBeer.LOG.atDebug().log("We found these values from the packets boss " + resourceLocation.toString(), ingredients.toString(), fluid.getFluid().toString(), brewingTime, result.getFluid().toString());
             return new BrewingRecipe(resourceLocation, ingredients, fluid, brewingTime, result);
         }
 
@@ -224,4 +246,6 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
             throw new JsonException(string);
         }*/
     }
+
+
 }

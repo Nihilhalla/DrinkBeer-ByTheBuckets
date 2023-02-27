@@ -77,10 +77,16 @@ public class TradeBoxContainerScreen extends AbstractContainerScreen<TradeBoxCon
     public String convertTickToTime(int tick) {
         String result;
         if (tick > 0) {
-            double time = (double) tick / 20;
+            String resultM;
+            String resultS;
+            double time = tick / 20;
             int m = (int) (time / 60);
             int s = (int) (time % 60);
-            result = m + ":" + s;
+            if (m < 10) resultM = "0" + m; else
+                resultM = "" + m;
+            if (s < 10) resultS = ":0" + s; else
+                resultS = ":" + s;
+            result = resultM + resultS;
         } else result = "";
         return result;
     }

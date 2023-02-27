@@ -12,7 +12,7 @@
     }
   ],
   "fluid": {
-    "tag": "mantle:water",
+    "name": "minecraft:water",
     "amount": 1000
   },
 

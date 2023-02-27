@@ -32,6 +32,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -62,6 +63,7 @@ public class DrinkBeer {
 
     public DrinkBeer() {
 
+        ForgeMod.enableMilkFluid();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         eventHandler = new EventHandler();
