@@ -16,7 +16,7 @@
     "amount": 1000
   },
 
-  "brewing_time": 24000,
+  "brewing_time": 12000,
   "result": {
     "name": "drinkbeer:night_howl_kvass",
     "amount": 1000

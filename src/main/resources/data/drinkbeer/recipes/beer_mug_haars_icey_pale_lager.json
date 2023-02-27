@@ -34,7 +34,7 @@
     "amount": 1000
   },
 
-  "brewing_time": 24000,
+  "brewing_time": 8000,
   "result": {
     "name": "drinkbeer:haars_icy_pale_lager",
     "amount": 1000

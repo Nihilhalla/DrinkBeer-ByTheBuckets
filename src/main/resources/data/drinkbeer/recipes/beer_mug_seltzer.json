@@ -31,7 +31,7 @@
     "amount": 1000
   },
 
-  "brewing_time": 24000,
+  "brewing_time": 2400,
   "result": {
     "name": "drinkbeer:seltzer",
     "amount": 1000
