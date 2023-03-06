@@ -6,22 +6,32 @@ import javax.annotation.Nullable;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.effects.DrunkStatusEffect;
 import lekavar.lma.drinkbeer.entities.damages.AlcoholDamage;
+import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
+import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = DrinkBeer.MOD_ID)
 public class EventHandler {
+    public static ItemStack newStack;
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDamage(LivingHurtEvent event) {
@@ -81,6 +91,19 @@ public class EventHandler {
             if (i == 200 && playerEntity.getActiveEffectsMap().get(MobEffectRegistry.DRUNK.get()).getAmplifier() >= 4){
                 playerEntity.hurt(AlcoholDamage.ALCOHOL_DAMAGE, 1f);
             }*/
+        }
+        if (event.player.getInventory().contains(DrinkBeer.EMPTY_BEER)) {
+            event.player.getInventory();
+            for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
+                ItemStack itemStack = event.player.getInventory().getItem(i);
+                //DrinkBeer.LOG.atDebug().log(EmptyBeerMugItem.getFluid(itemStack) != null);
+                if (itemStack != ItemStack.EMPTY && itemStack.getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && BeerListHandler.BeerList().contains(EmptyBeerMugItem.getFluid(itemStack))) {
+                    newStack = new ItemStack(BeerListHandler.buildMugMap(EmptyBeerMugItem.getFluid(itemStack)));
+                    event.player.getInventory().setItem(i, newStack);
+                    DrinkBeer.LOG.atDebug().log("Updated Mug to: " + newStack.getItem().getRegistryName());
+                    event.player.getInventory().setChanged();
+                }
+            }    
         }
     }
 }

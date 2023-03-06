@@ -59,6 +59,7 @@ public class DrinkBeer {
     public static final String MOD_ID = "drinkbeer";
     public static final Logger LOG = LogManager.getLogger(MOD_ID);
     public static final TagKey<Item> BOOZE_BUCKET = ItemTags.create(new ResourceLocation(MOD_ID, "beer_buckets"));
+    public static final TagKey<Item> EMPTY_BEER = ItemTags.create(new ResourceLocation(MOD_ID, "empty_mug"));
     public static final TagKey<Fluid> ALCOHOLS = FluidTags.create(new ResourceLocation(MOD_ID, "alcohols"));
 
     public DrinkBeer() {

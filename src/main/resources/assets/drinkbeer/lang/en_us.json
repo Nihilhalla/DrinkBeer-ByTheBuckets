@@ -121,6 +121,9 @@
   
   
   "_comment": "New stuff added by Nihilhalla",
+
+  "block.drinkbeer.empty_beer_mug.tooltip": "Stackable Mug, holds 250mb of Beer.",
+  "block.drinkbeer.empty_beer_mug.contents": "Contains: 250mb of %s",
   
   "gui.drinkbeer.barrel": "Barrel",
   "gui.mantle.fluid.capacity": "Capacity:",

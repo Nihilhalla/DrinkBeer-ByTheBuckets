@@ -50,13 +50,15 @@ public class FluidRegistry {
         public static final FluidObject<ForgeFlowingFluid> NIGHT_HOWL_KVASS = FLUIDS.register("night_howl_kvass", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> FROTHY_PINK_EGGNOG = FLUIDS.register("frothy_pink_egg_nog", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> MINER_PALE_ALE = FLUIDS.register("miner_pale_ale", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
-/* 
-        public static final RegistryObject<UnplaceableFluid> MILK = FLUIDS.registerFluid("milk", () -> new UnplaceableFluid(() -> Items.MILK_BUCKET, FluidAttributes.builder(new ResourceLocation("block/water_still"), new ResourceLocation("block/water_flowing"))
-                .color(0xFFFFFF)
-                .density(1030)
-                .viscosity(3000)
-                ));
-*/
+
+
+
+
+        private static FluidAttributes.Builder fluidBuilder() {
+                return ModelFluidAttributes.builder().sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
+        }
+
+
     //All of the code below this comment was written before I decided to make the beer fluid an independent fluid that can be registered in a group calling.
         /*public static final RegistryObject<UnplaceableFluid> BEER_BASE = FLUIDS.register("beer_base", () -> new UnplaceableFluid(ItemRegistry.BEER_BUCKET, FluidAttributes.builder(WATER_STILL_RL, WATER_FLOWING_RL)
         .density(15).luminosity(2).viscosity(5).sound(Items.WATER_BUCKET.getEquipSound()).overlay(WATER_OVERLAY_RL)
@@ -72,7 +74,5 @@ public class FluidRegistry {
         .block(() -> BlockRegistry.BEERBLOCK.get()).bucket(() -> ItemRegistry.BEER_BUCKET.get());
 
 */
-        private static FluidAttributes.Builder fluidBuilder() {
-                return ModelFluidAttributes.builder().sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
-        }
+
 }

@@ -5,7 +5,9 @@ import lekavar.lma.drinkbeer.blocks.SpiceBlock;
 import lekavar.lma.drinkbeer.effects.DrunkFrostWalkerStatusEffect;
 import lekavar.lma.drinkbeer.gui.BartendingTableContainerScreen;
 import lekavar.lma.drinkbeer.gui.BeerBarrelContainerScreen;
+import lekavar.lma.drinkbeer.items.BeerBlockItem;
 import lekavar.lma.drinkbeer.items.BeerMugItem;
+import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
 import lekavar.lma.drinkbeer.items.MixedBeerBlockItem;
 import lekavar.lma.drinkbeer.items.SpiceBlockItem;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
@@ -31,7 +33,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BEER_BARREL = ITEMS.register("beer_barrel", () -> new BlockItem(BlockRegistry.BEER_BARREL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> BARTENDING_TABLE = ITEMS.register("bartending_table_normal", () -> new BlockItem(BlockRegistry.BARTENDING_TABLE.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> TRADE_BOX = ITEMS.register("trade_box_normal", () -> new BlockItem(BlockRegistry.TRADE_BOX.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
-    public static final RegistryObject<Item> EMPTY_BEER_MUG = ITEMS.register("empty_beer_mug", () -> new BlockItem(BlockRegistry.EMPTY_BEER_MUG.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
+    public static final RegistryObject<Item> EMPTY_BEER_MUG = ITEMS.register("empty_beer_mug", () -> new EmptyBeerMugItem(BlockRegistry.EMPTY_BEER_MUG.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
 
     public static final RegistryObject<Item> IRON_CALL_BELL = ITEMS.register("iron_call_bell", () -> new BlockItem(BlockRegistry.IRON_CALL_BELL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> GOLDEN_CALL_BELL = ITEMS.register("golden_call_bell", () -> new BlockItem(BlockRegistry.GOLDEN_CALL_BELL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));

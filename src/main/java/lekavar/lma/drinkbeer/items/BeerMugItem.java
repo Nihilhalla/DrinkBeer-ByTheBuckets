@@ -5,22 +5,14 @@ import lekavar.lma.drinkbeer.effects.NightHowlStatusEffect;
 import lekavar.lma.drinkbeer.effects.WitherStoutEffect;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.MobEffectRegistry;
-import lekavar.lma.drinkbeer.registries.SoundEventRegistry;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Containers;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,19 +20,14 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class BeerMugItem extends BeerBlockItem {
     private final static double MAX_PLACE_DISTANCE = 2.0D;
     private final boolean hasExtraTooltip;
-
+    
     public BeerMugItem(Block block, int nutrition, boolean hasExtraTooltip) {
         super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
                 .food(new FoodProperties.Builder().nutrition(nutrition).alwaysEat().build()));
@@ -85,6 +72,7 @@ public class BeerMugItem extends BeerBlockItem {
     private boolean hasEffectNoticeTooltip() {
         return this.hasExtraTooltip;
     }
+
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {
