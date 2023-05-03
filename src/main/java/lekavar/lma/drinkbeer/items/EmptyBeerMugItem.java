@@ -19,7 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -89,11 +89,11 @@ public class EmptyBeerMugItem extends BlockItem {
                 FluidStack displayFluid = new FluidStack(fluid, 250, fluidTag);
                 text = displayFluid.getDisplayName().plainCopy();
             } else {
-                text = new TranslatableComponent(fluid.getAttributes().getTranslationKey());
+                text = Component.translatable(fluid.getAttributes().getTranslationKey());
             }
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
         } else {
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -163,7 +163,7 @@ public class EmptyBeerMugItem extends BlockItem {
     public Component getName(ItemStack stack) {
         if (stack.hasTag() && BeerListHandler.BeerList().contains(getFluid(stack))) {
             ItemStack newStack = new ItemStack(BeerListHandler.buildMugMap(getFluid(stack)));
-            return new TranslatableComponent(getDescriptionId(newStack));
+            return Component.translatable(getDescriptionId(newStack));
         } else {
             return super.getName(stack);
         }
