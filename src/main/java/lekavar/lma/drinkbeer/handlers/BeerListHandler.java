@@ -8,17 +8,24 @@ import java.util.Map;
 
 import org.objectweb.asm.commons.StaticInitMerger;
 
+import com.google.common.collect.ImmutableMap;
+
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.registries.FluidRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
+import lekavar.lma.drinkbeer.registries.MobEffectRegistry;
+import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 
@@ -72,4 +79,17 @@ public class BeerListHandler {
                 }
             return null;
         }
+        public static final Map<ForgeFlowingFluid, MobEffectInstance> FLUID_EFFECTS_MAP = ImmutableMap.<ForgeFlowingFluid, MobEffectInstance>builder()
+            .put(FluidRegistry.APPLE_LAMBIC.get(), new MobEffectInstance(MobEffects.REGENERATION, 1200, 4))
+            .put(FluidRegistry.BLAZE_MILK_STOUT.get(), new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2400, 4))
+            .put(FluidRegistry.BLAZE_STOUT.get(),  new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1800, 4))
+            .put(FluidRegistry.FROTHY_PINK_EGGNOG.get(), new MobEffectInstance(MobEffects.ABSORPTION, 2400, 4))
+            .put(FluidRegistry.HAARS_ICY_PALE_LAGER.get(), new MobEffectInstance(MobEffectRegistry.DRUNK_FROST_WALKER.get(), 1200, 4))
+            .put(FluidRegistry.MINER_PALE_ALE.get(),  new MobEffectInstance(MobEffects.DIG_SPEED, 1200, 4))
+            .put(FluidRegistry.NIGHT_HOWL_KVASS.get(), new MobEffectInstance(MobEffects.NIGHT_VISION, 9600, 4))
+            .put(FluidRegistry.PUMPKIN_KVASS.get(), new MobEffectInstance(MobEffects.SATURATION, 1200))
+            .put(FluidRegistry.SELTZER.get(), new MobEffectInstance(MobEffects.HUNGER, 5, 20))
+            .put(FluidRegistry.SWEET_BERRY_KRIEK.get(), new MobEffectInstance( MobEffects.REGENERATION, 400, 4))
+            .put(FluidRegistry.WITHER_STOUT.get(), new MobEffectInstance(MobEffects.BLINDNESS, 10, 4))
+            .build();
 }

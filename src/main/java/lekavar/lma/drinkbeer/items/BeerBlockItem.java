@@ -48,10 +48,10 @@ public class BeerBlockItem extends BlockItem implements ICapabilityProvider {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
-            DrinkBeer.LOG.atDebug().log(beerMugHolder.cast());
+            //DrinkBeer.LOG.atDebug().log(beerMugHolder.cast());
             return beerMugHolder.cast();
         }
-        DrinkBeer.LOG.atDebug().log(LazyOptional.empty().toString());
+        //DrinkBeer.LOG.atDebug().log(LazyOptional.empty().toString());
         return LazyOptional.empty();
     }
 

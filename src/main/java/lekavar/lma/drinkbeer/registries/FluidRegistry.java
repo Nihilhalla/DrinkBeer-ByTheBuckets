@@ -2,39 +2,24 @@ package lekavar.lma.drinkbeer.registries;
 
 
 
-import java.util.List;
 import java.util.function.Supplier;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
-import lekavar.lma.drinkbeer.items.BeerBlockItem;
-import net.minecraft.client.resources.sounds.Sound;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
+import lekavar.lma.drinkbeer.items.BeerBucket;
+import lekavar.lma.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.client.model.ForgeModelBakery.White;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fluids.FluidAttributes.Water;
-import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import slimeknights.mantle.data.TagKeySerializer;
-import slimeknights.mantle.datagen.MantleTags.Fluids;
-import slimeknights.mantle.fluid.UnplaceableFluid;
-import slimeknights.mantle.registration.FluidBuilder;
 import slimeknights.mantle.registration.ModelFluidAttributes;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import slimeknights.mantle.registration.object.FluidObject;
-import slimeknights.mantle.util.JsonHelper;
+import net.minecraft.world.food.FoodProperties;
 
 public class FluidRegistry {
 
@@ -50,13 +35,28 @@ public class FluidRegistry {
         public static final FluidObject<ForgeFlowingFluid> NIGHT_HOWL_KVASS = FLUIDS.register("night_howl_kvass", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> FROTHY_PINK_EGGNOG = FLUIDS.register("frothy_pink_egg_nog", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> MINER_PALE_ALE = FLUIDS.register("miner_pale_ale", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+/* 
+    public static void registerDynamicBuckets() {
+            // Loop through fluids
+        for (Fluid fluid : ForgeRegistries.FLUIDS) {
+            if (fluid.getRegistryName() != null && fluid.getRegistryName().getNamespace().equals(DrinkBeer.MOD_ID)) {
+               // Create a Supplier<Fluid> for the fluid
+                Supplier<Fluid> fluidSupplier = () -> fluid;
 
+                // Register a drinkable dynamic bucket for the fluid
+                RegistryObject<Item> BEER_BUCKET = ItemRegistry.ITEMS.register(
+                        fluid.getRegistryName().getPath() + "_bucket",
+                        () -> new BeerBucket(fluidSupplier, new Item.Properties().stacksTo(1).tab(ModCreativeTab.BEER))
+                );
+            }
 
-
-
-        private static FluidAttributes.Builder fluidBuilder() {
-                return ModelFluidAttributes.builder().sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
         }
+    }
+*/
+    private static FluidAttributes.Builder fluidBuilder() {
+        return ModelFluidAttributes.builder().sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
+    }
+        
 
 
     //All of the code below this comment was written before I decided to make the beer fluid an independent fluid that can be registered in a group calling.

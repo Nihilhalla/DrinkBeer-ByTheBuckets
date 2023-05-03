@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
+import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.core.Direction;
@@ -28,7 +29,7 @@ public class EmptyBeerMugHandler implements IFluidHandlerItem, ICapabilityProvid
 
 
     @Getter
-    private final ItemStack container;
+    private ItemStack container;
 
     @Nonnull
     @Override
@@ -78,12 +79,13 @@ public class EmptyBeerMugHandler implements IFluidHandlerItem, ICapabilityProvid
     @Override
     public int fill(FluidStack resource, FluidAction action) {
     // must not be filled, must have enough
-    if (getFluid() != Fluids.EMPTY || resource.getAmount() < 250) {
+    if (getFluid() != Fluids.EMPTY || resource.getAmount() < 250 || !BeerListHandler.BeerList().contains(resource.getFluid())) {
         return 0;
     }
     // update fluid and return
     if (action.execute() && BeerListHandler.BeerList().contains(resource.getFluid())) {
-        EmptyBeerMugItem.setFluid(container, resource);
+        ItemStack newMug = new ItemStack(BeerListHandler.buildMugMap(resource.getFluid()));
+        container = newMug;
     }
         return 250;
     }

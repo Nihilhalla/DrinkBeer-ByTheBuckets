@@ -76,6 +76,7 @@ public class DrinkBeer {
         BlockRegistry.BLOCKS.register(bus);
         BlockEntityRegistry.BLOKC_ENTITIES.register(bus);
         FluidRegistry.FLUIDS.register(bus);
+        //FluidRegistry.registerDynamicBuckets();
         SoundEventRegistry.SOUNDS.register(bus);
         ContainerTypeRegistry.CONTAINERS.register(bus);
         RecipeRegistry.RECIPE_SERIALIZERS.register(bus);

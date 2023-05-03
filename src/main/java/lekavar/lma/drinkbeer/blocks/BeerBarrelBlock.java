@@ -2,6 +2,7 @@ package lekavar.lma.drinkbeer.blocks;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
+import lekavar.lma.drinkbeer.items.BeerBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -76,13 +77,13 @@ public class BeerBarrelBlock extends InventoryBlock {
     @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         boolean hitBucket;
-        if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit) && world.getBlockEntity(pos) != null) {
-            world.getBlockEntity(pos).setChanged();
-            world.sendBlockUpdated(pos, state, state, 2);
-            hitBucket = true;
-        } else {
-            hitBucket = false;
-        }
+            if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit) && world.getBlockEntity(pos) != null) {
+                world.getBlockEntity(pos).setChanged();
+                world.sendBlockUpdated(pos, state, state, 2);
+                hitBucket = true;
+            } else {
+                hitBucket = false;
+            }
         //DrinkBeer.LOG.atDebug().log(world.getBlockEntity(pos).getTileData().getAllKeys().toArray().toString());
         //boolean fluidHandler = world.getBlockEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).resolve().isPresent();
         //DrinkBeer.LOG.atDebug().log(fluidHandler);

@@ -1,26 +1,16 @@
 package lekavar.lma.drinkbeer.registries;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
-import lekavar.lma.drinkbeer.blocks.SpiceBlock;
-import lekavar.lma.drinkbeer.effects.DrunkFrostWalkerStatusEffect;
-import lekavar.lma.drinkbeer.gui.BartendingTableContainerScreen;
-import lekavar.lma.drinkbeer.gui.BeerBarrelContainerScreen;
-import lekavar.lma.drinkbeer.items.BeerBlockItem;
 import lekavar.lma.drinkbeer.items.BeerMugItem;
 import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
 import lekavar.lma.drinkbeer.items.MixedBeerBlockItem;
 import lekavar.lma.drinkbeer.items.SpiceBlockItem;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
