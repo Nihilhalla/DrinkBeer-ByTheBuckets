@@ -81,7 +81,7 @@ public class BartendingTableBlock extends BaseEntityBlock {
                 if (blockentity instanceof BartendingTableBlockEntity) {
                     ((BartendingTableBlockEntity) blockentity).setBeer(itemStack);
                     itemStack.shrink(1);
-                    NetworkHooks.openGui((ServerPlayer) player, (BartendingTableBlockEntity) blockentity, (FriendlyByteBuf packerBuffer) -> {
+                    NetworkHooks.openScreen((ServerPlayer) player, (BartendingTableBlockEntity) blockentity, (FriendlyByteBuf packerBuffer) -> {
                         packerBuffer.writeBlockPos(blockentity.getBlockPos());
                     });
                 }

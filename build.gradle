@@ -30,7 +30,7 @@ apply plugin: 'eclipse'
 //apply plugin: 'maven-publish'
 apply plugin: 'io.freefair.lombok'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
 repositories {
             mavenCentral()
             mavenLocal()

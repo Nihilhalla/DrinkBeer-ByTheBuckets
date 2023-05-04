@@ -20,6 +20,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+
 @AllArgsConstructor
 public class EmptyBeerMugHandler implements IFluidHandlerItem, ICapabilityProvider {
     private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
