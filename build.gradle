@@ -30,7 +30,7 @@ apply plugin: 'eclipse'
 //apply plugin: 'maven-publish'
 apply plugin: 'io.freefair.lombok'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/ForgeUpdatesRemapper/main/remapper.gradle'
+
 repositories {
             mavenCentral()
             mavenLocal()
@@ -42,7 +42,7 @@ repositories {
 
 version = '2.4.0'
 group = 'lekavar.lma' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'drinkbeer-1.18.2'
+archivesBaseName = 'drinkbeer-1.19.2'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
@@ -146,15 +146,15 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.80'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.0'
     
-    implementation fg.deobf ("slimeknights.mantle:Mantle:1.18.2-1.9.43")
+    //implementation fg.deobf ("slimeknights.mantle:Mantle:1.18.2-1.9.43")
 
-        // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-
+  // compile against the JEI API but do not include it at runtime
+  compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"))
+  compileOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"))
+  // at runtime, use the full JEI jar for Forge
+  runtimeOnly(fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}"))
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"

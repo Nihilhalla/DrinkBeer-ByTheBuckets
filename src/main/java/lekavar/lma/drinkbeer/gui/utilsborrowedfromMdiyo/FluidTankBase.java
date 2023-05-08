@@ -2,12 +2,14 @@ package lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo;
 
 
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import slimeknights.mantle.block.entity.MantleBlockEntity;
+//import slimeknights.mantle.block.entity.MantleBlockEntity;
 //import slimeknights.tconstruct.common.network.TinkerNetwork;
 //import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
-public class FluidTankBase<T extends MantleBlockEntity> extends FluidTank {
+public class FluidTankBase<T extends BlockEntityType<BlockEntity>> extends FluidTank {
 
   protected T parent;
 

@@ -51,7 +51,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrewingInventory {
+public class BeerBarrelBlockEntity extends BlockEntity implements IBrewingInventory {
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     // This int will not only indicate remainingBrewTime, but also represent Standard Brewing Time if valid in "waiting for ingredients" stage
     private int remainingBrewTime;
