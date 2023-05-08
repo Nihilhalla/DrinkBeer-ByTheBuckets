@@ -1,4 +1,4 @@
-package lekavar.lma.drinkbeer.entities.damages;
+/*package lekavar.lma.drinkbeer.entities.damages;
 
 import java.util.Random;
 import java.util.random.RandomGenerator;
@@ -21,6 +21,7 @@ public class AlcoholDamage extends DamageSource {
     @Override
     public Component getLocalizedDeathMessage(LivingEntity entity) {
         String str = "death.attack." + this.getMsgId();
-        return new TranslatableComponent(str, entity.getDisplayName());
+        return Component.translatable(str, entity.getDisplayName());
     }
 }
+*/

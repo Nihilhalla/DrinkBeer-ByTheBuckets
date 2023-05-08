@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class MixedBeerBlock extends BaseEntityBlock {
     public final static VoxelShape ONE_MUG_SHAPE = Block.box(4, 0, 4, 12, 6, 12);
 

@@ -47,6 +47,8 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class EmptyBeerMugItem extends BlockItem {
     //The below code is shamelessly borrowed from Tinker's Copper Can Item and modified to fit this mod.
     //Thanks go to mDiyo and the SlimeKnights Team.
@@ -66,12 +68,12 @@ public class EmptyBeerMugItem extends BlockItem {
     }
 
     @Override
-    public boolean hasContainerItem(ItemStack stack) {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return getFluid(stack) != Fluids.EMPTY;
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack stack) {
+    public ItemStack getCraftingRemainingItem(ItemStack stack) {
         Fluid fluid = getFluid(stack);
         if (fluid != Fluids.EMPTY) {
             return new ItemStack(this);

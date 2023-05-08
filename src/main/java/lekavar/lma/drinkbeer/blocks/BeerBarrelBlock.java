@@ -47,7 +47,7 @@ import slimeknights.mantle.fluid.transfer.*;
 
 import javax.annotation.Nullable;
 
-public class BeerBarrelBlock extends InventoryBlock {
+public class BeerBarrelBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static NetworkWrapper netWrap;
     protected static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 15, 15);
@@ -109,7 +109,7 @@ public class BeerBarrelBlock extends InventoryBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public BlockEntity newEntityType(BlockPos blockPos, BlockState blockState) {
         return new BeerBarrelBlockEntity(blockPos, blockState);
     }
 

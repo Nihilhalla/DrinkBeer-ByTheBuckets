@@ -22,7 +22,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.client.screen.ElementScreen;
+//import slimeknights.mantle.client.screen.ElementScreen;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GuiUtil {
