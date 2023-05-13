@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    " X ",
+    " X "
+  ],
+  "key": {
+    "X": {
+      "tag": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "drinkbeer:empty_beer_mug",
+    "count":8
+  }
+}
