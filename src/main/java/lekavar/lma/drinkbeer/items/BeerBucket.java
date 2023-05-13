@@ -1,4 +1,4 @@
-package lekavar.lma.drinkbeer.items;
+/*package lekavar.lma.drinkbeer.items;
 
 import java.util.function.Supplier;
 
@@ -13,13 +13,14 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MilkBucketItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-public class BeerBucket extends BucketItem {
+public class BeerBucket extends MilkBucketItem {
     public BeerBucket(Supplier<? extends Fluid> fluidSupplier, Properties builder) {
-        super(fluidSupplier, builder);
+        super(builder);
     }
 
     @Override
@@ -54,3 +55,4 @@ public class BeerBucket extends BucketItem {
         }
     }
 }
+*/

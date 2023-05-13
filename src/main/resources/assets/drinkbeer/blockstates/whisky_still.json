@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "drinkbeer:block/whisky_still"
+    },
+    "facing=east": {
+      "model": "drinkbeer:block/whisky_still",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "drinkbeer:block/whisky_still",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "drinkbeer:block/whisky_still",
+      "y": 270
+    }
+  }
+}

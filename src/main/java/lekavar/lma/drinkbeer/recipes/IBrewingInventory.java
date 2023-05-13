@@ -28,7 +28,7 @@ public interface IBrewingInventory extends Container {
     /*
      * Return the FluidIngredient for our recipe
      */
-    @Nonnull
+
     FluidStack getFluidIngredient();
 
     FluidStack assemble();

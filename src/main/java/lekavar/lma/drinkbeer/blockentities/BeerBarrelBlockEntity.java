@@ -7,6 +7,7 @@ import lekavar.lma.drinkbeer.handlers.BeerListHandler;
 import lekavar.lma.drinkbeer.recipes.BrewingRecipe;
 import lekavar.lma.drinkbeer.recipes.IBrewingInventory;
 import lekavar.lma.drinkbeer.registries.BlockEntityRegistry;
+import lekavar.lma.drinkbeer.registries.FluidRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.RecipeRegistry;
 import lekavar.lma.drinkbeer.utils.beer.Beers;
@@ -53,6 +54,7 @@ import java.util.List;
 
 public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrewingInventory {
     private NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
+    private NonNullList<FluidStack> fluids = NonNullList.withSize(1, FluidStack.EMPTY);
     // This int will not only indicate remainingBrewTime, but also represent Standard Brewing Time if valid in "waiting for ingredients" stage
     private int remainingBrewTime;
     private FluidStack outPour = FluidStack.EMPTY;
@@ -120,7 +122,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         //DrinkBeer.LOG.atDebug().log(statusCode);
         //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluidAmount());
         //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
-        if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250) {
+        if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250&& fluidTank.getFluid().getFluid() != FluidRegistry.WINE.get()) {
             int amountServed = (fluidTank.getFluidAmount() / 250);
             //DrinkBeer.LOG.atDebug().log("There should be this many cups worth of fluid: " + amountServed);
             //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluid().getFluid().getRegistryName().toString() + ", Amount: " + fluidTank.getFluidAmount());
@@ -129,11 +131,37 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 int amountPoured = Math.min(amountServed, items.get(4).getCount());
                 //DrinkBeer.LOG.atDebug().log("We've made a beer!");
                 if (items.get(5) != null) {
-                    if (!BeerListHandler.MugList().contains(items.get(5).getItem()) || items.get(5) == ItemStack.EMPTY) {
+                    if (items.get(5) == ItemStack.EMPTY) {
                         items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), amountPoured));
                         //DrinkBeer.LOG.atDebug().log(items.get(5).toString());
-                    } else {
+                    } else if (BeerListHandler.MugList().contains(items.get(5).getItem())) {
                         items.get(5).grow(amountPoured);
+                    } else {
+
+                    }
+                }
+                items.get(4).shrink(amountPoured);
+                fluidTank.drain(250 * amountPoured, FluidAction.EXECUTE);
+                setChanged();
+                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+            }
+        }
+        if (items.get(4).getItem() == ItemRegistry.EMPTY_WINE_GLASS.get() && fluidTank.getFluidAmount() >= 250 && fluidTank.getFluid().getFluid() == FluidRegistry.WINE.get()) {
+            int amountServed = (fluidTank.getFluidAmount() / 250);
+            //DrinkBeer.LOG.atDebug().log("There should be this many cups worth of fluid: " + amountServed);
+            //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluid().getFluid().getRegistryName().toString() + ", Amount: " + fluidTank.getFluidAmount());
+            //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
+            if (amountServed >= 1) {
+                int amountPoured = Math.min(amountServed, items.get(4).getCount());
+                //DrinkBeer.LOG.atDebug().log("We've made a beer!");
+                if (items.get(5) != null) {
+                    if (items.get(5) == ItemStack.EMPTY) {
+                        items.set(5, new ItemStack(ItemRegistry.WINE_GLASS.get(), amountPoured));
+                        //DrinkBeer.LOG.atDebug().log(items.get(5).toString());
+                    } else if (items.get(5).getItem() == ItemRegistry.WINE_GLASS.get()) {
+                        items.get(5).grow(amountPoured);
+                    } else {
+
                     }
                 }
                 items.get(4).shrink(amountPoured);
@@ -500,8 +528,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 
     @Override
     public FluidStack getFluidIngredient() {
-        // TODO Auto-generated method stub
-        return null;
+        return waterTank.getFluid();
     }
 
     @Override
@@ -518,6 +545,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
             return !(player.distanceToSqr((double) this.worldPosition.getX() + 0.5D, (double) this.worldPosition.getY() + 0.5D, (double) this.worldPosition.getZ() + 0.5D) > 64.0D);
         }
     }
+
 
 }
 

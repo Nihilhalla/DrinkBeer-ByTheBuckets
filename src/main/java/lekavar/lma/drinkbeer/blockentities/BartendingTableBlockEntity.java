@@ -1,9 +1,9 @@
 package lekavar.lma.drinkbeer.blockentities;
 
 import lekavar.lma.drinkbeer.gui.BartendingTableContainer;
-import lekavar.lma.drinkbeer.items.BeerBlockItem;
-import lekavar.lma.drinkbeer.items.BeerMugItem;
-import lekavar.lma.drinkbeer.items.MixedBeerBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.BeerBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.BeerMugItem;
+import lekavar.lma.drinkbeer.items.Beer.MixedBeerBlockItem;
 import lekavar.lma.drinkbeer.managers.MixedBeerManager;
 import lekavar.lma.drinkbeer.registries.BlockEntityRegistry;
 import lekavar.lma.drinkbeer.utils.ItemStackHelper;

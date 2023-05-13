@@ -2,27 +2,17 @@ package lekavar.lma.drinkbeer.registries;
 
 
 
-import java.util.function.Supplier;
-
 import lekavar.lma.drinkbeer.DrinkBeer;
-import lekavar.lma.drinkbeer.items.BeerBucket;
-import lekavar.lma.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.ModelFluidAttributes;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import slimeknights.mantle.registration.object.FluidObject;
-import net.minecraft.world.food.FoodProperties;
 
 public class FluidRegistry {
-
+    // Beers
         public static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(DrinkBeer.MOD_ID);
         public static final FluidObject<ForgeFlowingFluid> SELTZER = FLUIDS.register("seltzer", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> WITHER_STOUT = FLUIDS.register("wither_stout", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
@@ -35,7 +25,19 @@ public class FluidRegistry {
         public static final FluidObject<ForgeFlowingFluid> NIGHT_HOWL_KVASS = FLUIDS.register("night_howl_kvass", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> FROTHY_PINK_EGGNOG = FLUIDS.register("frothy_pink_egg_nog", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
         public static final FluidObject<ForgeFlowingFluid> MINER_PALE_ALE = FLUIDS.register("miner_pale_ale", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
-/* 
+
+    // Whiskies and spirits
+        public static final FluidObject<ForgeFlowingFluid> WHISKY = FLUIDS.register("whisky", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> BLAZE_WHISKY = FLUIDS.register("blaze_whisky", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> WITHER_WHISKY = FLUIDS.register("wither_whisky", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> NIGHT_HOWL_WHISKY = FLUIDS.register("night_howl_whisky", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> SWEET_BERRY_WHISKY = FLUIDS.register("sweet_berry_whisky", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> VODKA = FLUIDS.register("vodka", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> VODKA_MASH = FLUIDS.register("vodka_mash", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> WINE = FLUIDS.register("wine", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+        public static final FluidObject<ForgeFlowingFluid> COGNAC = FLUIDS.register("cognac", fluidBuilder().density(800).viscosity(800).temperature(300), Material.WATER, 0);
+
+    /* 
     public static void registerDynamicBuckets() {
             // Loop through fluids
         for (Fluid fluid : ForgeRegistries.FLUIDS) {

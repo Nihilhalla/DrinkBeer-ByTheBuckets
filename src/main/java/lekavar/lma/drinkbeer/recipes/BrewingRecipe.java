@@ -105,7 +105,10 @@ public boolean matches(IBrewingInventory brewInv, Level level) {
             //DrinkBeer.LOG.atDebug().log();
         }
     }
-    return recipeList.isEmpty();
+    if (recipeList.isEmpty() && fluid.equals(brewInv.getFluidIngredient())) {
+        return true;
+    }
+    return false;
 }
 
 private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {

@@ -1,10 +1,14 @@
 package lekavar.lma.drinkbeer.registries;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
-import lekavar.lma.drinkbeer.items.BeerMugItem;
-import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
-import lekavar.lma.drinkbeer.items.MixedBeerBlockItem;
-import lekavar.lma.drinkbeer.items.SpiceBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.BeerMugItem;
+import lekavar.lma.drinkbeer.items.Beer.EmptyBeerMugItem;
+import lekavar.lma.drinkbeer.items.Beer.MixedBeerBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.SpiceBlockItem;
+import lekavar.lma.drinkbeer.items.Whisky.EmptyWhiskyGlassItem;
+import lekavar.lma.drinkbeer.items.Whisky.WhiskyGlassItem;
+import lekavar.lma.drinkbeer.items.Wine.EmptyWineGlassItem;
+import lekavar.lma.drinkbeer.items.Wine.WineGlassItem;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -24,6 +28,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BARTENDING_TABLE = ITEMS.register("bartending_table_normal", () -> new BlockItem(BlockRegistry.BARTENDING_TABLE.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> TRADE_BOX = ITEMS.register("trade_box_normal", () -> new BlockItem(BlockRegistry.TRADE_BOX.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> EMPTY_BEER_MUG = ITEMS.register("empty_beer_mug", () -> new EmptyBeerMugItem(BlockRegistry.EMPTY_BEER_MUG.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
+    public static final RegistryObject<Item> WHISKY_STILL = ITEMS.register("whisky_still", () -> new BlockItem(BlockRegistry.WHISKY_STILL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
 
     public static final RegistryObject<Item> IRON_CALL_BELL = ITEMS.register("iron_call_bell", () -> new BlockItem(BlockRegistry.IRON_CALL_BELL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> GOLDEN_CALL_BELL = ITEMS.register("golden_call_bell", () -> new BlockItem(BlockRegistry.GOLDEN_CALL_BELL.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
@@ -56,6 +61,23 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BEER_MUG_WITHER_STOUT = ITEMS.register("beer_mug_wither_stout", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WITHER_STOUT.get(),2, true));
     public static final RegistryObject<Item> BEER_MUG_SELTZER = ITEMS.register("beer_mug_seltzer", () -> new BeerMugItem(BlockRegistry.BEER_MUG_SELTZER.get(),-15, true));
     public static final RegistryObject<Item> MIXED_BEER = ITEMS.register("mixed_beer", () -> new MixedBeerBlockItem(BlockRegistry.MIXED_BEER.get()));
+
+    // NOT FINISHED YET
+    // Whisky and Vodka
+    public static final RegistryObject<Item> EMPTY_WHISKY_GLASS = ITEMS.register("empty_whisky_glass", () -> new EmptyWhiskyGlassItem(BlockRegistry.EMPTY_WHISKY_GLASS.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
+    public static final RegistryObject<Item> WHISKY_GLASS = ITEMS.register("whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.WHISKY_GLASS.get(),  new MobEffectInstance(MobEffects.DIG_SPEED, 3600), 0,true));
+    public static final RegistryObject<Item> NIGHT_HOWL_WHISKY_GLASS = ITEMS.register("night_howl_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.NIGHT_HOWL_WHISKY_GLASS.get(), new MobEffectInstance( MobEffects.NIGHT_VISION, 25200), 0, true));
+    public static final RegistryObject<Item> BLAZE_WHISKY_GLASS = ITEMS.register("blaze_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.BLAZE_WHISKY_GLASS.get(),  new MobEffectInstance( MobEffects.FIRE_RESISTANCE, 5400),0, true));
+    public static final RegistryObject<Item> WITHER_WHISKY_GLASS = ITEMS.register("wither_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.WITHER_WHISKY_GLASS.get(), 0, true));
+    public static final RegistryObject<Item> SWEET_BERRY_WHISKY_GLASS = ITEMS.register("sweet_berry_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.SWEET_BERRY_WHISKY_GLASS.get(), new MobEffectInstance( MobEffects.REGENERATION, 1200), 0, true));
+    public static final RegistryObject<Item> VODKA_GLASS = ITEMS.register("vodka_glass", () -> new WhiskyGlassItem(BlockRegistry.VODKA_GLASS.get(), new MobEffectInstance( MobEffects.ABSORPTION, 2400, 2), 0, true));
+
+    //Wine and Cognac
+    public static final RegistryObject<Item> EMPTY_WINE_GLASS = ITEMS.register("empty_wine_glass", () -> new EmptyWineGlassItem(BlockRegistry.EMPTY_WINE_GLASS.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
+    public static final RegistryObject<Item> WINE_GLASS = ITEMS.register("wine_glass", () -> new WineGlassItem(BlockRegistry.WINE_GLASS.get(), new MobEffectInstance( MobEffects.LUCK, 1200), 0, true));
+    public static final RegistryObject<Item> COGNAC_GLASS = ITEMS.register("cognac_glass", () -> new WineGlassItem(BlockRegistry.COGNAC_GLASS.get(), new MobEffectInstance( MobEffects.LUCK, 1200, 2), 0, true));
+
+
 
     // Spices
     public static final RegistryObject<Item> SPICE_BLAZE_PAPRIKA = ITEMS.register("spice_blaze_paprika", () -> new SpiceBlockItem(BlockRegistry.SPICE_BLAZE_PAPRIKA.get(), null, 1));

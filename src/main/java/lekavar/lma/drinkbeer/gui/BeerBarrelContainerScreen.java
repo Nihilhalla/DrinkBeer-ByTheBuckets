@@ -1,25 +1,15 @@
 package lekavar.lma.drinkbeer.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.GuiTankModule;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.GuiUtil;
 import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.IScreenWithFluidTank;
-import lekavar.lma.drinkbeer.gui.utilsborrowedfromMdiyo.RenderUtils;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import slimeknights.mantle.client.render.FluidRenderer;
-import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.screen.ElementScreen;
 
 import java.awt.*;

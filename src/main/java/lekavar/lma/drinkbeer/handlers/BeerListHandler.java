@@ -1,24 +1,14 @@
 package lekavar.lma.drinkbeer.handlers;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.objectweb.asm.commons.StaticInitMerger;
-
 import com.google.common.collect.ImmutableMap;
 
-import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.registries.FluidRegistry;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
 import lekavar.lma.drinkbeer.registries.MobEffectRegistry;
-import net.minecraft.client.renderer.EffectInstance;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -26,15 +16,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.data.tags.TagsProvider.TagAppender;
 
 public class BeerListHandler {
 
         //Making my own friggin lists, mumble grumble
         public static List<Item> buckets;
         public static Map<Fluid, Item> pouredMug = new HashMap<>();
+        public static Map<Fluid, Item> pouredSpiritGlass = new HashMap<>();
+        public static Map<Fluid, Item> pouredWineGlass = new HashMap<>();
         public static List<Fluid> beers = BeerList();
+        public static List<Fluid> spirits = SpiritList();
+        public static List<Fluid> wines = WineList();
         public static List<Fluid> acceptedFluids = AcceptedFluidList();
         public static List<Fluid> bucketToFluid;
 
@@ -51,7 +43,30 @@ public class BeerListHandler {
                 , FluidRegistry.NIGHT_HOWL_KVASS.get(), FluidRegistry.PUMPKIN_KVASS.get(), FluidRegistry.SELTZER.get()
                 , FluidRegistry.SWEET_BERRY_KRIEK.get(), FluidRegistry.WITHER_STOUT.get());
         }
-
+        public static List<Fluid> SpiritBaseList () {
+            return List.of(FluidRegistry.WINE.get(), FluidRegistry.BLAZE_STOUT.get(), FluidRegistry.MINER_PALE_ALE.get()
+                , FluidRegistry.WITHER_STOUT.get(), FluidRegistry.NIGHT_HOWL_KVASS.get(), FluidRegistry.SWEET_BERRY_KRIEK.get()
+                , FluidRegistry.VODKA_MASH.get());
+        }
+        public static List<Fluid> SpiritList () {
+            return List.of(FluidRegistry.BLAZE_WHISKY.get(), FluidRegistry.WHISKY.get(), FluidRegistry.WITHER_WHISKY.get()
+                , FluidRegistry.NIGHT_HOWL_WHISKY.get(), FluidRegistry.SWEET_BERRY_WHISKY.get(), FluidRegistry.VODKA.get());
+        }
+        public static List<Fluid> WineList () {
+            return List.of(FluidRegistry.WINE.get(), FluidRegistry.COGNAC.get());
+        }
+        public static List<Item> WineGlassList () {
+            return List.of(ItemRegistry.WINE_GLASS.get(), ItemRegistry.COGNAC_GLASS.get());
+        }
+        public static List<Item> WhiskyGlassList () {
+            return List.of(ItemRegistry.BLAZE_WHISKY_GLASS.get(), ItemRegistry.WHISKY_GLASS.get(), ItemRegistry.WITHER_WHISKY_GLASS.get()
+                , ItemRegistry.NIGHT_HOWL_WHISKY_GLASS.get(), ItemRegistry.SWEET_BERRY_WHISKY_GLASS.get(), ItemRegistry.VODKA_GLASS.get());
+        }
+        public static List<Item> StillOutputList () {
+            return List.of(ItemRegistry.BLAZE_WHISKY_GLASS.get(), ItemRegistry.WHISKY_GLASS.get(), ItemRegistry.WITHER_WHISKY_GLASS.get()
+                , ItemRegistry.NIGHT_HOWL_WHISKY_GLASS.get(), ItemRegistry.SWEET_BERRY_WHISKY_GLASS.get(), ItemRegistry.VODKA_GLASS.get()
+                , ItemRegistry.COGNAC_GLASS.get());
+        }
         public static List<Item> MugList () {
             return List.of(ItemRegistry.BEER_MUG_APPLE_LAMBIC.get(), ItemRegistry.BEER_MUG_BLAZE_MILK_STOUT.get(), ItemRegistry.BEER_MUG_BLAZE_STOUT.get()
                 , ItemRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get(), ItemRegistry.BEER_MUG_HAARS_ICY_PALE_LAGER.get(), ItemRegistry.BEER_MUG.get()
@@ -63,6 +78,18 @@ public class BeerListHandler {
             for (Fluid fluid : beers) {
                 buckets.add(fluid.getBucket().asItem());
             }
+        }
+        public static Item buildWhiskyGlassMap(Fluid fluidChecked) {
+            for (int i = 0; i < spirits.size(); i++) {
+                pouredSpiritGlass.put(spirits.get(i), WhiskyGlassList().get(i));
+            }
+            return pouredSpiritGlass.get(fluidChecked);
+        }
+        public static Item buildWineGlassMap(Fluid fluidChecked) {
+            for (int i = 0; i < wines.size(); i++) {
+                pouredWineGlass.put(wines.get(i), WineGlassList().get(i));
+            }
+            return pouredWineGlass.get(fluidChecked);
         }
         public static Item buildMugMap(Fluid fluidChecked) {
             for (int i = 0; i < beers.size(); i++) {

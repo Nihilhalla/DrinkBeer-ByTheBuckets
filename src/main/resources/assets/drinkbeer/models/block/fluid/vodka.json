@@ -1,0 +1,7 @@
+{
+    "loader": "mantle:fluid_texture",
+    "textures": {
+        "still": "drinkbeer:block/fluid/vodka/still",
+        "flowing": "drinkbeer:block/fluid/vodka/flowing"
+    }
+}

@@ -2,7 +2,7 @@ package lekavar.lma.drinkbeer.blocks;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blockentities.BeerBarrelBlockEntity;
-import lekavar.lma.drinkbeer.items.BeerBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.BeerBlockItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;

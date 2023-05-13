@@ -1,7 +1,7 @@
 package lekavar.lma.drinkbeer.gui;
 
 import lekavar.lma.drinkbeer.blockentities.BartendingTableBlockEntity;
-import lekavar.lma.drinkbeer.items.SpiceBlockItem;
+import lekavar.lma.drinkbeer.items.Beer.SpiceBlockItem;
 import lekavar.lma.drinkbeer.managers.MixedBeerManager;
 import lekavar.lma.drinkbeer.registries.ContainerTypeRegistry;
 import lekavar.lma.drinkbeer.registries.SoundEventRegistry;

@@ -3,9 +3,7 @@ package lekavar.lma.drinkbeer.handlers;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import lekavar.lma.drinkbeer.DrinkBeer;
-import lekavar.lma.drinkbeer.items.EmptyBeerMugItem;
-import lekavar.lma.drinkbeer.registries.ItemRegistry;
+import lekavar.lma.drinkbeer.items.Beer.EmptyBeerMugItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.core.Direction;

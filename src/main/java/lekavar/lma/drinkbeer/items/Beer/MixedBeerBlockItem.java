@@ -1,4 +1,4 @@
-package lekavar.lma.drinkbeer.items;
+package lekavar.lma.drinkbeer.items.Beer;
 
 import lekavar.lma.drinkbeer.blockentities.MixedBeerBlockEntity;
 import lekavar.lma.drinkbeer.blocks.MixedBeerBlock;

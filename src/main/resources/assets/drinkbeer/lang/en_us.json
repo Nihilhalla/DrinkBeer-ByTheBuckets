@@ -186,5 +186,101 @@
   "block.drinkbeer.wither_stout_fluid": "Wither Stout",
   "fluid.drinkbeer.wither_stout": "Wither Stout",
   "fluid.drinkbeer.flowing_wither_stout": "Flowing Wither Stout",
-  "item.drinkbeer.wither_stout_bucket": "Wither Stout Bucket"
+  "item.drinkbeer.wither_stout_bucket": "Wither Stout Bucket",
+
+  "_comment": "Whiskies",
+
+  "block.drinkbeer.whisky_still": "Still",
+
+  "block.drinkbeer.empty_whisky_glass": "Empty Whisky Glass",
+  "block.drinkbeer.empty_whisky_glass.tooltip": "An empty Whisky Glass",
+
+  "block.drinkbeer.empty_wine_glass": "Empty Wine Glass",
+  "block.drinkbeer.empty_wine_glass.tooltip": "An empty Wine Glass",
+
+  "block.drinkbeer.whisky_glass": "Sour Mash Whisky",
+  "item.drinkbeer.whisky_glass.tooltip": "A Sour Mash Whisky, tastes kinda peaty",
+
+
+
+  "block.drinkbeer.whisky_fluid": "Sour Mash Whisky",
+  "fluid.drinkbeer.whisky": "Sour Mash Whisky",
+  "fluid.drinkbeer.flowing_whisky": "Flowing Sour Mash Whisky",
+  "item.drinkbeer.whisky_bucket": "Sour Mash Whisky Bucket",
+
+  "block.drinkbeer.blaze_whisky_glass": "Nether Ball Whisky",
+  "item.drinkbeer.blaze_whisky_glass.tooltip": "A Cinnamon Whisky, tastes like fire",
+
+
+
+  "block.drinkbeer.blaze_whisky_fluid": "Nether Ball Whisky",
+  "fluid.drinkbeer.blaze_whisky": "Nether Ball Whisky",
+  "fluid.drinkbeer.flowing_blaze_whisky": "Flowing Nether Ball Whisky",
+  "item.drinkbeer.blaze_whisky_bucket": "Nether Ball Whisky Bucket",
+
+  "block.drinkbeer.wither_whisky_glass": "Wither Velvet Whisky",
+  "item.drinkbeer.wither_whisky_glass.tooltip": "A Dark Rye Whisky, tastes kinda morbid",
+
+
+
+  "block.drinkbeer.wither_whisky_fluid": "Wither Velvet Whisky",
+  "fluid.drinkbeer.wither_whisky": "Wither Velvet Whisky",
+  "fluid.drinkbeer.flowing_wither_whisky": "Flowing Wither Velvet Whisky",
+  "item.drinkbeer.wither_whisky_bucket": "Wither Velvet Whisky Bucket",
+
+  "block.drinkbeer.night_howl_whisky_glass": "Howler's Crown Whisky",
+  "item.drinkbeer.night_howl_whisky_glass.tooltip": "A wild Whisky, tastes like it has a dog hair in it",
+
+
+
+  "block.drinkbeer.night_howl_whisky_fluid": "Howler's Crown Whisky",
+  "fluid.drinkbeer.night_howl_whisky": "Howler's Crown Whisky",
+  "fluid.drinkbeer.flowing_night_howl_whisky": "Flowing Howler's Crown Whisky",
+  "item.drinkbeer.night_howl_whisky_bucket": "Howler's Crown Whisky Bucket",
+
+  "block.drinkbeer.sweet_berry_whisky_glass": "Wild Creeper Whisky",
+  "item.drinkbeer.sweet_berry_whisky_glass.tooltip": "A sweet berry Whisky, has an explosion of sweet to it",
+
+
+
+  "block.drinkbeer.sweet_berry_whisky_fluid": "Wild Creeper Whisky",
+  "fluid.drinkbeer.sweet_berry_whisky": "Wild Creeper Whisky",
+  "fluid.drinkbeer.flowing_sweet_berry_whisky": "Flowing Wild Creeper Whisky",
+  "item.drinkbeer.sweet_berry_whisky_bucket": "Wild Creeper Whisky Bucket",
+
+  "block.drinkbeer.wine_glass": "Sweet Berry Wine",
+  "item.drinkbeer.wine_glass.tooltip": "A sweet tasting wine that takes away your worries",
+
+
+
+  "block.drinkbeer.wine_fluid": "Sweet Berry Wine",
+  "fluid.drinkbeer.wine": "Sweet Berry Wine",
+  "fluid.drinkbeer.flowing_wine": "Flowing Sweet Berry Wine",
+  "item.drinkbeer.wine_bucket": "Sweet Berry Wine Bucket",
+
+  "block.drinkbeer.cognac_glass": "Sweet Berry Cognac",
+  "item.drinkbeer.cognac_glass.tooltip": "A fine spirit made from sweet berry wine, tastes lucky",
+
+
+
+  "block.drinkbeer.cognac_fluid": "Sweet Berry Cognac",
+  "fluid.drinkbeer.cognac": "Sweet Berry Cognac",
+  "fluid.drinkbeer.flowing_cognac": "Flowing Sweet Berry Cognac",
+  "item.drinkbeer.cognac_bucket": "Sweet Berry Cognac Bucket",
+
+  "block.drinkbeer.vodka_glass": "Vodka",
+  "item.drinkbeer.vodka_glass.tooltip": "Smells like rubbing alcohol, makes you think you're invincible",
+
+
+
+  "block.drinkbeer.vodka_fluid": "Vodka",
+  "fluid.drinkbeer.vodka": "Vodka",
+  "fluid.drinkbeer.flowing_vodka": "Flowing Vodka",
+  "item.drinkbeer.vodka_bucket": "Vodka Bucket",
+
+  "block.drinkbeer.vodka_mash_fluid": "Vodka Mash",
+  "fluid.drinkbeer.vodka_mash": "Vodka Mash",
+  "fluid.drinkbeer.flowing_vodka_mash": "Flowing Vodka Mash",
+  "item.drinkbeer.vodka_mash_bucket": "Vodka Mash Bucket"
+
 }

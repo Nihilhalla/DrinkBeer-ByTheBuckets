@@ -21,10 +21,12 @@ public class ContainerTypeRegistry {
     public static final RegistryObject<MenuType<BeerBarrelContainer>> BEER_BARREL_CONTAINER = CONTAINERS.register("beer_barrel_container", (windowId, inv, data) -> new BeerBarrelContainer(windowId, inv, data, inv.player));
     public static final RegistryObject<MenuType<BartendingTableContainer>> bartendingTableContainer = CONTAINERS.register("bartending_table_normal_container", BartendingTableContainer::new);
     public static final RegistryObject<MenuType<TradeBoxContainer>> tradeBoxContainer = CONTAINERS.register("trade_box_normal_container", TradeBoxContainer::new);
+    public static final RegistryObject<MenuType<WhiskyStillContainer>> WHISKY_STILL_CONTAINER = CONTAINERS.register("whisky_still_container", (windowId, inv, data) -> new WhiskyStillContainer(windowId, inv, data, inv.player));
     
     @SubscribeEvent
     public static void registerContainerScreen(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
+            MenuScreens.register(ContainerTypeRegistry.WHISKY_STILL_CONTAINER.get(), WhiskyStillContainerScreen::new);
             MenuScreens.register(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), BeerBarrelContainerScreen::new);
             MenuScreens.register(ContainerTypeRegistry.bartendingTableContainer.get(), BartendingTableContainerScreen::new);
             MenuScreens.register(ContainerTypeRegistry.tradeBoxContainer.get(), TradeBoxContainerScreen::new);

@@ -1,4 +1,4 @@
-package lekavar.lma.drinkbeer.items;
+package lekavar.lma.drinkbeer.items.Beer;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.managers.SpiceAndFlavorManager;

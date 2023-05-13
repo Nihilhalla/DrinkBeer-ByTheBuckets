@@ -3,17 +3,9 @@ package lekavar.lma.drinkbeer.registries;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import lekavar.lma.drinkbeer.blocks.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 
 public class BlockRegistry {
@@ -21,6 +13,7 @@ public class BlockRegistry {
 
     //general
     public static final RegistryObject<Block> BEER_BARREL = BLOCKS.register("beer_barrel", BeerBarrelBlock::new);
+    public static final RegistryObject<Block> WHISKY_STILL = BLOCKS.register("whisky_still", WhiskyStillBlock::new);
     public static final RegistryObject<Block> BARTENDING_TABLE = BLOCKS.register("bartending_table_normal", BartendingTableBlock::new);
     public static final RegistryObject<Block> TRADE_BOX = BLOCKS.register("trade_box_normal", TradeboxBlock::new);
     public static final RegistryObject<Block> EMPTY_BEER_MUG = BLOCKS.register("empty_beer_mug", BeerMugBlock::new);
@@ -55,6 +48,25 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BEER_MUG_WITHER_STOUT = BLOCKS.register("beer_mug_wither_stout", BeerMugBlock::new);
     public static final RegistryObject<Block> BEER_MUG_SELTZER = BLOCKS.register("beer_mug_seltzer", BeerMugBlock::new);
     public static final RegistryObject<Block> MIXED_BEER = BLOCKS.register("mixed_beer", MixedBeerBlock::new);
+
+    //Whisky and Vodka
+
+    public static final RegistryObject<Block> EMPTY_WHISKY_GLASS = BLOCKS.register("empty_whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> WHISKY_GLASS = BLOCKS.register("whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> BLAZE_WHISKY_GLASS = BLOCKS.register("blaze_whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> WITHER_WHISKY_GLASS = BLOCKS.register("wither_whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> NIGHT_HOWL_WHISKY_GLASS = BLOCKS.register("night_howl_whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> SWEET_BERRY_WHISKY_GLASS = BLOCKS.register("sweet_berry_whisky_glass", WhiskyGlassBlock::new);
+    public static final RegistryObject<Block> VODKA_GLASS = BLOCKS.register("vodka_glass", WhiskyGlassBlock::new);
+
+    //Wine and Cognac
+    public static final RegistryObject<Block> EMPTY_WINE_GLASS = BLOCKS.register("empty_wine_glass", WineGlassBlock::new);
+    public static final RegistryObject<Block> WINE_GLASS = BLOCKS.register("wine_glass", WineGlassBlock::new);
+    public static final RegistryObject<Block> COGNAC_GLASS = BLOCKS.register("cognac_glass", WineGlassBlock::new);
+
+
+
+
 
     // Spices
     public static final RegistryObject<Block> SPICE_BLAZE_PAPRIKA = BLOCKS.register("spice_blaze_paprika", SpiceBlock::new);

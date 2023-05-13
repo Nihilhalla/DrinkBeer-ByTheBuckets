@@ -1,10 +1,8 @@
-package lekavar.lma.drinkbeer.items;
+package lekavar.lma.drinkbeer.items.Whisky;
 
 import lekavar.lma.drinkbeer.effects.DrunkStatusEffect;
-import lekavar.lma.drinkbeer.effects.NightHowlStatusEffect;
 import lekavar.lma.drinkbeer.effects.WitherStoutEffect;
 import lekavar.lma.drinkbeer.registries.ItemRegistry;
-import lekavar.lma.drinkbeer.registries.MobEffectRegistry;
 import lekavar.lma.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -24,17 +22,17 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class BeerMugItem extends BeerBlockItem {
+public class WhiskyGlassItem extends WhiskyGlassBlockItem {
     private final static double MAX_PLACE_DISTANCE = 2.0D;
     private final boolean hasExtraTooltip;
     
-    public BeerMugItem(Block block, int nutrition, boolean hasExtraTooltip) {
+    public WhiskyGlassItem(Block block, int nutrition, boolean hasExtraTooltip) {
         super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
                 .food(new FoodProperties.Builder().nutrition(nutrition).alwaysEat().build()));
         this.hasExtraTooltip = hasExtraTooltip;
     }
 
-    public BeerMugItem(Block block, @Nullable MobEffectInstance statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
+    public WhiskyGlassItem(Block block, @Nullable MobEffectInstance statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
         super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
                 .food(statusEffectInstance != null
                         ? new FoodProperties.Builder().nutrition(nutrition).effect(statusEffectInstance, 1).alwaysEat().build()
@@ -42,7 +40,7 @@ public class BeerMugItem extends BeerBlockItem {
         this.hasExtraTooltip = hasExtraTooltip;
     }
 
-    public BeerMugItem(Block block, Supplier<MobEffectInstance> statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
+    public WhiskyGlassItem(Block block, Supplier<MobEffectInstance> statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
         super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
                 .food(statusEffectInstance != null
                         ? new FoodProperties.Builder().nutrition(nutrition).effect(statusEffectInstance, 1).alwaysEat().build()
@@ -80,18 +78,12 @@ public class BeerMugItem extends BeerBlockItem {
         if (stack.getItem() != ItemRegistry.BEER_MUG_SELTZER.get()) {
             DrunkStatusEffect.addStatusEffect(user);
         }
-        //Give Night Vision status effect if drank Night Howl Kvass
-        NightHowlStatusEffect.addStatusEffect(stack,world,user);
         //Give Wither Resistance if drank Wither Stout
-        if (stack.getItem() == ItemRegistry.BEER_MUG_WITHER_STOUT.get()) {
-            WitherStoutEffect.addStatusEffect(user);
+        if (stack.getItem() == ItemRegistry.WITHER_WHISKY_GLASS.get()) {
+            WitherStoutEffect.addStatusEffect(user, 2);
         }
-        //reduce Drunk level if we drank seltzer
-        if (stack.getItem() == ItemRegistry.BEER_MUG_SELTZER.get()) {
-            user.removeEffect(MobEffectRegistry.DRUNK.get());
-        }
-        //Give empty mug back
-        giveEmptyMugBack(user);
+        //Give empty glass back
+        giveEmptyGlassBack(user);
 
         return super.finishUsingItem(stack, world, user);
     }
