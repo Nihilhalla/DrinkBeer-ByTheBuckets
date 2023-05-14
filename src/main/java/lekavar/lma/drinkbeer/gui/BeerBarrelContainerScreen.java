@@ -62,8 +62,8 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         //int j = (this.height - this.getYSize()) / 2;
         //blit(stack, i, j, 0, 0, imageWidth, imageHeight);
 
-        waterTank.draw(stack, 134, 73);
-        fluidTank.draw(stack, 152, 73);
+        //waterTank.draw(stack, 8, 73);
+        //fluidTank.draw(stack, 26, 73);
 
         if (water != null) water.draw(stack);
         //water.draw(stack);

@@ -7,7 +7,7 @@
   ],
   "key": {
     "X": {
-      "tag": "minecraft:iron_ingot"
+      "item": "minecraft:iron_ingot"
     },
     "Y": {
       "item": "minecraft:magma_block"

@@ -62,8 +62,8 @@ public class WhiskyStillContainerScreen extends AbstractContainerScreen<WhiskySt
         //int j = (this.height - this.getYSize()) / 2;
         //blit(stack, i, j, 0, 0, imageWidth, imageHeight);
 
-        inputTank.draw(stack, 8, 73);
-        outputTank.draw(stack, 152, 73);
+        //inputTank.draw(stack, 8, 73);
+        //outputTank.draw(stack, 152, 73);
 
         if (input != null) input.draw(stack);
         //water.draw(stack);
