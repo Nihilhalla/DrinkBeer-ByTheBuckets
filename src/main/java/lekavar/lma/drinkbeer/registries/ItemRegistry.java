@@ -70,12 +70,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLAZE_WHISKY_GLASS = ITEMS.register("blaze_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.BLAZE_WHISKY_GLASS.get(),  new MobEffectInstance( MobEffects.FIRE_RESISTANCE, 5400),0, true));
     public static final RegistryObject<Item> WITHER_WHISKY_GLASS = ITEMS.register("wither_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.WITHER_WHISKY_GLASS.get(), 0, true));
     public static final RegistryObject<Item> SWEET_BERRY_WHISKY_GLASS = ITEMS.register("sweet_berry_whisky_glass", () -> new WhiskyGlassItem(BlockRegistry.SWEET_BERRY_WHISKY_GLASS.get(), new MobEffectInstance( MobEffects.REGENERATION, 1200), 0, true));
-    public static final RegistryObject<Item> VODKA_GLASS = ITEMS.register("vodka_glass", () -> new WhiskyGlassItem(BlockRegistry.VODKA_GLASS.get(), new MobEffectInstance( MobEffects.ABSORPTION, 2400, 2), 0, true));
+    public static final RegistryObject<Item> VODKA_GLASS = ITEMS.register("vodka_glass", () -> new WhiskyGlassItem(BlockRegistry.VODKA_GLASS.get(), new MobEffectInstance( MobEffects.ABSORPTION, 6000, 2), 0, true));
 
     //Wine and Cognac
     public static final RegistryObject<Item> EMPTY_WINE_GLASS = ITEMS.register("empty_wine_glass", () -> new EmptyWineGlassItem(BlockRegistry.EMPTY_WINE_GLASS.get(), new Item.Properties().tab(ModCreativeTab.GENERAL)));
     public static final RegistryObject<Item> WINE_GLASS = ITEMS.register("wine_glass", () -> new WineGlassItem(BlockRegistry.WINE_GLASS.get(), new MobEffectInstance( MobEffects.LUCK, 1200), 0, true));
-    public static final RegistryObject<Item> COGNAC_GLASS = ITEMS.register("cognac_glass", () -> new WineGlassItem(BlockRegistry.COGNAC_GLASS.get(), new MobEffectInstance( MobEffects.LUCK, 1200, 2), 0, true));
+    public static final RegistryObject<Item> COGNAC_GLASS = ITEMS.register("cognac_glass", () -> new WineGlassItem(BlockRegistry.COGNAC_GLASS.get(), new MobEffectInstance( MobEffects.LUCK, 3600, 2), 0, true));
 
 
 
