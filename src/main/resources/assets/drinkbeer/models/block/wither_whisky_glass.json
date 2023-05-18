@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "drinkbeer:item/whisky_glass",
-		"1": "drinkbeer:item/whithervelvet_fill",
+		"1": "drinkbeer:item/withervelvet_fill",
 		"particle": "drinkbeer:item/whisky_glass"
 	},
 	"elements": [
