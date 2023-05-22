@@ -32,6 +32,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class TradeboxBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -65,7 +67,7 @@ public class TradeboxBlock extends BaseEntityBlock {
             world.playSound(null, pos, SoundEventRegistry.TRADEBOX_OPEN.get(), SoundSource.BLOCKS, 0.6f, 1f);
             BlockEntity blockentity = world.getBlockEntity(pos);
 
-            NetworkHooks.openGui((ServerPlayer) player, (TradeBoxBlockEntity) blockentity, (FriendlyByteBuf packerBuffer) -> {
+            NetworkHooks.openScreen((ServerPlayer) player, (TradeBoxBlockEntity) blockentity, (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(blockentity.getBlockPos());
             });
 

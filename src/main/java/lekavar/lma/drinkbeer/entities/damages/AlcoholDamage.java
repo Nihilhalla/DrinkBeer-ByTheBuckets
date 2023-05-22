@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.random.RandomGenerator;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -21,6 +21,6 @@ public class AlcoholDamage extends DamageSource {
     @Override
     public Component getLocalizedDeathMessage(LivingEntity entity) {
         String str = "death.attack." + this.getMsgId();
-        return new TranslatableComponent(str, entity.getDisplayName());
+        return Component.translatable(str, entity.getDisplayName());
     }
 }

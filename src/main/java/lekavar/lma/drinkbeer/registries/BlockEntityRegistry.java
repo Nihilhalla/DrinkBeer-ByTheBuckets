@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockEntityRegistry {
-    public static final DeferredRegister<BlockEntityType<?>> BLOKC_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, DrinkBeer.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOKC_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, DrinkBeer.MOD_ID);
     public static final RegistryObject<BlockEntityType<BeerBarrelBlockEntity>> BEER_BARREL_TILEENTITY = BLOKC_ENTITIES.register("beer_barrel_blockentity", () -> BlockEntityType.Builder.of(BeerBarrelBlockEntity::new, BlockRegistry.BEER_BARREL.get()).build(null));
     public static final RegistryObject<BlockEntityType<WhiskyStillBlockEntity>> WHISKY_STILL_TILEENTITY = BLOKC_ENTITIES.register("whisky_still_blockentity", () -> BlockEntityType.Builder.of(WhiskyStillBlockEntity::new, BlockRegistry.WHISKY_STILL.get()).build(null));
     //public static final RegistryObject<BlockEntityType<BeerBarrelBlockEntity>> BREWING_BARREL_TILEENTITY = BLOKC_ENTITIES.register("brewing_barrel_blockentity", () -> BlockEntityType.Builder.of(BeerBarrelBlockEntity::new, BlockRegistry.BEER_BARREL.get()).build(null));

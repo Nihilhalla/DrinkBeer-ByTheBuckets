@@ -1,14 +1,8 @@
 package lekavar.lma.drinkbeer.registries;
 
 import lekavar.lma.drinkbeer.DrinkBeer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.FlameParticle;
-import net.minecraft.client.particle.HeartParticle;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

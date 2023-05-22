@@ -5,7 +5,6 @@ package lekavar.lma.drinkbeer.registries;
 import lekavar.lma.drinkbeer.DrinkBeer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import slimeknights.mantle.registration.ModelFluidAttributes;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;

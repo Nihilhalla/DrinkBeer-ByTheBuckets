@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -26,9 +26,9 @@ import java.util.function.BiConsumer;
  */
 public class GuiTankModule {
   /** Tooltip for when the capacity is 0, it breaks some stuff */
-  private static final Component NO_CAPACITY = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.millibucket"), 0).withStyle(ChatFormatting.GRAY);
-  private static final Component TOOLTIP_CAPACITY = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.capacity")).withStyle(ChatFormatting.GRAY);
-  private static final Component TOOLTIP_AVAILABLE = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.available")).withStyle(ChatFormatting.GRAY);
+  private static final Component NO_CAPACITY = Component.translatable(Mantle.makeDescriptionId("gui", "fluid.millibucket"), 0).withStyle(ChatFormatting.GRAY);
+  private static final Component TOOLTIP_CAPACITY = Component.translatable(Mantle.makeDescriptionId("gui", "fluid.capacity")).withStyle(ChatFormatting.GRAY);
+  private static final Component TOOLTIP_AVAILABLE = Component.translatable(Mantle.makeDescriptionId("gui", "fluid.available")).withStyle(ChatFormatting.GRAY);
   
   private static final int TANK_INDEX = 0;
   private final AbstractContainerScreen<?> screen;

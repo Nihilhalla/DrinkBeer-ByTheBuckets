@@ -20,7 +20,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -101,7 +101,7 @@ public class WhiskyStillBlockEntity extends InventoryBlockEntity implements IBre
     };
 
     public WhiskyStillBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WHISKY_STILL_TILEENTITY.get(), pos, state, new TranslatableComponent("block.drinkbeer.whisky_still"), false, 64);
+        super(BlockEntityRegistry.WHISKY_STILL_TILEENTITY.get(), pos, state, Component.translatable("block.drinkbeer.whisky_still"), false, 64);
     }
     
     @Override
@@ -340,12 +340,12 @@ public class WhiskyStillBlockEntity extends InventoryBlockEntity implements IBre
     
 
     public Component getDisplayName() {
-        return new TranslatableComponent("block.drinkbeer.whisky_still");
+        return Component.translatable("block.drinkbeer.whisky_still");
     }
 
 
     public Component getDefaultName() {
-        return new TranslatableComponent("block.drinkbeer.whisky_still");
+        return Component.translatable("block.drinkbeer.whisky_still");
     }
 
 
