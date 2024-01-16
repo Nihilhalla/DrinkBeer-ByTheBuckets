@@ -13,8 +13,8 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import slimeknights.mantle.network.packet.ISimplePacket;
-import slimeknights.mantle.util.JsonHelper;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.network.packet.ISimplePacket;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.JsonHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;

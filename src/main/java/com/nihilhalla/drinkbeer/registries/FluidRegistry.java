@@ -7,9 +7,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import slimeknights.mantle.registration.ModelFluidAttributes;
-import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
-import slimeknights.mantle.registration.object.FluidObject;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.registration.ModelFluidAttributes;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.registration.deferred.FluidDeferredRegister;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.registration.object.FluidObject;
 
 public class FluidRegistry {
     // Beers

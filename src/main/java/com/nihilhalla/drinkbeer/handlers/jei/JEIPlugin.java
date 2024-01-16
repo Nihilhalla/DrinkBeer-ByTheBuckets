@@ -15,7 +15,7 @@ import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.helper.RecipeHelper;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {

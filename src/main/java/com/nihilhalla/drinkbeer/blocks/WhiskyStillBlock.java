@@ -16,8 +16,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.network.NetworkHooks;
-import slimeknights.mantle.block.InventoryBlock;
-import slimeknights.mantle.network.NetworkWrapper;
+import com.nihilhalla.drinkbeer.blocks.InventoryBlock;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.network.NetworkWrapper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -43,8 +43,8 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import slimeknights.mantle.fluid.FluidTransferHelper;
-import slimeknights.mantle.fluid.transfer.*;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.fluid.FluidTransferHelper;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.fluid.transfer.*;
 
 import javax.annotation.Nullable;
 

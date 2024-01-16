@@ -2,7 +2,6 @@ package com.nihilhalla.drinkbeer.blockentities;
 
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.gui.BeerBarrelContainer;
-import com.nihilhalla.drinkbeer.gui.utilsborrowedfromMdiyo.FluidTankAnimated;
 import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
 import com.nihilhalla.drinkbeer.recipes.BrewingRecipe;
 import com.nihilhalla.drinkbeer.recipes.IBrewingInventory;
@@ -11,6 +10,8 @@ import com.nihilhalla.drinkbeer.registries.FluidRegistry;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.RecipeRegistry;
 import com.nihilhalla.drinkbeer.utils.beer.Beers;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.FluidTankAnimated;
+
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,6 +21,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,16 +39,14 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import slimeknights.mantle.block.entity.InventoryBlockEntity;
-import slimeknights.mantle.block.entity.MantleBlockEntity;
-import slimeknights.mantle.fluid.FluidTransferHelper;
-import slimeknights.mantle.inventory.BaseContainerMenu;
+
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,7 +74,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     // 0 - waiting for ingredient, 1 - brewing, 2 - waiting for pickup product
 
     private int statusCode;
-    public FluidTransferHelper fluidUtil;
+    public FluidUtil fluidUtil;
 
     public final ContainerData syncData = new ContainerData() {
         @Override
@@ -111,7 +111,6 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         super(BlockEntityRegistry.BEER_BARREL_TILEENTITY.get(), pos, state, new TranslatableComponent("block.drinkbeer.beer_barrel"), false, 64);
     }
     
-    @Override
     public BeerBarrelContainer createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
         return new BeerBarrelContainer(pContainerId, pPlayerInventory, this);
     }

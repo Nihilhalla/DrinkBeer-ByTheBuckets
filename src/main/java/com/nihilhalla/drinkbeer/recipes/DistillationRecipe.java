@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.ingredient.FluidIngredient;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ICustomOutputRecipe;
+import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ingredient.FluidIngredient;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
