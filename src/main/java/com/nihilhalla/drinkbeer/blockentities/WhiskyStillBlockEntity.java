@@ -11,7 +11,7 @@ import com.nihilhalla.drinkbeer.registries.BlockEntityRegistry;
 import com.nihilhalla.drinkbeer.registries.FluidRegistry;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.RecipeRegistry;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.FluidTankAnimated;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidTankAnimated;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -21,7 +21,6 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
@@ -41,7 +40,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.CapabilityItemHandler;
 import com.nihilhalla.drinkbeer.blockentities.InventoryBlockEntity;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.fluid.FluidTransferHelper;
+import slimeknights.mantle.fluid.FluidTransferHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -102,7 +101,7 @@ public class WhiskyStillBlockEntity extends InventoryBlockEntity implements IBre
     };
 
     public WhiskyStillBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.WHISKY_STILL_TILEENTITY.get(), pos, state, new TranslatableComponent("block.drinkbeer.whisky_still"), false, 64);
+        super(BlockEntityRegistry.WHISKY_STILL_TILEENTITY.get(), pos, state, Component.translatable("block.drinkbeer.whisky_still"), false, 64);
     }
     
     @Override
@@ -341,12 +340,12 @@ public class WhiskyStillBlockEntity extends InventoryBlockEntity implements IBre
     
 
     public Component getDisplayName() {
-        return new TranslatableComponent("block.drinkbeer.whisky_still");
+        return Component.translatable("block.drinkbeer.whisky_still");
     }
 
 
     public Component getDefaultName() {
-        return new TranslatableComponent("block.drinkbeer.whisky_still");
+        return Component.translatable("block.drinkbeer.whisky_still");
     }
 
 

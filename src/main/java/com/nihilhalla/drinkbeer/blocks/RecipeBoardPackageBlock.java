@@ -28,6 +28,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class RecipeBoardPackageBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 

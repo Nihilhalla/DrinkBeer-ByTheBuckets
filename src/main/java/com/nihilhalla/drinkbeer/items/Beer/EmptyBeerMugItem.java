@@ -19,7 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -32,7 +32,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.Text;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -46,6 +45,8 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class EmptyBeerMugItem extends BlockItem {
     //The below code is shamelessly borrowed from Tinker's Copper Can Item and modified to fit this mod.
@@ -66,12 +67,12 @@ public class EmptyBeerMugItem extends BlockItem {
     }
 
     @Override
-    public boolean hasContainerItem(ItemStack stack) {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return getFluid(stack) != Fluids.EMPTY;
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack stack) {
+    public ItemStack getCraftingRemainingItem(ItemStack stack) {
         Fluid fluid = getFluid(stack);
         if (fluid != Fluids.EMPTY) {
             return new ItemStack(this);
@@ -89,11 +90,11 @@ public class EmptyBeerMugItem extends BlockItem {
                 FluidStack displayFluid = new FluidStack(fluid, 250, fluidTag);
                 text = displayFluid.getDisplayName().plainCopy();
             } else {
-                text = new TranslatableComponent(fluid.getAttributes().getTranslationKey());
+                text = Component.translatable(fluid.getFluidType().getDescriptionId());
             }
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
         } else {
-            tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -111,7 +112,7 @@ public class EmptyBeerMugItem extends BlockItem {
             }
         } else {
             CompoundTag nbt = stack.getOrCreateTag();
-            nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getFluid().getRegistryName()).toString());
+            nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getFluid().getFluidType()).toString());
             CompoundTag fluidTag = fluid.getTag();
             if (fluidTag != null) {
                 nbt.put(TAG_FLUID_TAG, fluidTag.copy());
@@ -163,7 +164,7 @@ public class EmptyBeerMugItem extends BlockItem {
     public Component getName(ItemStack stack) {
         if (stack.hasTag() && BeerListHandler.BeerList().contains(getFluid(stack))) {
             ItemStack newStack = new ItemStack(BeerListHandler.buildMugMap(getFluid(stack)));
-            return new TranslatableComponent(getDescriptionId(newStack));
+            return Component.translatable(getDescriptionId(newStack));
         } else {
             return super.getName(stack);
         }

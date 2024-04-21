@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class MixedBeerBlock extends BaseEntityBlock {
     public final static VoxelShape ONE_MUG_SHAPE = Block.box(4, 0, 4, 12, 6, 12);
 
@@ -99,10 +101,9 @@ public class MixedBeerBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, Random random) {
         if(world.isClientSide()) {
-            super.animateTick(state, world, pos, random);
+            this.animateTick(state, world, pos, random);
             if (random.nextInt(5) == 0) {
                 MixedBeerBlockEntity entity = (MixedBeerBlockEntity) world.getBlockEntity(pos);
                 SimpleParticleType particle = SpiceAndFlavorManager.getLastSpiceFlavorParticle(entity.getSpiceList());

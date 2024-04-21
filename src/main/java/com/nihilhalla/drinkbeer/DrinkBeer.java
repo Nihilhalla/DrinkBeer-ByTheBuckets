@@ -14,6 +14,7 @@ import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
 import com.nihilhalla.drinkbeer.handlers.EventHandler;
 import com.nihilhalla.drinkbeer.networking.NetWorking;
 import com.nihilhalla.drinkbeer.registries.*;
+import com.nihilhalla.drinkbeer.utils.borrowed.DrinkerNetwork;
 
 import net.minecraft.Util;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -21,14 +22,12 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
-import net.minecraft.tags.Tag.Builder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,7 +37,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,10 +45,10 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.datagen.MantleFluidTagProvider;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.datagen.MantleFluidTooltipProvider;
+import slimeknights.mantle.datagen.MantleFluidTagProvider;
+import slimeknights.mantle.datagen.MantleFluidTooltipProvider;
 
 // The value here should match an entry in the META-INF/mods.toml file
 
@@ -92,6 +90,7 @@ public class DrinkBeer {
 
         bus.addListener(DrinkBeerClient::onInitializeClient);
         bus.addListener(NetWorking::init);
+        DrinkerNetwork.setup();
         // We just don't need these part now
         // Register the setup method for modloading
         //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -106,50 +105,24 @@ public class DrinkBeer {
 
         
     }
-    // Next code segments shamelessly stolen from Mantle
-      private void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    if (event.includeServer()) {
-      generator.addProvider(new MantleFluidTagProvider(generator, event.getExistingFileHelper()));
-    }
-    if (event.includeClient()) {
-      generator.addProvider(new MantleFluidTooltipProvider(generator));
-    }
-  }
-
-  /**
-   * Gets a resource location for Mantle
-   * @param name  Name
-   * @return  Resource location instance
-   */
-  public static ResourceLocation getResource(String name) {
-    return new ResourceLocation(MOD_ID, name);
-  }
-
-  /**
-   * Makes a translation key for the given name
-   * @param base  Base name, such as "block" or "gui"
-   * @param name  Object name
-   * @return  Translation key
-   */
-  public static String makeDescriptionId(String base, String name) {
-    return Util.makeDescriptionId(base, getResource(name));
-  }
-
-  /**
-   * Makes a translation text component for the given name
-   * @param base  Base name, such as "block" or "gui"
-   * @param name  Object name
-   * @return  Translation key
-   */
-  public static MutableComponent makeComponent(String base, String name) {
-    return new TranslatableComponent(makeDescriptionId(base, name));
-  }
     public static final ResourceKey<Fluid> beerKey = ResourceKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(MOD_ID));
     //Tagging stuff
     
+    public static ResourceLocation getResource(String name) {
+        return new ResourceLocation(MOD_ID, name);
+    }
 
+    public static String makeTranslationKey(String base, String name) {
+        return com.nihilhalla.drinkbeer.utils.borrowed.Util.makeTranslationKey(base, getResource(name));
+    }
+    
+    public static MutableComponent makeTranslation(String base, String name, Object... arguments) {
+        return Component.translatable(makeTranslationKey(base, name), arguments);
+    }
 
+    public static MutableComponent makeTranslation(String base, String name) {
+        return Component.translatable(makeTranslationKey(base, name));
+    }
 
     //Get that client stuff done!
     private void clientSetup(final FMLClientSetupEvent event) {

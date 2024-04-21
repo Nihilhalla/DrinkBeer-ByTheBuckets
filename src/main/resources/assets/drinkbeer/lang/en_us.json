@@ -126,66 +126,66 @@
   "block.drinkbeer.empty_beer_mug.contents": "Contains: 250mb of %s",
   
   "gui.drinkbeer.barrel": "Barrel",
-  "gui.mantle.fluid.capacity": "Capacity:",
-  "gui.mantle.fluid.available": "Free:",
+  "gui.drinkbeer.melting.capacity": "Capacity:",
+  "gui.drinkbeer.melting.available": "Free:",
 
   "drinkbeer.jei.title.brewing": "Brewing",
   "drinkbeer.jei.tooltip.brewing": "Brewing Time: ",
   "drinkbeer.jei.tooltip.cup_slot": "Cup Slot",
 
   "block.drinkbeer.sweet_berry_kriek_fluid": "Sweet Berry Kriek",
-  "fluid.drinkbeer.sweet_berry_kriek": "Sweet Berry Kriek",
-  "fluid.drinkbeer.flowing_sweet_berry_kriek": "Flowing Sweet Berry Kriek",
+  "fluid.mantle.sweet_berry_kriek": "Sweet Berry Kriek",
+  "fluid.mantle.flowing_sweet_berry_kriek": "Flowing Sweet Berry Kriek",
   "item.drinkbeer.sweet_berry_kriek_bucket": "Sweet Berry Kriek Bucket",
 
   "block.drinkbeer.pumpkin_kvass_fluid": "Pumpkin Kvass",
-  "fluid.drinkbeer.pumpkin_kvass": "Pumpkin Kvass",
-  "fluid.drinkbeer.flowing_pumpkin_kvass": "Flowing Pumpkin Kvass",
+  "fluid.mantle.pumpkin_kvass": "Pumpkin Kvass",
+  "fluid.mantle.flowing_pumpkin_kvass": "Flowing Pumpkin Kvass",
   "item.drinkbeer.pumpkin_kvass_bucket": "Pumpkin Kvass Bucket",
   
   "block.drinkbeer.night_howl_kvass_fluid": "Night Howl Kvass",
-  "fluid.drinkbeer.night_howl_kvass": "Night Howl Kvass",
-  "fluid.drinkbeer.flowing_night_howl_kvass": "Flowing Night Howl Kvass",
+  "fluid.mantle.night_howl_kvass": "Night Howl Kvass",
+  "fluid.mantle.flowing_night_howl_kvass": "Flowing Night Howl Kvass",
   "item.drinkbeer.night_howl_kvass_bucket": "Night Howl Kvass Bucket",
 
   "block.drinkbeer.haars_icy_pale_lager_fluid": "Haar's Icy Pale Lager",
-  "fluid.drinkbeer.haars_icy_pale_lager": "Haar's Icy Pale Lager",
-  "fluid.drinkbeer.flowing_haars_icy_pale_lager": "Flowing Haar's Icy Pale Lager",
+  "fluid.mantle.haars_icy_pale_lager": "Haar's Icy Pale Lager",
+  "fluid.mantle.flowing_haars_icy_pale_lager": "Flowing Haar's Icy Pale Lager",
   "item.drinkbeer.haars_icy_pale_lager_bucket": "Haar's Icy Pale Lager Bucket",
 
   "block.drinkbeer.apple_lambic_fluid": "Apple Lambic",
-  "fluid.drinkbeer.apple_lambic": "Apple Lambic",
-  "fluid.drinkbeer.flowing_apple_lambic": "Flowing Apple Lambic",
+  "fluid.mantle.apple_lambic": "Apple Lambic",
+  "fluid.mantle.flowing_apple_lambic": "Flowing Apple Lambic",
   "item.drinkbeer.apple_lambic_bucket": "Apple Lambic Bucket",
 
   "block.drinkbeer.blaze_milk_stout_fluid": "Blaze Milk Stout",
-  "fluid.drinkbeer.blaze_milk_stout": "Blaze Milk Stout",
-  "fluid.drinkbeer.flowing_blaze_milk_stout": "Flowing Blaze Milk Stout",
+  "fluid.mantle.blaze_milk_stout": "Blaze Milk Stout",
+  "fluid.mantle.flowing_blaze_milk_stout": "Flowing Blaze Milk Stout",
   "item.drinkbeer.blaze_milk_stout_bucket": "Blaze Milk Stout Bucket",
 
   "block.drinkbeer.blaze_stout_fluid": "Blaze Stout",
-  "fluid.drinkbeer.blaze_stout": "Blaze Stout",
-  "fluid.drinkbeer.flowing_blaze_stout": "Flowing Blaze Stout",
+  "fluid.mantle.blaze_stout": "Blaze Stout",
+  "fluid.mantle.flowing_blaze_stout": "Flowing Blaze Stout",
   "item.drinkbeer.blaze_stout_bucket": "Blaze Stout Bucket",
 
   "block.drinkbeer.miner_pale_ale_fluid": "Miner's Pale Ale",
-  "fluid.drinkbeer.miner_pale_ale": "Miner's Pale Ale",
-  "fluid.drinkbeer.flowing_miner_pale_ale": "Flowing Miner's Pale Ale",
+  "fluid.mantle.miner_pale_ale": "Miner's Pale Ale",
+  "fluid.mantle.flowing_miner_pale_ale": "Flowing Miner's Pale Ale",
   "item.drinkbeer.miner_pale_ale_bucket": "Miner's Pale Ale Bucket",
 
   "block.drinkbeer.frothy_pink_egg_nog_fluid": "Frothy Pink Eggnog",
-  "fluid.drinkbeer.frothy_pink_egg_nog": "Frothy Pink Eggnog",
-  "fluid.drinkbeer.flowing_frothy_pink_egg_nog": "Flowing Frothy Pink Eggnog",
+  "fluid.mantle.frothy_pink_egg_nog": "Frothy Pink Eggnog",
+  "fluid.mantle.flowing_frothy_pink_egg_nog": "Flowing Frothy Pink Eggnog",
   "item.drinkbeer.frothy_pink_egg_nog_bucket": "Frothy Pink Eggnog Bucket",
   
   "block.drinkbeer.seltzer_fluid": "Seltzer",
-  "fluid.drinkbeer.seltzer": "Seltzer",
-  "fluid.drinkbeer.flowing_seltzer": "Flowing Seltzer",
+  "fluid.mantle.seltzer": "Seltzer",
+  "fluid.mantle.flowing_seltzer": "Flowing Seltzer",
   "item.drinkbeer.seltzer_bucket": "Seltzer Bucket",
 
   "block.drinkbeer.wither_stout_fluid": "Wither Stout",
-  "fluid.drinkbeer.wither_stout": "Wither Stout",
-  "fluid.drinkbeer.flowing_wither_stout": "Flowing Wither Stout",
+  "fluid.mantle.wither_stout": "Wither Stout",
+  "fluid.mantle.flowing_wither_stout": "Flowing Wither Stout",
   "item.drinkbeer.wither_stout_bucket": "Wither Stout Bucket",
 
   "_comment": "Whiskies",
@@ -204,8 +204,8 @@
 
 
   "block.drinkbeer.whisky_fluid": "Sour Mash Whisky",
-  "fluid.drinkbeer.whisky": "Sour Mash Whisky",
-  "fluid.drinkbeer.flowing_whisky": "Flowing Sour Mash Whisky",
+  "fluid.mantle.whisky": "Sour Mash Whisky",
+  "fluid.mantle.flowing_whisky": "Flowing Sour Mash Whisky",
   "item.drinkbeer.whisky_bucket": "Sour Mash Whisky Bucket",
 
   "block.drinkbeer.blaze_whisky_glass": "Nether Ball Whisky",
@@ -214,8 +214,8 @@
 
 
   "block.drinkbeer.blaze_whisky_fluid": "Nether Ball Whisky",
-  "fluid.drinkbeer.blaze_whisky": "Nether Ball Whisky",
-  "fluid.drinkbeer.flowing_blaze_whisky": "Flowing Nether Ball Whisky",
+  "fluid.mantle.blaze_whisky": "Nether Ball Whisky",
+  "fluid.mantle.flowing_blaze_whisky": "Flowing Nether Ball Whisky",
   "item.drinkbeer.blaze_whisky_bucket": "Nether Ball Whisky Bucket",
 
   "block.drinkbeer.wither_whisky_glass": "Wither Velvet Whisky",
@@ -224,8 +224,8 @@
 
 
   "block.drinkbeer.wither_whisky_fluid": "Wither Velvet Whisky",
-  "fluid.drinkbeer.wither_whisky": "Wither Velvet Whisky",
-  "fluid.drinkbeer.flowing_wither_whisky": "Flowing Wither Velvet Whisky",
+  "fluid.mantle.wither_whisky": "Wither Velvet Whisky",
+  "fluid.mantle.flowing_wither_whisky": "Flowing Wither Velvet Whisky",
   "item.drinkbeer.wither_whisky_bucket": "Wither Velvet Whisky Bucket",
 
   "block.drinkbeer.night_howl_whisky_glass": "Howler's Crown Whisky",
@@ -234,8 +234,8 @@
 
 
   "block.drinkbeer.night_howl_whisky_fluid": "Howler's Crown Whisky",
-  "fluid.drinkbeer.night_howl_whisky": "Howler's Crown Whisky",
-  "fluid.drinkbeer.flowing_night_howl_whisky": "Flowing Howler's Crown Whisky",
+  "fluid.mantle.night_howl_whisky": "Howler's Crown Whisky",
+  "fluid.mantle.flowing_night_howl_whisky": "Flowing Howler's Crown Whisky",
   "item.drinkbeer.night_howl_whisky_bucket": "Howler's Crown Whisky Bucket",
 
   "block.drinkbeer.sweet_berry_whisky_glass": "Wild Creeper Whisky",
@@ -244,8 +244,8 @@
 
 
   "block.drinkbeer.sweet_berry_whisky_fluid": "Wild Creeper Whisky",
-  "fluid.drinkbeer.sweet_berry_whisky": "Wild Creeper Whisky",
-  "fluid.drinkbeer.flowing_sweet_berry_whisky": "Flowing Wild Creeper Whisky",
+  "fluid.mantle.sweet_berry_whisky": "Wild Creeper Whisky",
+  "fluid.mantle.flowing_sweet_berry_whisky": "Flowing Wild Creeper Whisky",
   "item.drinkbeer.sweet_berry_whisky_bucket": "Wild Creeper Whisky Bucket",
 
   "block.drinkbeer.wine_glass": "Sweet Berry Wine",
@@ -254,8 +254,8 @@
 
 
   "block.drinkbeer.wine_fluid": "Sweet Berry Wine",
-  "fluid.drinkbeer.wine": "Sweet Berry Wine",
-  "fluid.drinkbeer.flowing_wine": "Flowing Sweet Berry Wine",
+  "fluid.mantle.wine": "Sweet Berry Wine",
+  "fluid.mantle.flowing_wine": "Flowing Sweet Berry Wine",
   "item.drinkbeer.wine_bucket": "Sweet Berry Wine Bucket",
 
   "block.drinkbeer.cognac_glass": "Sweet Berry Cognac",
@@ -264,8 +264,8 @@
 
 
   "block.drinkbeer.cognac_fluid": "Sweet Berry Cognac",
-  "fluid.drinkbeer.cognac": "Sweet Berry Cognac",
-  "fluid.drinkbeer.flowing_cognac": "Flowing Sweet Berry Cognac",
+  "fluid.mantle.cognac": "Sweet Berry Cognac",
+  "fluid.mantle.flowing_cognac": "Flowing Sweet Berry Cognac",
   "item.drinkbeer.cognac_bucket": "Sweet Berry Cognac Bucket",
 
   "block.drinkbeer.vodka_glass": "Vodka",
@@ -274,13 +274,111 @@
 
 
   "block.drinkbeer.vodka_fluid": "Vodka",
-  "fluid.drinkbeer.vodka": "Vodka",
-  "fluid.drinkbeer.flowing_vodka": "Flowing Vodka",
+  "fluid.mantle.vodka": "Vodka",
+  "fluid.mantle.flowing_vodka": "Flowing Vodka",
   "item.drinkbeer.vodka_bucket": "Vodka Bucket",
 
   "block.drinkbeer.vodka_mash_fluid": "Vodka Mash",
-  "fluid.drinkbeer.vodka_mash": "Vodka Mash",
-  "fluid.drinkbeer.flowing_vodka_mash": "Flowing Vodka Mash",
-  "item.drinkbeer.vodka_mash_bucket": "Vodka Mash Bucket"
+  "fluid.mantle.vodka_mash": "Vodka Mash",
+  "fluid.mantle.flowing_vodka_mash": "Flowing Vodka Mash",
+  "item.drinkbeer.vodka_mash_bucket": "Vodka Mash Bucket",
 
+
+  "drinkbeer:tooltip.cooktime": "Cook Time: %ds",
+  "config.drinkbeer.extraHeartRenderer": "Enable Extra Heart Renderer",
+
+  "command.drinkbeer.view_tag.success": "Values for %s tag '%s':",
+
+  "command.drinkbeer.tags_for.success": "%s tags for '%s':",
+  "command.drinkbeer.tags_for.not_found": "Unknown %s registry value '%s'",
+  "command.drinkbeer.tags_for.no_held_block": "Held item is not a block",
+  "command.drinkbeer.tags_for.no_held_entity": "Held item is not a spawn egg",
+  "command.drinkbeer.tags_for.no_held_potion": "Held item is not a potion",
+  "command.drinkbeer.tags_for.no_held_fluid": "Unable to get fluid from the held item",
+  "command.drinkbeer.tags_for.no_held_enchantment": "Held item is not enchanted",
+  "command.drinkbeer.tags_for.no_targeted_entity": "No entity within range",
+  "command.drinkbeer.tags_for.no_targeted_block_entity": "No targeted block entity",
+  "command.drinkbeer.tags_for.no_tags": "No tags",
+  "command.drinkbeer.book_test.not_found": "Unknown book with ID %s",
+
+  "command.drinkbeer.dump_tag.success": "Printed combined %s tag '%s' to console log",
+  "command.drinkbeer.dump_tag.read_error": "Error reading %s tag '%s':",
+  "command.drinkbeer.dump_tag.success_log": "Dumped combined %s tag '%s' to '%s'",
+  "command.drinkbeer.dump_all_tags.success": "Dumped all tags to '%s'",
+  "command.drinkbeer.dump_all_tags.type_success": "Dumped all %s tags to '%s'",
+
+  "command.drinkbeer.dump_loot_modifiers.success_log": "Printed combined global loot modifiers to console log",
+  "command.drinkbeer.dump_loot_modifiers.success_save": "Dumped combined global loot modifiers to '%s'",
+  "command.drinkbeer.dump_loot_modifiers.read_error": "Error reading global loot modifiers",
+
+  "command.drinkbeer.harvest_tiers.success_log": "Printed sorted tiers to console log",
+  "command.drinkbeer.harvest_tiers.success_save": "Dumped sorted tiers to '%s'",
+  "command.drinkbeer.harvest_tiers.success_list": "Harvest tiers:",
+  "command.drinkbeer.harvest_tiers.tag": "%s: Block tag %s",
+  "command.drinkbeer.harvest_tiers.no_tag": "%s: No tag",
+
+  "command.drinkbeer.tag.empty": "Empty",
+  "command.drinkbeer.registry.not_found": "Unknown registry '%s'",
+  "command.drinkbeer.tag.not_found": "Unknown %s tag '%s'",
+
+  "command.drinkbeer.tag_preference.empty_tag": "No preference for %s tag %s",
+  "command.drinkbeer.tag_preference.preference": "Preferred value for %s tag %s is %s",
+
+  "gui.drinkbeer.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
+  "gui.drinkbeer.fluid.kilobucket": "%s kb",
+  "gui.drinkbeer.fluid.bucket": "%s b",
+  "gui.drinkbeer.fluid.millibucket": "%s mb",
+
+  "block.drinkbeer.tank.drained": "Drained %s mb %s",
+  "block.drinkbeer.tank.filled": "Filled %s mb %s",
+
+  "_comment": "Provided for compatibility in case it's necessary",
+
+  "mantle:tooltip.cooktime": "Cook Time: %ds",
+  "config.mantle.extraHeartRenderer": "Enable Extra Heart Renderer",
+
+  "command.mantle.view_tag.success": "Values for %s tag '%s':",
+
+  "command.mantle.tags_for.success": "%s tags for '%s':",
+  "command.mantle.tags_for.not_found": "Unknown %s registry value '%s'",
+  "command.mantle.tags_for.no_held_block": "Held item is not a block",
+  "command.mantle.tags_for.no_held_entity": "Held item is not a spawn egg",
+  "command.mantle.tags_for.no_held_potion": "Held item is not a potion",
+  "command.mantle.tags_for.no_held_fluid": "Unable to get fluid from the held item",
+  "command.mantle.tags_for.no_held_enchantment": "Held item is not enchanted",
+  "command.mantle.tags_for.no_targeted_entity": "No entity within range",
+  "command.mantle.tags_for.no_targeted_block_entity": "No targeted block entity",
+  "command.mantle.tags_for.no_tags": "No tags",
+  "command.mantle.book_test.not_found": "Unknown book with ID %s",
+
+  "command.mantle.dump_tag.success": "Printed combined %s tag '%s' to console log",
+  "command.mantle.dump_tag.read_error": "Error reading %s tag '%s':",
+  "command.mantle.dump_tag.success_log": "Dumped combined %s tag '%s' to '%s'",
+  "command.mantle.dump_all_tags.success": "Dumped all tags to '%s'",
+  "command.mantle.dump_all_tags.type_success": "Dumped all %s tags to '%s'",
+
+  "command.mantle.dump_loot_modifiers.success_log": "Printed combined global loot modifiers to console log",
+  "command.mantle.dump_loot_modifiers.success_save": "Dumped combined global loot modifiers to '%s'",
+  "command.mantle.dump_loot_modifiers.read_error": "Error reading global loot modifiers",
+
+  "command.mantle.harvest_tiers.success_log": "Printed sorted tiers to console log",
+  "command.mantle.harvest_tiers.success_save": "Dumped sorted tiers to '%s'",
+  "command.mantle.harvest_tiers.success_list": "Harvest tiers:",
+  "command.mantle.harvest_tiers.tag": "%s: Block tag %s",
+  "command.mantle.harvest_tiers.no_tag": "%s: No tag",
+
+  "command.mantle.tag.empty": "Empty",
+  "command.mantle.registry.not_found": "Unknown registry '%s'",
+  "command.mantle.tag.not_found": "Unknown %s tag '%s'",
+
+  "command.mantle.tag_preference.empty_tag": "No preference for %s tag %s",
+  "command.mantle.tag_preference.preference": "Preferred value for %s tag %s is %s",
+
+  "gui.mantle.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
+  "gui.mantle.fluid.kilobucket": "%s kb",
+  "gui.mantle.fluid.bucket": "%s b",
+  "gui.mantle.fluid.millibucket": "%s mb",
+
+  "block.mantle.tank.drained": "Drained %s mb %s",
+  "block.mantle.tank.filled": "Filled %s mb %s"
 }

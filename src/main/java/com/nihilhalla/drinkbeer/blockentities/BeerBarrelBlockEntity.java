@@ -10,7 +10,7 @@ import com.nihilhalla.drinkbeer.registries.FluidRegistry;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.RecipeRegistry;
 import com.nihilhalla.drinkbeer.utils.beer.Beers;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.FluidTankAnimated;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidTankAnimated;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
@@ -19,7 +19,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
@@ -108,7 +107,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     };
 
     public BeerBarrelBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityRegistry.BEER_BARREL_TILEENTITY.get(), pos, state, new TranslatableComponent("block.drinkbeer.beer_barrel"), false, 64);
+        super(BlockEntityRegistry.BEER_BARREL_TILEENTITY.get(), pos, state, Component.translatable("block.drinkbeer.beer_barrel"), false, 64);
     }
     
     public BeerBarrelContainer createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
@@ -368,12 +367,12 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     
 
     public Component getDisplayName() {
-        return new TranslatableComponent("block.drinkbeer.beer_barrel");
+        return Component.translatable("block.drinkbeer.beer_barrel");
     }
 
 
     public Component getDefaultName() {
-        return new TranslatableComponent("block.drinkbeer.beer_barrel");
+        return Component.translatable("block.drinkbeer.beer_barrel");
     }
 
 

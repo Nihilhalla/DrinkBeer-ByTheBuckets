@@ -3,15 +3,15 @@ package com.nihilhalla.drinkbeer.gui;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.blockentities.WhiskyStillBlockEntity;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.GuiTankModule;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.GuiUtil;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.IScreenWithFluidTank;
+import com.nihilhalla.drinkbeer.utils.borrowed.GuiTankModule;
+import com.nihilhalla.drinkbeer.utils.borrowed.GuiUtil;
+import com.nihilhalla.drinkbeer.utils.borrowed.IScreenWithFluidTank;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.client.screen.ElementScreen;
+import slimeknights.mantle.client.screen.ElementScreen;
 
 import java.awt.*;
 

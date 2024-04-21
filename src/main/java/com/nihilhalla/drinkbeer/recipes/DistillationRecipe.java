@@ -9,6 +9,7 @@ import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.RecipeRegistry;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -19,9 +20,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ICustomOutputRecipe;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ingredient.FluidIngredient;
+import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -149,7 +149,7 @@ private int getLatestMatched(List<FluidStack> recipeList, FluidStack invItem) {
         return brewingTime;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<DistillationRecipe> {
+    public static class Serializer implements RecipeSerializer<DistillationRecipe> {
 
         @Override
         public DistillationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

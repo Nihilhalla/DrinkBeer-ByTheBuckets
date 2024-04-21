@@ -33,6 +33,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
+import net.minecraft.world.item.Item.Properties;
+
 public class WhiskyGlassBlockItem extends BlockItem implements ICapabilityProvider {
     protected final static float MAX_PLACE_DISTANCE = (float) 2;
 

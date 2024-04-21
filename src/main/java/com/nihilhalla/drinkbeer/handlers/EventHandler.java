@@ -26,10 +26,10 @@ public class EventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDamage(LivingHurtEvent event) {
-        if(event.getEntityLiving() != null) {
+        if(event.getEntity() != null) {
             //DrinkBeer.LOG.atDebug().log(event.getEntity().toString() + " has been hit!");
-            if (event.getEntityLiving().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource() == DamageSource.WITHER) {
-                    float newAmount = event.getAmount() / (2F * (event.getEntityLiving().getEffect(MobEffectRegistry.WITHER_RESIST.get()).getAmplifier() + 1F));
+            if (event.getEntity().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource() == DamageSource.WITHER) {
+                    float newAmount = event.getAmount() / (2F * (event.getEntity().getEffect(MobEffectRegistry.WITHER_RESIST.get()).getAmplifier() + 1F));
 
                     if (newAmount < 0.124){
                         event.setCanceled(true);

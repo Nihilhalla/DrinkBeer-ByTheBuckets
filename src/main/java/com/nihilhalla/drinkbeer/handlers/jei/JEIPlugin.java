@@ -1,26 +1,33 @@
 package com.nihilhalla.drinkbeer.handlers.jei;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.gui.BeerBarrelContainer;
 import com.nihilhalla.drinkbeer.gui.BeerBarrelContainerScreen;
 import com.nihilhalla.drinkbeer.recipes.BrewingRecipe;
 import com.nihilhalla.drinkbeer.registries.BlockRegistry;
+import com.nihilhalla.drinkbeer.registries.ContainerTypeRegistry;
 import com.nihilhalla.drinkbeer.registries.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.helper.RecipeHelper;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
     public static final RecipeType<BrewingRecipe> BREWING = type("brewing", BrewingRecipe.class);
     
+
+
     @Override
     public ResourceLocation getPluginUid() {
         return null;
@@ -42,7 +49,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(BeerBarrelContainer.class, BREWING, 0,  4, 6, 36);
+        registration.addRecipeTransferHandler(new BeerBarrelRecipeTransferInfo());
     }
 
     @Override
@@ -57,4 +64,6 @@ public class JEIPlugin implements IModPlugin {
     private static <T> RecipeType<T> type(String name, Class<T> clazz) {
         return RecipeType.create(DrinkBeer.MOD_ID, name, clazz);
     }
+
+
 }

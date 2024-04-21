@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/blaze_milk_stout/still",
+        "flowing": "mantle:block/fluid/blaze_milk_stout/flowing"
+    }
+}

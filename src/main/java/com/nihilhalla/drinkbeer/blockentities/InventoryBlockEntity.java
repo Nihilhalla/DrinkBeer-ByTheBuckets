@@ -20,6 +20,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import slimeknights.mantle.block.entity.NameableBlockEntity;
+
 import com.nihilhalla.drinkbeer.utils.ItemStackList;
 
 import javax.annotation.Nonnull;

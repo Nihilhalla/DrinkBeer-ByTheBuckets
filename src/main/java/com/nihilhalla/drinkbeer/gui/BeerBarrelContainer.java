@@ -26,7 +26,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.BaseContainerMenu;
+import slimeknights.mantle.inventory.BaseContainerMenu;
 
 public class BeerBarrelContainer extends BaseContainerMenu<BeerBarrelBlockEntity> {
     private static final int STATUS_CODE = 1;

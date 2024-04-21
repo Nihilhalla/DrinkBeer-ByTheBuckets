@@ -19,9 +19,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistryEntry;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ICustomOutputRecipe;
-import com.nihilhalla.drinkbeer.utilsborrowedfromMdiyo.recipe.ingredient.FluidIngredient;
+import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -181,7 +180,7 @@ private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
         return brewingTime;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BrewingRecipe> {
+    public static class Serializer implements RecipeSerializer<BrewingRecipe> {
 
         
         @Override

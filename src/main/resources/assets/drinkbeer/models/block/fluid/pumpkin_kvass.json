@@ -1,5 +1,4 @@
 {
-    "loader": "mantle:fluid_texture",
     "textures": {
         "still": "drinkbeer:block/fluid/pumpkin_kvass/still",
         "flowing": "drinkbeer:block/fluid/pumpkin_kvass/flowing"

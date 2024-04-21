@@ -18,8 +18,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -41,19 +40,10 @@ public class JEIBrewingRecipe implements IRecipeCategory<BrewingRecipe> {
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemRegistry.BEER_MUG.get()));
     }
 
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @Override
-    public Class<? extends BrewingRecipe> getRecipeClass() {
-        return BrewingRecipe.class;
-    }
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("drinkbeer.jei.title.brewing");
+        return Component.translatable("drinkbeer.jei.title.brewing");
     }
 
     @Override
@@ -97,19 +87,18 @@ public class JEIBrewingRecipe implements IRecipeCategory<BrewingRecipe> {
 
     }
 
-    @Override
     public List<Component> getTooltipStrings(BrewingRecipe recipe, double mouseX, double mouseY) {
         List<Component> tooltips = new ArrayList<>();
         if (!inTransferBottomRange(mouseX, mouseY)){
             if (inCupSlotRange(mouseX, mouseY)) {
-                tooltips.add(new TranslatableComponent("drinkbeer.jei.tooltip.cup_slot")
+                tooltips.add(Component.translatable("drinkbeer.jei.tooltip.cup_slot")
                         .setStyle(Style.EMPTY.withColor(TextColor.parseColor(DRINK_BEER_YELLOW))));
             } else {
                 int brewingTimeMin = (recipe.getBrewingTime() / 20) / 60;
                 int brewingTimeSec = recipe.getBrewingTime() / 20 - brewingTimeMin * 60;
-                tooltips.add(new TranslatableComponent("drinkbeer.jei.tooltip.brewing")
+                tooltips.add(Component.translatable("drinkbeer.jei.tooltip.brewing")
                         .setStyle(Style.EMPTY.withColor(TextColor.parseColor(PUMPKIN_DRINK_CUP_HEX_COLOR)))
-                        .append(new TextComponent(brewingTimeMin + ":" + (brewingTimeSec < 10 ? "0" + brewingTimeSec : brewingTimeSec))
+                        .append(Component.literal(brewingTimeMin + ":" + (brewingTimeSec < 10 ? "0" + brewingTimeSec : brewingTimeSec))
                                 .withStyle(Style.EMPTY.withBold(true).withColor(TextColor.parseColor(DRINK_BEER_YELLOW)))));
             }
         }
