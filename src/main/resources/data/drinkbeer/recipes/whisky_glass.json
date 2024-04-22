@@ -2,13 +2,13 @@
   "type": "drinkbeer:distillation",
 
   "input": {
-    "name": "drinkbeer:miner_pale_ale",
+    "fluid": "drinkbeer:miner_pale_ale",
     "amount": 250
   },
 
   "brewing_time": 6000,
   "result": {
-    "name": "drinkbeer:whisky",
+    "fluid": "drinkbeer:whisky",
     "amount": 125
   }
 }

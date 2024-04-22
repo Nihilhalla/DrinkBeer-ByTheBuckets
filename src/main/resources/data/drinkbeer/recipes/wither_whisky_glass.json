@@ -2,13 +2,13 @@
   "type": "drinkbeer:distillation",
 
   "input": {
-    "name": "drinkbeer:wither_stout",
+    "fluid": "drinkbeer:wither_stout",
     "amount": 250
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:wither_whisky",
+    "fluid": "drinkbeer:wither_whisky",
     "amount": 125
   }
 }

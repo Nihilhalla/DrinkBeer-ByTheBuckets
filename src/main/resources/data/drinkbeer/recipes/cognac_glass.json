@@ -2,13 +2,13 @@
   "type": "drinkbeer:distillation",
 
   "input": {
-    "name": "drinkbeer:wine",
+    "fluid": "drinkbeer:wine",
     "amount": 250
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:cognac",
+    "fluid": "drinkbeer:cognac",
     "amount": 125
   }
 }

@@ -2,13 +2,13 @@
   "type": "drinkbeer:distillation",
 
   "input": {
-    "name": "drinkbeer:sweet_berry_kriek",
+    "fluid": "drinkbeer:sweet_berry_kriek",
     "amount": 250
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:sweet_berry_whisky",
+    "fluid": "drinkbeer:sweet_berry_whisky",
     "amount": 125
   }
 }

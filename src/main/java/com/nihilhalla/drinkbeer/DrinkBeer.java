@@ -2,6 +2,8 @@ package com.nihilhalla.drinkbeer;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +17,10 @@ import com.nihilhalla.drinkbeer.handlers.EventHandler;
 import com.nihilhalla.drinkbeer.networking.NetWorking;
 import com.nihilhalla.drinkbeer.registries.*;
 import com.nihilhalla.drinkbeer.utils.borrowed.DrinkerNetwork;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidBlockstateModelProvider;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidBucketModelProvider;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidContainerModel;
+import com.nihilhalla.drinkbeer.utils.borrowed.FluidTextureProvider;
 
 import net.minecraft.Util;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -34,7 +40,10 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -47,8 +56,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 import slimeknights.mantle.datagen.MantleFluidTagProvider;
 import slimeknights.mantle.datagen.MantleFluidTooltipProvider;
+import slimeknights.mantle.registration.RegistrationHelper;
 
 // The value here should match an entry in the META-INF/mods.toml file
 
@@ -77,10 +88,10 @@ public class DrinkBeer {
         MinecraftForge.EVENT_BUS.register(eventHandler);
 
         MobEffectRegistry.STATUS_EFFECTS.register(bus);
-        ItemRegistry.ITEMS.register(bus);
         BlockRegistry.BLOCKS.register(bus);
-        BlockEntityRegistry.BLOKC_ENTITIES.register(bus);
+        ItemRegistry.ITEMS.register(bus);
         FluidRegistry.FLUIDS.register(bus);
+        BlockEntityRegistry.BLOKC_ENTITIES.register(bus);
         //FluidRegistry.registerDynamicBuckets();
         SoundEventRegistry.SOUNDS.register(bus);
         ContainerTypeRegistry.CONTAINERS.register(bus);
@@ -105,9 +116,10 @@ public class DrinkBeer {
 
         
     }
+
     public static final ResourceKey<Fluid> beerKey = ResourceKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(MOD_ID));
     //Tagging stuff
-    
+    // Below this line stolen from SlimeKnights
     public static ResourceLocation getResource(String name) {
         return new ResourceLocation(MOD_ID, name);
     }
@@ -123,10 +135,34 @@ public class DrinkBeer {
     public static MutableComponent makeTranslation(String base, String name) {
         return Component.translatable(makeTranslationKey(base, name));
     }
+  /**
+   * Gets a resource location for Mantle
+   * @param name  Name
+   * @return  Resource location instance
+   */
+
+  /**
+   * Makes a translation key for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static String makeDescriptionId(String base, String name) {
+    return Util.makeDescriptionId(base, getResource(name));
+  }
+
+  /**
+   * Makes a translation text component for the given name
+   * @param base  Base name, such as "block" or "gui"
+   * @param name  Object name
+   * @return  Translation key
+   */
+  public static MutableComponent makeComponent(String base, String name) {
+    return Component.translatable(makeDescriptionId(base, name));
+  }
 
     //Get that client stuff done!
     private void clientSetup(final FMLClientSetupEvent event) {
-
     //    ItemBlockRenderTypes.setRenderLayer(FluidHandler.BEERSOURCE.get(), RenderType.translucent());
     //    ItemBlockRenderTypes.setRenderLayer(FluidHandler.BEERFLOWING.get(), RenderType.translucent());
     //    ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BEERBLOCK.get(), RenderType.translucent());

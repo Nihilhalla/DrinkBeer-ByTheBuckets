@@ -2,13 +2,13 @@
   "type": "drinkbeer:distillation",
 
   "input": {
-    "name": "drinkbeer:blaze_stout",
+    "fluid": "drinkbeer:blaze_stout",
     "amount": 250
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:blaze_whisky",
+    "fluid": "drinkbeer:blaze_whisky",
     "amount": 125
   }
 }

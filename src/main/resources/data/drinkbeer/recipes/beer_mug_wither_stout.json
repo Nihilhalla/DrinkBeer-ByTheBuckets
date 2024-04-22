@@ -17,13 +17,13 @@
     }
   ],
   "fluid": {
-    "name": "minecraft:water",
+    "fluid": "minecraft:water",
     "amount": 1000
   },
 
   "brewing_time": 24000,
   "result": {
-    "name": "drinkbeer:wither_stout",
+    "fluid": "drinkbeer:wither_stout",
     "amount": 1000
   }
 }

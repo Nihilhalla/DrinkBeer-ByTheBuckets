@@ -22,13 +22,13 @@
     }
   ],
   "fluid": {
-    "name": "minecraft:water",
+    "fluid": "minecraft:water",
     "amount": 1000
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:sweet_berry_kriek",
+    "fluid": "drinkbeer:sweet_berry_kriek",
     "amount": 1000
   }
 }

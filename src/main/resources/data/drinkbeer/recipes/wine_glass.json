@@ -13,13 +13,13 @@
   ],
   
   "fluid": {
-    "name": "minecraft:water",
+    "fluid": "minecraft:water",
     "amount": 1000
   },
 
   "brewing_time": 24000,
   "result": {
-    "name": "drinkbeer:wine",
+    "fluid": "drinkbeer:wine",
     "amount": 1000
   }
 }
