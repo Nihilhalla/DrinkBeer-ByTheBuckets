@@ -1,6 +1,6 @@
 package com.nihilhalla.drinkbeer.items.Wine;
 
-import com.mojang.math.Vector3d;
+import org.joml.*;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -13,9 +13,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import static java.lang.Math.pow;
 import static net.minecraft.util.Mth.sqrt;
@@ -42,7 +43,7 @@ public class WineGlassBlockItem extends BlockItem implements ICapabilityProvider
     @SuppressWarnings("unchecked")
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
+        if (capability == ForgeCapabilities.FLUID_HANDLER_ITEM) {
             //DrinkBeer.LOG.atDebug().log(beerMugHolder.cast());
             return beerMugHolder.cast();
         }

@@ -3,6 +3,7 @@ package com.nihilhalla.drinkbeer.registries;
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,6 +27,6 @@ public class SoundEventRegistry {
 
 
     private static RegistryObject<SoundEvent> register(String name) {
-        return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation("drinkbeer", name)));
+        return SOUNDS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation("drinkbeer", name)));
     }
 }

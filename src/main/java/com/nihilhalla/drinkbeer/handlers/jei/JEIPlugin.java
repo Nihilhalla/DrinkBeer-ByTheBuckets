@@ -42,7 +42,7 @@ public class JEIPlugin implements IModPlugin {
         assert Minecraft.getInstance().level != null;
         net.minecraft.world.item.crafting.RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
 
-        List<BrewingRecipe> brewingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeRegistry.RECIPE_TYPE_BREWING.get(), BrewingRecipe.class);
+        List<BrewingRecipe> brewingRecipes = RecipeHelper.getRecipes(manager, RecipeRegistry.RECIPE_TYPE_BREWING.get(), BrewingRecipe.class);
 
         registration.addRecipes(BREWING, brewingRecipes);
     }

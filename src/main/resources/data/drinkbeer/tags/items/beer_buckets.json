@@ -11,6 +11,7 @@
         "drinkbeer:apple_lambic_bucket",
         "drinkbeer:blaze_milk_stout_bucket",
         "drinkbeer:blaze_stout_bucket",
-        "drinkbeer:seltzer_bucket"
+        "drinkbeer:seltzer_bucket",
+		"drinkbeer:stewed_xp_bucket"
     ]
 }

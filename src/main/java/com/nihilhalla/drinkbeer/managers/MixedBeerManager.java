@@ -2,14 +2,21 @@ package com.nihilhalla.drinkbeer.managers;
 
 import com.nihilhalla.drinkbeer.effects.DrunkStatusEffect;
 import com.nihilhalla.drinkbeer.effects.NightHowlStatusEffect;
-import com.nihilhalla.drinkbeer.entities.damages.AlcoholDamage;
+//import com.nihilhalla.drinkbeer.entities.damages.AlcoholDamage;
 import com.nihilhalla.drinkbeer.items.Beer.MixedBeerBlockItem;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.utils.beer.Beers;
 import com.nihilhalla.drinkbeer.utils.mixedbeer.Flavors;
 import com.nihilhalla.drinkbeer.utils.mixedbeer.MixedBeerOnUsing;
 import com.nihilhalla.drinkbeer.utils.mixedbeer.Spices;
+
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.damagesource.DamageEffects;
+import net.minecraft.world.damagesource.DamageScaling;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DeathMessageType;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,6 +33,7 @@ import java.util.stream.Collectors;
 
 public class MixedBeerManager {
     public static final int MAX_SPICES_COUNT = 3;
+    public static final DamageType ALCOHOL_DAMAGE = (new DamageType("drinkbeer.alcohol", DamageScaling.NEVER, 0f, DamageEffects.DROWNING, DeathMessageType.DEFAULT));
 
     public static ItemStack genMixedBeerItemStack(int beerId, int... spiceIds) {
         List<Integer> spiceList = new ArrayList<>();
@@ -128,7 +136,7 @@ public class MixedBeerManager {
         if (user instanceof Player) {
             if (!((Player) user).isCreative()) {
                 if (mixedBeerOnUsing.getHealth() < 0) {
-                    user.hurt(new AlcoholDamage(), Math.abs(mixedBeerOnUsing.getHealth()));
+                    user.hurt(user.level().damageSources().magic(), Math.abs(mixedBeerOnUsing.getHealth()));
                 } else {
                     user.heal(mixedBeerOnUsing.getHealth());
                 }

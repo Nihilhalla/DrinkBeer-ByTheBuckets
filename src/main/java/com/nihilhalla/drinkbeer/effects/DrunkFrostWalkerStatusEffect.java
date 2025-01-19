@@ -2,6 +2,7 @@ package com.nihilhalla.drinkbeer.effects;
 
 import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
+import org.joml.Vector3i;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -25,7 +26,7 @@ public class DrunkFrostWalkerStatusEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if (entity instanceof Player) {
-            FrostWalkerEnchantment.onEntityMoved(entity, entity.level, new BlockPos(entity.position()), 1);
+            FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), new BlockPos(entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()), 1);
         }
     }
 

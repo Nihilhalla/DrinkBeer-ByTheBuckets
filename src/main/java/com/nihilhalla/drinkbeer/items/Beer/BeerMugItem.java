@@ -5,7 +5,7 @@ import com.nihilhalla.drinkbeer.effects.NightHowlStatusEffect;
 import com.nihilhalla.drinkbeer.effects.WitherStoutEffect;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
-import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
+//import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -28,13 +28,13 @@ public class BeerMugItem extends BeerBlockItem {
     private final boolean hasExtraTooltip;
     
     public BeerMugItem(Block block, int nutrition, boolean hasExtraTooltip) {
-        super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
+        super(block,new Item.Properties().stacksTo(16)
                 .food(new FoodProperties.Builder().nutrition(nutrition).alwaysEat().build()));
         this.hasExtraTooltip = hasExtraTooltip;
     }
 
     public BeerMugItem(Block block, @Nullable MobEffectInstance statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
-        super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
+        super(block,new Item.Properties().stacksTo(16)
                 .food(statusEffectInstance != null
                         ? new FoodProperties.Builder().nutrition(nutrition).effect(statusEffectInstance, 1).alwaysEat().build()
                         : new FoodProperties.Builder().nutrition(nutrition).alwaysEat().build()));
@@ -42,7 +42,7 @@ public class BeerMugItem extends BeerBlockItem {
     }
 
     public BeerMugItem(Block block, Supplier<MobEffectInstance> statusEffectInstance, int nutrition, boolean hasExtraTooltip) {
-        super(block,new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(16)
+        super(block,new Item.Properties().stacksTo(16)
                 .food(statusEffectInstance != null
                         ? new FoodProperties.Builder().nutrition(nutrition).effect(statusEffectInstance, 1).alwaysEat().build()
                         : new FoodProperties.Builder().nutrition(nutrition).alwaysEat().build()));

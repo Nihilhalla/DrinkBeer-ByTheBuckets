@@ -56,7 +56,7 @@ public class TradeBoxContainer extends AbstractContainerMenu {
     }
 
     public TradeBoxContainer(int id, Inventory playerInventory, BlockPos pos) {
-        this(id, ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)), ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)).syncData, playerInventory, ((TradeBoxBlockEntity) playerInventory.player.level.getBlockEntity(pos)));
+        this(id, ((TradeBoxBlockEntity) playerInventory.player.level().getBlockEntity(pos)), ((TradeBoxBlockEntity) playerInventory.player.level().getBlockEntity(pos)).syncData, playerInventory, ((TradeBoxBlockEntity) playerInventory.player.level().getBlockEntity(pos)));
     }
 
     public TradeBoxContainer(int id, Container goodInventory, ContainerData syncData, Inventory playerInventory, TradeBoxBlockEntity tradeBoxBlockEntity) {
@@ -250,12 +250,12 @@ public class TradeBoxContainer extends AbstractContainerMenu {
     @Override
     public void removed(Player player) {
         super.removed(player);
-        if (!player.level.isClientSide()) {
+        if (!player.level().isClientSide()) {
             // Return Item to Player;
             clearContainer(player, this.tradeboxInventory);
         }
         else {
-            player.level.playSound((Player) null, player.blockPosition(), SoundEventRegistry.TRADEBOX_CLOSE.get(), SoundSource.BLOCKS, 0.6f, 1f);
+            player.level().playSound((Player) null, player.blockPosition(), SoundEventRegistry.TRADEBOX_CLOSE.get(), SoundSource.BLOCKS, 0.6f, 1f);
         }
     }
 
@@ -314,7 +314,7 @@ public class TradeBoxContainer extends AbstractContainerMenu {
     public void setTradeboxTrading() {
         TradeMission tradeMission = new TradeMission();
         try {
-            Block block = player.level.getBlockState(pos).getBlock();
+            Block block = player.level().getBlockState(pos).getBlock();
             if (block.asItem().equals(BlockRegistry.TRADE_BOX.get().asItem())) {
                 tradeMission = TradeMission.genRandomTradeMission();
             }

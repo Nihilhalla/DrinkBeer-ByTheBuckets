@@ -7,7 +7,11 @@ import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.effects.DrunkStatusEffect;
 import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +32,7 @@ public class EventHandler {
     public void onEntityDamage(LivingHurtEvent event) {
         if(event.getEntity() != null) {
             //DrinkBeer.LOG.atDebug().log(event.getEntity().toString() + " has been hit!");
-            if (event.getEntity().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource() == DamageSource.WITHER) {
+            if (event.getEntity().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource().is(DamageTypes.WITHER)) {
                     float newAmount = event.getAmount() / (2F * (event.getEntity().getEffect(MobEffectRegistry.WITHER_RESIST.get()).getAmplifier() + 1F));
 
                     if (newAmount < 0.124){
@@ -63,12 +67,12 @@ public class EventHandler {
     //Setting up some variables for collision
     LivingEntity playerEntity = event.player;
     Vec3 testPos = playerEntity.getPosition(1);
-    Vec3 playerPos = new Vec3(playerEntity.getX(), playerEntity.getY() , playerEntity.getZ());
+    Vec3i playerPos = new Vec3i(playerEntity.getBlockX(), playerEntity.getBlockY() , playerEntity.getBlockZ());
     BlockPos playerOn = new BlockPos(playerPos);
-    BlockState blockState = playerEntity.level.getBlockState(playerOn);
-    @Nullable FluidState fluidState = playerEntity.level.getFluidState(playerOn);
+    BlockState blockState = playerEntity.level().getBlockState(playerOn);
+    @Nullable FluidState fluidState = playerEntity.level().getFluidState(playerOn);
     AABB playerBox = playerEntity.getBoundingBox();
-    List<AABB> blockBox = blockState.getShape(playerEntity.level, playerOn).toAabbs();
+    List<AABB> blockBox = blockState.getShape(playerEntity.level(), playerOn).toAabbs();
         if ((!fluidState.getTags().toList().contains(DrinkBeer.ALCOHOLS))) {
             i = 0;
         }

@@ -8,8 +8,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
-import com.nihilhalla.drinkbeer.utils.borrowed.ISmelteryTankHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,11 @@ import java.util.List;
  * Packet sent whenever the contents of the smeltery tank change
  */
 @AllArgsConstructor
-public class SmelteryTankUpdatePacket implements IThreadsafePacket {
+public class SmelteryTankUpdatePacket2 implements IThreadsafePacket {
   private final BlockPos pos;
   private final List<FluidStack> fluids;
 
-  public SmelteryTankUpdatePacket(FriendlyByteBuf buffer) {
+  public SmelteryTankUpdatePacket2(FriendlyByteBuf buffer) {
     pos = buffer.readBlockPos();
     int size = buffer.readVarInt();
     fluids = new ArrayList<>(size);
@@ -45,7 +43,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
   }
 
   private static class HandleClient {
-    private static void handle(SmelteryTankUpdatePacket packet) {
+    private static void handle(SmelteryTankUpdatePacket2 packet) {
       BlockEntityHelper.get(ISmelteryTankHandler.class, Minecraft.getInstance().level, packet.pos).ifPresent(te -> te.updateFluidsFromPacket(packet.fluids));
     }
   }

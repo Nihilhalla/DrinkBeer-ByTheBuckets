@@ -17,13 +17,13 @@ import slimeknights.mantle.registration.object.FlowingFluidObject;
 @EventBusSubscriber(modid = DrinkBeer.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class FluidClientEvents extends ClientEventBase {
 
-  @SubscribeEvent
-  static void registerModelLoaders(RegisterGeometryLoaders event) {
-    event.register("fluid_container", FluidContainerModel.LOADER);
-  }
+	  @SubscribeEvent
+	  static void registerModelLoaders(RegisterGeometryLoaders event) {
+	    event.register("fluid_container", FluidContainerModel.LOADER);
+	  }
 
-  private static void setTranslucent(FlowingFluidObject<?> fluid) {
-    ItemBlockRenderTypes.setRenderLayer(fluid.getStill(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
-  }
+	  private static void setTranslucent(FlowingFluidObject<?> fluid) {
+	    ItemBlockRenderTypes.setRenderLayer(fluid.getStill(), RenderType.translucent());
+	    ItemBlockRenderTypes.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
+	  }
 }

@@ -1,0 +1,31 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:creeper_head"
+      }
+    ],
+    {
+      "item": "minecraft:experience_bottle"
+    }
+  ],
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+
+  "brewing_time": 120000,
+  "result": {
+    "fluid": "drinkbeer:stewed_xp",
+    "amount": 1000
+  }
+}

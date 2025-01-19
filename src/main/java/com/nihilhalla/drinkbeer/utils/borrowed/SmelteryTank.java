@@ -1,6 +1,8 @@
 package com.nihilhalla.drinkbeer.utils.borrowed;
 
 import com.google.common.collect.Lists;
+import com.nihilhalla.drinkbeer.utils.borrowed.ISmelteryTankHandler.FluidChange;
+
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -10,10 +12,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
-import com.nihilhalla.drinkbeer.utils.borrowed.DrinkerNetwork;
-import com.nihilhalla.drinkbeer.utils.borrowed.SmelteryTankUpdatePacket;
-import com.nihilhalla.drinkbeer.utils.borrowed.ISmelteryTankHandler.FluidChange;
-
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.ListIterator;
@@ -46,7 +44,7 @@ public class SmelteryTank<T extends MantleBlockEntity & ISmelteryTankHandler> im
     Level world = parent.getLevel();
     if (world != null && !world.isClientSide) {
       BlockPos pos = parent.getBlockPos();
-      DrinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket(pos, fluids), world, pos);
+      DrinkerNetwork.getInstance().sendToClientsAround(new SmelteryTankUpdatePacket2(pos, fluids), world, pos);
     }
   }
 

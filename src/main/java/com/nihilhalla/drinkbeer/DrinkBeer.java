@@ -26,6 +26,7 @@ import net.minecraft.Util;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
@@ -50,7 +51,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -93,11 +94,13 @@ public class DrinkBeer {
         FluidRegistry.FLUIDS.register(bus);
         BlockEntityRegistry.BLOKC_ENTITIES.register(bus);
         //FluidRegistry.registerDynamicBuckets();
+        CreativeModeTabs.CREATIVE_TABS.register(bus);
         SoundEventRegistry.SOUNDS.register(bus);
         ContainerTypeRegistry.CONTAINERS.register(bus);
         RecipeRegistry.RECIPE_SERIALIZERS.register(bus);
         RecipeRegistry.RECIPE_TYPES.register(bus);
         ParticleRegistry.PARTICLES.register(bus);
+
 
         bus.addListener(DrinkBeerClient::onInitializeClient);
         bus.addListener(NetWorking::init);
@@ -117,7 +120,7 @@ public class DrinkBeer {
         
     }
 
-    public static final ResourceKey<Fluid> beerKey = ResourceKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(MOD_ID));
+    public static final ResourceKey<Fluid> beerKey = ResourceKey.create(Registries.FLUID, new ResourceLocation(MOD_ID));
     //Tagging stuff
     // Below this line stolen from SlimeKnights
     public static ResourceLocation getResource(String name) {
@@ -162,7 +165,8 @@ public class DrinkBeer {
   }
 
     //Get that client stuff done!
-    private void clientSetup(final FMLClientSetupEvent event) {
+    @SuppressWarnings("unused")
+	private void clientSetup(final FMLClientSetupEvent event) {
     //    ItemBlockRenderTypes.setRenderLayer(FluidHandler.BEERSOURCE.get(), RenderType.translucent());
     //    ItemBlockRenderTypes.setRenderLayer(FluidHandler.BEERFLOWING.get(), RenderType.translucent());
     //    ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BEERBLOCK.get(), RenderType.translucent());

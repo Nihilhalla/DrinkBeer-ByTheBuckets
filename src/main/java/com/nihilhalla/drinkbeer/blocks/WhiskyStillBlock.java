@@ -2,6 +2,7 @@ package com.nihilhalla.drinkbeer.blocks;
 
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.blockentities.BeerBarrelBlockEntity;
+import com.nihilhalla.drinkbeer.blockentities.TradeBoxBlockEntity;
 import com.nihilhalla.drinkbeer.blockentities.WhiskyStillBlockEntity;
 import com.nihilhalla.drinkbeer.items.Beer.BeerBlockItem;
 import net.minecraft.core.BlockPos;
@@ -13,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.network.NetworkHooks;
 import slimeknights.mantle.block.InventoryBlock;
@@ -39,7 +40,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+//import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -54,7 +55,7 @@ public class WhiskyStillBlock extends InventoryBlock {
     protected static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 15, 15);
 
     public WhiskyStillBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f).noOcclusion());
+        super(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion());
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
@@ -94,7 +95,9 @@ public class WhiskyStillBlock extends InventoryBlock {
             BlockEntity blockentity = world.getBlockEntity(pos);
             if (blockentity instanceof WhiskyStillBlockEntity) {
 
-                openGui((ServerPlayer) player, world, pos);
+            	NetworkHooks.openScreen((ServerPlayer) player, (WhiskyStillBlockEntity) blockentity, (FriendlyByteBuf packerBuffer) -> {
+                    packerBuffer.writeBlockPos(blockentity.getBlockPos());
+                });
                 //DrinkBeer.LOG.atDebug().log(state.toString());
                 //DrinkBeer.LOG.atDebug().log(world.toString());
                 //DrinkBeer.LOG.atDebug().log(pos.toString());

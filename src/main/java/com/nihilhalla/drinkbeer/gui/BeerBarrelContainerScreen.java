@@ -1,5 +1,6 @@
 package com.nihilhalla.drinkbeer.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.blockentities.BeerBarrelBlockEntity;
@@ -7,30 +8,36 @@ import com.nihilhalla.drinkbeer.utils.borrowed.GuiTankModule;
 import com.nihilhalla.drinkbeer.utils.borrowed.GuiUtil;
 import com.nihilhalla.drinkbeer.utils.borrowed.IScreenWithFluidTank;
 
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import slimeknights.mantle.client.screen.ElementScreen;
 
-import java.awt.*;
+import java.awt.Color;
 
 import javax.annotation.Nullable;
 
 public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarrelContainer> implements IScreenWithFluidTank {
 
-    private final ResourceLocation BEER_BARREL_CONTAINER_RESOURCE = new ResourceLocation(DrinkBeer.MOD_ID, "textures/gui/container/beer_barrel.png");
+    private final static ResourceLocation BEER_BARREL_CONTAINER_RESOURCE = DrinkBeer.getResource("textures/gui/container/beer_barrel.png");
     private final int textureWidth = 176;
     private final int textureHeight = 166;
     private Inventory inventory;
     //private final ElementScreen SCALA = new ElementScreen(134, 0, 52,52,176,166);
-    private static final ElementScreen waterTank = new ElementScreen(134, 73, 16, 64, 176, 166);
-    private static final ElementScreen fluidTank = new ElementScreen(152, 73, 16, 64, 176, 166);
+    private static final ElementScreen waterTank = new ElementScreen(BEER_BARREL_CONTAINER_RESOURCE, 134, 73, 16, 64, 176, 166);
+    private static final ElementScreen fluidTank = new ElementScreen(BEER_BARREL_CONTAINER_RESOURCE, 152, 73, 16, 64, 176, 166);
     private final GuiTankModule water;
     private final GuiTankModule fluid;
+    Font font = Minecraft.getInstance().font;
 
     public BeerBarrelContainerScreen(BeerBarrelContainer screenContainer, Inventory inv, Component title) {
         super(screenContainer, inv, title);
+        DrinkBeer.LOG.atDebug().log("Screen constructor was called.");
         this.imageWidth = textureWidth;
         this.imageHeight = textureHeight;
         BeerBarrelBlockEntity tileEntity = screenContainer.getTile();
@@ -48,17 +55,16 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
     }
 
     @Override
-    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
         renderBackground(stack);
         super.render(stack, mouseX, mouseY, partialTicks);
         renderTooltip(stack, mouseX, mouseY);
-
+        //DrinkBeer.LOG.atDebug().log("Called render");
     }
-
-    @Override
-    protected void renderBg(PoseStack stack, float partialTicks, int mouseX, int mouseY) {
+	@Override
+    protected void renderBg(GuiGraphics stack, float partialTicks, int mouseX, int mouseY) {
         GuiUtil.drawBackground(stack, this, BEER_BARREL_CONTAINER_RESOURCE);
-        /*RenderSystem.setShaderTexture(0, BEER_BARREL_CONTAINER_RESOURCE);*/
+        //RenderSystem.setShaderTexture(0, BEER_BARREL_CONTAINER_RESOURCE);
         //int i = (this.width - this.getXSize()) / 2;
         //int j = (this.height - this.getYSize()) / 2;
         //blit(stack, i, j, 0, 0, imageWidth, imageHeight);
@@ -69,15 +75,14 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         if (water != null) water.draw(stack);
         //water.draw(stack);
         if (fluid != null) fluid.draw(stack);
-        
-
+        //DrinkBeer.LOG.atDebug().log("Called renderBg");
 
 
 
     }
 
     @Override
-    protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
+    protected void renderTooltip(GuiGraphics matrices, int mouseX, int mouseY) {
         super.renderTooltip(matrices, mouseX, mouseY);
 
 
@@ -85,13 +90,12 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         if (fluid != null) fluid.renderTooltip(matrices, mouseX, mouseY);
 
     }
-
     @Override
-    protected void renderLabels(PoseStack stack, int x, int y) {
-        drawCenteredString(stack, this.font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 4210752);
-        this.font.draw(stack, this.inventory.getDisplayName(), (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
+    protected void renderLabels(GuiGraphics stack, int x, int y) {
+        stack.drawCenteredString(this.font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 4210752);
+        stack.drawString(font, this.inventory.getDisplayName(),  this.inventoryLabelX,  this.inventoryLabelY, 4210752);
         String str = menu.getIsBrewing() ? convertTickToTime(menu.getRemainingBrewingTime()) : convertTickToTime(menu.getStandardBrewingTime());
-        this.font.draw(stack, str, (float) 90, (float) 72, new Color(64, 64, 64, 255).getRGB());
+        stack.drawString(font, str,  90,  72, new Color(64, 64, 64, 255).getRGB());
         int checkX = x - this.leftPos;
         int checkY = y - this.topPos;
         if (water != null) water.highlightHoveredFluid(stack, checkX, checkY);
@@ -106,9 +110,9 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         int checkX = (int) mouseX - leftPos;
         int checkY = (int) mouseY - topPos; 
         if (water != null)
-            ingredient = water.getIngreientUnderMouse(checkX, checkY);
+            ingredient = water.getFluidUnderMouse(checkX, checkY);
         if (fluid != null)
-            ingredient = fluid.getIngreientUnderMouse(checkX, checkY);
+            ingredient = fluid.getFluidUnderMouse(checkX, checkY);
 
 
         return ingredient;
@@ -130,4 +134,10 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
         } else result = "";
         return result;
     }
+
+	@Override
+	public FluidLocation getFluidUnderMouse(int mouseX, int mouseY) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

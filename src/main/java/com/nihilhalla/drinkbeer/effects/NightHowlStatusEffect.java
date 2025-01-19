@@ -19,7 +19,8 @@ public class NightHowlStatusEffect {
         private final static int BASE_NIGHT_VISION_TIME = 2400;
 
         public static void addStatusEffect(ItemStack stack, Level world, LivingEntity user) {
-            if (stack.getItem() == ItemRegistry.BEER_MUG_NIGHT_HOWL_KVASS.get()) {
+        	//Check that we just drank a Night Howl beverage.
+            if (stack.getItem() == ItemRegistry.BEER_MUG_NIGHT_HOWL_KVASS.get() | stack.getItem() == ItemRegistry.NIGHT_HOWL_WHISKY_GLASS.get()) {
                 //Duration will be longest when the moon is full, shortest when new
                 user.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, getNightVisionTime(getMoonPhase(world))));
                 //Play random howl sound

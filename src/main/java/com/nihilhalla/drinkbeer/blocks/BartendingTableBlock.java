@@ -2,9 +2,10 @@ package com.nihilhalla.drinkbeer.blocks;
 
 import com.nihilhalla.drinkbeer.blockentities.BartendingTableBlockEntity;
 import com.nihilhalla.drinkbeer.blockentities.BeerBarrelBlockEntity;
+import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.SoundEventRegistry;
-import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
+//import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -32,7 +33,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+//import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,7 +49,7 @@ public class BartendingTableBlock extends BaseEntityBlock {
     public final static VoxelShape SHAPE =  Block.box(0, 0.01, 0, 16, 16, 16);
 
     public BartendingTableBlock() {
-        super(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0f).noOcclusion());
+        super(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion());
         this.registerDefaultState(this.defaultBlockState()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(OPENED, true)
@@ -75,7 +76,7 @@ public class BartendingTableBlock extends BaseEntityBlock {
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!world.isClientSide) {
             ItemStack itemStack = player.getItemInHand(hand);
-            if (itemStack.getItem().asItem().getCreativeTabs().contains(ModCreativeTab.BEER)) {
+            if (BeerListHandler.MugList().contains(itemStack.getItem().asItem())) {
                 world.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1f, 1f);
                 BlockEntity blockentity = world.getBlockEntity(pos);
                 if (blockentity instanceof BartendingTableBlockEntity) {

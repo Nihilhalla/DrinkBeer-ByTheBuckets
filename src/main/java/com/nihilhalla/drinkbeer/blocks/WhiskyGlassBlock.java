@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
+//import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -43,7 +43,7 @@ public class WhiskyGlassBlock extends Block {
     };
 
     public WhiskyGlassBlock() {
-        super(Properties.of(Material.GLASS).strength(1.0f).noOcclusion());
+        super(Properties.of().strength(1.0f).noOcclusion());
         this.registerDefaultState(
                 this.defaultBlockState().setValue(FACING, Direction.NORTH).setValue(AMOUNT, 1)
         );

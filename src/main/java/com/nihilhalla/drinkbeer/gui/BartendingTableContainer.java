@@ -1,11 +1,12 @@
 package com.nihilhalla.drinkbeer.gui;
 
 import com.nihilhalla.drinkbeer.blockentities.BartendingTableBlockEntity;
+import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
 import com.nihilhalla.drinkbeer.items.Beer.SpiceBlockItem;
 import com.nihilhalla.drinkbeer.managers.MixedBeerManager;
 import com.nihilhalla.drinkbeer.registries.ContainerTypeRegistry;
 import com.nihilhalla.drinkbeer.registries.SoundEventRegistry;
-import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
+//import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -56,7 +57,7 @@ public class BartendingTableContainer  extends AbstractContainerMenu {
     }
 
     public BartendingTableContainer(int id, Inventory playerInventory, BlockPos pos) {
-        this(id, ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)), ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)).syncData, playerInventory, ((BartendingTableBlockEntity) playerInventory.player.level.getBlockEntity(pos)));
+        this(id, ((BartendingTableBlockEntity) playerInventory.player.level().getBlockEntity(pos)), ((BartendingTableBlockEntity) playerInventory.player.level().getBlockEntity(pos)).syncData, playerInventory, ((BartendingTableBlockEntity) playerInventory.player.level().getBlockEntity(pos)));
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -138,7 +139,7 @@ public class BartendingTableContainer  extends AbstractContainerMenu {
 
     @Override
     public void removed(Player player) {
-        if (!player.level.isClientSide()) {
+        if (!player.level().isClientSide()) {
             // Return Item to Player;
             for (int i = 0; i <= MixedBeerManager.MAX_SPICES_COUNT; i++) {
                 if (!bartendingSpace.getItem(i).isEmpty()) {
@@ -147,7 +148,7 @@ public class BartendingTableContainer  extends AbstractContainerMenu {
             }
         } else {
             // Play Closing Bartending Sound
-            player.level.playSound(player, player.blockPosition(), SoundEventRegistry.BARTENDING_TABLE_CLOSE.get(), SoundSource.BLOCKS, 1f, 1f);
+            player.level().playSound(player, player.blockPosition(), SoundEventRegistry.BARTENDING_TABLE_CLOSE.get(), SoundSource.BLOCKS, 1f, 1f);
         }
         super.removed(player);
     }
@@ -163,7 +164,7 @@ public class BartendingTableContainer  extends AbstractContainerMenu {
         // Only BeerCups are allowed
         @Override
         public boolean mayPlace(ItemStack p_75214_1_) {
-            return p_75214_1_.getItem().getCreativeTabs().contains(ModCreativeTab.BEER);
+            return BeerListHandler.MugList().contains(p_75214_1_.getItem());
         }
     }
 

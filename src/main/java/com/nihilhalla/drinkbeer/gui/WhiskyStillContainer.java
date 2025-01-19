@@ -22,9 +22,10 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -59,14 +60,14 @@ public class WhiskyStillContainer extends BaseContainerMenu<WhiskyStillBlockEnti
     public WhiskyStillContainer(int windowId, Inventory pInventory, WhiskyStillBlockEntity barrel, ContainerData syncData) {
         super(ContainerTypeRegistry.WHISKY_STILL_CONTAINER.get(), windowId, pInventory, barrel);
         blockEntity = barrel;
-        this.brewingSpace = ((WhiskyStillBlockEntity) pInventory.player.level.getBlockEntity(barrel.getBlockPos()));
-        this.access = ContainerLevelAccess.create(pInventory.player.level, barrel.getBlockPos());
+        this.brewingSpace = ((WhiskyStillBlockEntity) pInventory.player.level().getBlockEntity(barrel.getBlockPos()));
+        this.access = ContainerLevelAccess.create(pInventory.player.level(), barrel.getBlockPos());
         this.playerInventory = new InvWrapper(pInventory);
         this.syncData = syncData;
 
         // Prepare
         if (blockEntity != null) {
-            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(h -> {
                 addSlot(new SlotItemHandler(h, 0, 33, 58));
                 addSlot(new OutputSlot(h, 1, 127, 58, syncData));
             });
@@ -214,7 +215,7 @@ public class WhiskyStillContainer extends BaseContainerMenu<WhiskyStillBlockEnti
 */
     @Override
     public void removed(Player player) {
-        if (!player.level.isClientSide()) {
+        if (!player.level().isClientSide()) {
             // Play Closing Barrel Sound
             //player.level.playSound(player, player.blockPosition(), SoundEvents.BARREL_CLOSE, SoundSource.BLOCKS, 1f, 1f);
         }
@@ -236,11 +237,11 @@ public class WhiskyStillContainer extends BaseContainerMenu<WhiskyStillBlockEnti
         @Override
         public void onTake(Player player, ItemStack p_190901_2_) {
             if (p_190901_2_.getItem() == ItemRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get()) {
-                player.level.playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING_CHRISTMAS.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.level().playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING_CHRISTMAS.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 //p_190901_1_.level.playSound(p_190901_1_, p_190901_1_.blockPosition(), SoundEventRegistry.POURING_CHRISTMAS_VER.get(), SoundCategory.BLOCKS, 1f, 1f);
 
             } else if (BeerListHandler.WhiskyGlassList().contains(p_190901_2_.getItem()) || BeerListHandler.WineGlassList().contains(p_190901_2_.getItem())) {
-                player.level.playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                player.level().playSound((Player) null, blockEntity.getBlockPos(), SoundEventRegistry.POURING.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
                 //p_190901_1_.level.playSound(p_190901_1_, p_190901_1_.blockPosition(), SoundEventRegistry.POURING.get(), SoundCategory.BLOCKS, 1f, 1f);
                 //}
             }

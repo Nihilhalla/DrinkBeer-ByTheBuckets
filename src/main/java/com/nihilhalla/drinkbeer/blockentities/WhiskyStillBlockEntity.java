@@ -33,12 +33,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityProvider;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.CapabilityItemHandler;
+//import net.minecraftforge.items.CapabilityItemHandler;
 import com.nihilhalla.drinkbeer.blockentities.InventoryBlockEntity;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import javax.annotation.Nonnull;
@@ -277,7 +278,7 @@ public class WhiskyStillBlockEntity extends InventoryBlockEntity implements IBre
         Direction leftSide = facing.getClockWise(Axis.Y); // Change this to get the desired relative side'
         Direction rightSide = facing.getCounterClockWise(Axis.Y);
 
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (capability == ForgeCapabilities.FLUID_HANDLER) {
             if (side == rightSide) {
                 return inFluidTankHolder.cast();
             } else if (side == leftSide) {

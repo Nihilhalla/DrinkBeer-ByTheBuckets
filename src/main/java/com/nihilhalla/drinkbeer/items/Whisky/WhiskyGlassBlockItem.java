@@ -1,10 +1,10 @@
 package com.nihilhalla.drinkbeer.items.Whisky;
 
-import com.mojang.math.Vector3d;
+import org.joml.*;
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.registries.SoundEventRegistry;
-import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
+//import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 import lombok.Getter;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.Direction;
@@ -20,9 +20,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 
@@ -51,7 +52,7 @@ public class WhiskyGlassBlockItem extends BlockItem implements ICapabilityProvid
     @SuppressWarnings("unchecked")
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
+        if (capability == ForgeCapabilities.FLUID_HANDLER_ITEM) {
             //DrinkBeer.LOG.atDebug().log(beerMugHolder.cast());
             return beerMugHolder.cast();
         }

@@ -3,6 +3,8 @@ package com.nihilhalla.drinkbeer.handlers;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.nihilhalla.drinkbeer.items.Wine.EmptyWineGlassItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,10 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+//import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -34,7 +37,7 @@ public class EmptyWineGlassHandler implements IFluidHandlerItem, ICapabilityProv
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-        return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
+        return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
     }
 
 
@@ -129,4 +132,11 @@ public class EmptyWineGlassHandler implements IFluidHandlerItem, ICapabilityProv
     }
         return output;
     }
+
+
+	@Override
+	public @NotNull ItemStack getContainer() {
+		// TODO Auto-generated method stub
+		return container;
+	}
 }

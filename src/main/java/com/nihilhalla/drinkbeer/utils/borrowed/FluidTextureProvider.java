@@ -4,6 +4,7 @@ import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.registries.FluidRegistry;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import slimeknights.mantle.fluid.texture.AbstractFluidTextureProvider;
 import slimeknights.mantle.fluid.texture.FluidTexture;
 import slimeknights.mantle.registration.object.FluidObject;
@@ -12,7 +13,7 @@ import static com.nihilhalla.drinkbeer.DrinkBeer.getResource;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
 public class FluidTextureProvider extends AbstractFluidTextureProvider {
-  public FluidTextureProvider(DataGenerator generator) {
+  public FluidTextureProvider(PackOutput generator) {
     super(generator, DrinkBeer.MOD_ID);
   }
 

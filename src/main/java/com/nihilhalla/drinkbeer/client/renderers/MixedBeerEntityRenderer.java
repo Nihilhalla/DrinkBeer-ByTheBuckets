@@ -1,7 +1,9 @@
 package com.nihilhalla.drinkbeer.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
+
+import org.joml.Vector3f;
 import com.nihilhalla.drinkbeer.blockentities.MixedBeerBlockEntity;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
 import com.nihilhalla.drinkbeer.utils.beer.Beers;
@@ -13,6 +15,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class MixedBeerEntityRenderer implements BlockEntityRenderer<MixedBeerBlockEntity> {
@@ -31,11 +34,11 @@ public class MixedBeerEntityRenderer implements BlockEntityRenderer<MixedBeerBlo
         //Move beer
         matrices.translate(0.5, 0.25, 0.5);
         //Rotate beer
-        matrices.mulPose(Vector3f.YP.rotationDegrees(getRandomAngleByPos(pos)));
+        matrices.mulPose(Axis.YP.rotationDegrees(getRandomAngleByPos(pos)));
         //Get light at the beer block
         int lightAbove = LevelRenderer.getLightColor(blockEntity.getLevel(), blockEntity.getBlockPos().above());
         //Render beer
-        Minecraft.getInstance().getItemRenderer().renderStatic(beerStack, ItemTransforms.TransformType.GROUND ,lightAbove, overlay,matrices,vertexConsumers,0);
+        Minecraft.getInstance().getItemRenderer().renderStatic(beerStack, ItemDisplayContext.GROUND ,lightAbove, overlay,matrices,vertexConsumers, null, 0);
 
         matrices.popPose();
     }

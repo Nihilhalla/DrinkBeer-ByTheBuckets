@@ -43,6 +43,7 @@ public class DrinkerNetwork extends NetworkWrapper {
     }
     instance = new DrinkerNetwork();
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(SmelteryTankUpdatePacket2.class, SmelteryTankUpdatePacket2::new, NetworkDirection.PLAY_TO_CLIENT);
   }
 
   /**

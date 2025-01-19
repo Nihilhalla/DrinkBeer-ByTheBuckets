@@ -1,5 +1,5 @@
 package com.nihilhalla.drinkbeer.utils;
-
+/*
 import com.nihilhalla.drinkbeer.blocks.*;
 import com.nihilhalla.drinkbeer.registries.BlockRegistry;
 import net.minecraft.core.NonNullList;
@@ -62,3 +62,4 @@ public class ModCreativeTab {
         }
     }
 }
+*/

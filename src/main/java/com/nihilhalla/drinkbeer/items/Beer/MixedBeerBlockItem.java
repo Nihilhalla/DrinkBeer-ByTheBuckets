@@ -5,7 +5,7 @@ import com.nihilhalla.drinkbeer.blocks.MixedBeerBlock;
 import com.nihilhalla.drinkbeer.managers.MixedBeerManager;
 import com.nihilhalla.drinkbeer.managers.SpiceAndFlavorManager;
 import com.nihilhalla.drinkbeer.registries.BlockRegistry;
-import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
+//import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 import com.nihilhalla.drinkbeer.utils.beer.Beers;
 import com.nihilhalla.drinkbeer.utils.mixedbeer.Flavors;
 import com.nihilhalla.drinkbeer.utils.mixedbeer.Spices;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MixedBeerBlockItem extends BeerBlockItem {
     public MixedBeerBlockItem(Block block) {
-        super(block, new Item.Properties().tab(ModCreativeTab.BEER).stacksTo(1)
+        super(block, new Item.Properties().stacksTo(1)
                 .food(new FoodProperties.Builder().alwaysEat().build()));
     }
 

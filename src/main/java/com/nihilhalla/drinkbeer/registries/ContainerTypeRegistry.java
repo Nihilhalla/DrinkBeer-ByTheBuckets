@@ -30,6 +30,7 @@ public class ContainerTypeRegistry {
             MenuScreens.register(ContainerTypeRegistry.BEER_BARREL_CONTAINER.get(), BeerBarrelContainerScreen::new);
             MenuScreens.register(ContainerTypeRegistry.bartendingTableContainer.get(), BartendingTableContainerScreen::new);
             MenuScreens.register(ContainerTypeRegistry.tradeBoxContainer.get(), TradeBoxContainerScreen::new);
+            DrinkBeer.LOG.atDebug().log("Registered Menus");
         });
     }
 }

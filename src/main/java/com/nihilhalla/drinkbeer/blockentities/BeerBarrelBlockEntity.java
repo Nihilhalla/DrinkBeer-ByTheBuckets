@@ -36,11 +36,11 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -111,7 +111,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     }
     
     public BeerBarrelContainer createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new BeerBarrelContainer(pContainerId, pPlayerInventory, this);
+        return new BeerBarrelContainer(pContainerId, pPlayerInventory, this, syncData);
     }
 
 
@@ -306,7 +306,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     @SuppressWarnings("unchecked")
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (capability == ForgeCapabilities.FLUID_HANDLER) {
             if (side == Direction.UP) {
                 return waterTankHolder.cast();
             } else if (side != Direction.UP) {
