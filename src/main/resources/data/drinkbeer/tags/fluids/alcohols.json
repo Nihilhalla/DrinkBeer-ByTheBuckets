@@ -11,7 +11,7 @@
     "drinkbeer:frothy_pink_egg_nog",
     "drinkbeer:night_howl_kvass",
     "drinkbeer:wither_stout",
-	"drinkbeer:stewed_xp",
+	  "drinkbeer:wiseman_brew",
     "drinkbeer:flowing_miner_pale_ale",
     "drinkbeer:flowing_blaze_stout",
     "drinkbeer:flowing_blaze_milk_stout",
@@ -21,7 +21,8 @@
     "drinkbeer:flowing_pumpkin_kvass",
     "drinkbeer:flowing_frothy_pink_egg_nog",
     "drinkbeer:flowing_night_howl_kvass",
-    "drinkbeer:flowing_wither_stout"
+    "drinkbeer:flowing_wither_stout",
+    "drinkbeer:flowing_wiseman_brew"
 
   ]
 }

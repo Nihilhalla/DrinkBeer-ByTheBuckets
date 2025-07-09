@@ -11,21 +11,24 @@
     ],
     [
       {
-        "item": "minecraft:creeper_head"
+        "item": "minecraft:experience_bottle"
       }
     ],
-    {
-      "item": "minecraft:experience_bottle"
-    }
+    [
+      {
+        "item": "minecraft:creeper_head"
+      }
+    ]
   ],
+  
   "fluid": {
     "fluid": "minecraft:water",
     "amount": 1000
   },
 
-  "brewing_time": 120000,
+  "brewing_time": 12000,
   "result": {
-    "fluid": "drinkbeer:stewed_xp",
+    "fluid": "drinkbeer:wiseman_brew",
     "amount": 1000
   }
 }

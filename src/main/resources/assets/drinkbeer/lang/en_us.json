@@ -12,6 +12,7 @@
   "block.drinkbeer.beer_mug_frothy_pink_eggnog": "Frothy Pink Eggnog",
   "block.drinkbeer.beer_mug_night_howl_kvass": "Night Howl Kvass",
   "block.drinkbeer.beer_mug_wither_stout": "Wither Stout",
+  "block.drinkbeer.beer_mug_wiseman_brew": "Wiseman's Brew",
   "block.drinkbeer.beer_mug_seltzer": "Seltzer",
 
   "block.drinkbeer.empty_beer_mug": "Empty Beer Mug",
@@ -45,6 +46,7 @@
   "item.drinkbeer.beer_mug_night_howl_kvass.tooltip": "Night Vision 2:00-7:00 (is proportional to the moon's fullness)",
   "item.drinkbeer.beer_mug_frothy_pink_eggnog.tooltip": "Absorption 2:00",
   "item.drinkbeer.beer_mug_wither_stout.tooltip": "Wither Resistance 1:30",
+  "item.drinkbeer.beer_mug_wiseman_brew.tooltip": "Gives Experiencee",
   "item.drinkbeer.beer_mug_seltzer.tooltip": "Fixes Drunk, Tastes like TV tuned to a dead channel",
   "item.drinkbeer.beer_bucket": "Beer Bucket",
 
@@ -187,6 +189,11 @@
   "fluid.drinkbeer.wither_stout": "Wither Stout",
   "fluid.drinkbeer.flowing_wither_stout": "Flowing Wither Stout",
   "item.drinkbeer.wither_stout_bucket": "Wither Stout Bucket",
+
+  "block.drinkbeer.wiseman_brew_fluid": "Wiseman's Brew",
+  "fluid.drinkbeer.wiseman_brew": "Wiseman's Brew",
+  "fluid.drinkbeer.flowing_wiseman_brew": "Flowing Wiseman's Brew",
+  "item.drinkbeer.wiseman_brew_bucket": "Wiseman's Brew Bucket",
 
   "_comment": "Whiskies",
 

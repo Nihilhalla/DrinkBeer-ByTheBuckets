@@ -65,6 +65,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BEER_MUG_FROTHY_PINK_EGGNOG = ITEMS.register("beer_mug_frothy_pink_eggnog", () -> new BeerMugItem(BlockRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get(), new MobEffectInstance(MobEffects.ABSORPTION, 2400),2, true));
     public static final RegistryObject<Item> BEER_MUG_WITHER_STOUT = ITEMS.register("beer_mug_wither_stout", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WITHER_STOUT.get(),2, true));
     public static final RegistryObject<Item> BEER_MUG_SELTZER = ITEMS.register("beer_mug_seltzer", () -> new BeerMugItem(BlockRegistry.BEER_MUG_SELTZER.get(),-15, true));
+    public static final RegistryObject<Item> BEER_MUG_WISEMAN_BREW = ITEMS.register("beer_mug_wiseman_brew", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WISEMAN_BREW.get(),0, true));
     public static final RegistryObject<Item> MIXED_BEER = ITEMS.register("mixed_beer", () -> new MixedBeerBlockItem(BlockRegistry.MIXED_BEER.get()));
 
     // NOT FINISHED YET

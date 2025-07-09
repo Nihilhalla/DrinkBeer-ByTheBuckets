@@ -9,8 +9,10 @@ import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +23,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
+import java.util.random.RandomGenerator;
 
 public class BeerMugItem extends BeerBlockItem {
     private final static double MAX_PLACE_DISTANCE = 2.0D;
@@ -84,6 +89,9 @@ public class BeerMugItem extends BeerBlockItem {
         //Give Wither Resistance if drank Wither Stout
         if (stack.getItem() == ItemRegistry.BEER_MUG_WITHER_STOUT.get()) {
             WitherStoutEffect.addStatusEffect(user);
+        }
+        if (stack.getItem() == ItemRegistry.BEER_MUG_WISEMAN_BREW.get() && user instanceof ServerPlayer serverplayer) {
+            serverplayer.giveExperiencePoints(ThreadLocalRandom.current().nextInt(50,160));
         }
         //reduce Drunk level if we drank seltzer
         if (stack.getItem() == ItemRegistry.BEER_MUG_SELTZER.get()) {
