@@ -48,6 +48,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BEER_MUG_WITHER_STOUT = BLOCKS.register("beer_mug_wither_stout", BeerMugBlock::new);
     public static final RegistryObject<Block> BEER_MUG_SELTZER = BLOCKS.register("beer_mug_seltzer", BeerMugBlock::new);
     public static final RegistryObject<Block> BEER_MUG_WISEMAN_BREW = BLOCKS.register("beer_mug_wiseman_brew", BeerMugBlock::new);
+    public static final RegistryObject<Block> BEER_MUG_HELLBREW = BLOCKS.register("beer_mug_hellbrew", BeerMugBlock::new);
     public static final RegistryObject<Block> MIXED_BEER = BLOCKS.register("mixed_beer", MixedBeerBlock::new);
 
     //Whisky and Vodka

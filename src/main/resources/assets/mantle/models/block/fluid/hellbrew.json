@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/hellbrew/still",
+        "flowing": "mantle:block/fluid/hellbrew/flowing"
+    }
+}

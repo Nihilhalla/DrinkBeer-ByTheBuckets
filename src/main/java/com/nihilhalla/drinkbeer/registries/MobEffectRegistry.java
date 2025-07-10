@@ -1,9 +1,7 @@
 package com.nihilhalla.drinkbeer.registries;
 
 import com.nihilhalla.drinkbeer.DrinkBeer;
-import com.nihilhalla.drinkbeer.effects.DrunkFrostWalkerStatusEffect;
-import com.nihilhalla.drinkbeer.effects.DrunkStatusEffect;
-import com.nihilhalla.drinkbeer.effects.WitherStoutEffect;
+import com.nihilhalla.drinkbeer.effects.*;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -16,5 +14,6 @@ public class MobEffectRegistry {
     public static final RegistryObject<MobEffect> DRUNK_FROST_WALKER = STATUS_EFFECTS.register("drunk_frost_walker", DrunkFrostWalkerStatusEffect::new);
     public static final RegistryObject<MobEffect> DRUNK = STATUS_EFFECTS.register("drunk",  DrunkStatusEffect::new);
     public static final RegistryObject<MobEffect> WITHER_RESIST = STATUS_EFFECTS.register("wither_resist",  WitherStoutEffect::new);
+    public static final RegistryObject<MobEffect> HELLBREW = STATUS_EFFECTS.register("hellbrew",  HellbrewEffect::new);
 }
 

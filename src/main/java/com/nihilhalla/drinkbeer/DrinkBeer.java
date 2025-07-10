@@ -13,6 +13,7 @@ import com.google.common.graph.Network;
 import com.nihilhalla.drinkbeer.client.DrinkBeerClient;
 import com.nihilhalla.drinkbeer.effects.WitherStoutEffect;
 import com.nihilhalla.drinkbeer.handlers.BeerListHandler;
+import com.nihilhalla.drinkbeer.handlers.ConfigHandler;
 import com.nihilhalla.drinkbeer.handlers.EventHandler;
 import com.nihilhalla.drinkbeer.networking.NetWorking;
 import com.nihilhalla.drinkbeer.registries.*;
@@ -51,8 +52,10 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 //import net.minecraftforge.fluids.capability;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -83,9 +86,9 @@ public class DrinkBeer {
 
         ForgeMod.enableMilkFluid();
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.INIT);
+        
         eventHandler = new EventHandler();
-
         MinecraftForge.EVENT_BUS.register(eventHandler);
 
         MobEffectRegistry.STATUS_EFFECTS.register(bus);

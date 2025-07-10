@@ -1,5 +1,6 @@
 {
   "itemGroup.drinkbeer.beer": "Beer",
+  "itemGroup.drinkbeer": "Beer",
   "itemGroup.drinkbeer.general": "DrinkBeer General Blocks",
 
   "block.drinkbeer.beer_mug": "Miner Pale Ale",
@@ -13,6 +14,7 @@
   "block.drinkbeer.beer_mug_night_howl_kvass": "Night Howl Kvass",
   "block.drinkbeer.beer_mug_wither_stout": "Wither Stout",
   "block.drinkbeer.beer_mug_wiseman_brew": "Wiseman's Brew",
+  "block.drinkbeer.beer_mug_hellbrew": "Hellbrew",
   "block.drinkbeer.beer_mug_seltzer": "Seltzer",
 
   "block.drinkbeer.empty_beer_mug": "Empty Beer Mug",
@@ -46,11 +48,12 @@
   "item.drinkbeer.beer_mug_night_howl_kvass.tooltip": "Night Vision 2:00-7:00 (is proportional to the moon's fullness)",
   "item.drinkbeer.beer_mug_frothy_pink_eggnog.tooltip": "Absorption 2:00",
   "item.drinkbeer.beer_mug_wither_stout.tooltip": "Wither Resistance 1:30",
-  "item.drinkbeer.beer_mug_wiseman_brew.tooltip": "Gives Experiencee",
+  "item.drinkbeer.beer_mug_wiseman_brew.tooltip": "Gives Experience",
+  "item.drinkbeer.beer_mug_hellbrew.tooltip": "Grants stacking Resistance to Fire, and Lava. Also gives Super Speed.",
   "item.drinkbeer.beer_mug_seltzer.tooltip": "Fixes Drunk, Tastes like TV tuned to a dead channel",
   "item.drinkbeer.beer_bucket": "Beer Bucket",
 
-  "drinkbeer.restores_hunger": "Restores Hunger: ",
+
   "effect.drinkbeer.drunk_frost_walker": "Drunk Frost Walker",
   "effect.drinkbeer.drunk": "Drunk",
   "effect.drinkbeer.wither_resist": "Wither Resist",
@@ -139,6 +142,11 @@
   "fluid.drinkbeer.sweet_berry_kriek": "Sweet Berry Kriek",
   "fluid.drinkbeer.flowing_sweet_berry_kriek": "Flowing Sweet Berry Kriek",
   "item.drinkbeer.sweet_berry_kriek_bucket": "Sweet Berry Kriek Bucket",
+
+  "block.drinkbeer.hellbrew_fluid": "Hellbrew",
+  "fluid.drinkbeer.hellbrew": "Hellbrew",
+  "fluid.drinkbeer.flowing_hellbrew": "Flowing Hellbrew",
+  "item.drinkbeer.hellbrew_bucket": "Hellbrew Bucket",
 
   "block.drinkbeer.pumpkin_kvass_fluid": "Pumpkin Kvass",
   "fluid.drinkbeer.pumpkin_kvass": "Pumpkin Kvass",

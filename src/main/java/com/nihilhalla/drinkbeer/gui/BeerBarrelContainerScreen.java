@@ -92,10 +92,10 @@ public class BeerBarrelContainerScreen extends AbstractContainerScreen<BeerBarre
     }
     @Override
     protected void renderLabels(GuiGraphics stack, int x, int y) {
-        stack.drawCenteredString(this.font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 4210752);
-        stack.drawString(font, this.inventory.getDisplayName(),  this.inventoryLabelX,  this.inventoryLabelY, 4210752);
+        stack.drawCenteredString(this.font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 16250871);
+        stack.drawString(font, this.inventory.getDisplayName(),  this.inventoryLabelX,  this.inventoryLabelY, 16250871);
         String str = menu.getIsBrewing() ? convertTickToTime(menu.getRemainingBrewingTime()) : convertTickToTime(menu.getStandardBrewingTime());
-        stack.drawString(font, str,  90,  72, new Color(64, 64, 64, 255).getRGB());
+        stack.drawString(font, str,  90,  72, new Color(247, 247, 247, 255).getRGB());
         int checkX = x - this.leftPos;
         int checkY = y - this.topPos;
         if (water != null) water.highlightHoveredFluid(stack, checkX, checkY);

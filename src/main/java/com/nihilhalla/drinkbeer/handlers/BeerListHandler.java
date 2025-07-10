@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import slimeknights.mantle.registration.adapter.ItemRegistryAdapter;
 
 public class BeerListHandler {
 
@@ -41,7 +42,7 @@ public class BeerListHandler {
             return List.of(FluidRegistry.APPLE_LAMBIC.get(), FluidRegistry.BLAZE_MILK_STOUT.get(), FluidRegistry.BLAZE_STOUT.get()
                 , FluidRegistry.FROTHY_PINK_EGGNOG.get(), FluidRegistry.HAARS_ICY_PALE_LAGER.get(), FluidRegistry.MINER_PALE_ALE.get()
                 , FluidRegistry.NIGHT_HOWL_KVASS.get(), FluidRegistry.PUMPKIN_KVASS.get(), FluidRegistry.SELTZER.get()
-                , FluidRegistry.SWEET_BERRY_KRIEK.get(), FluidRegistry.WITHER_STOUT.get());
+                , FluidRegistry.SWEET_BERRY_KRIEK.get(), FluidRegistry.WITHER_STOUT.get(), FluidRegistry.WISEMAN_BREW.get(), FluidRegistry.HELLBREW.get());
         }
         public static List<Fluid> SpiritBaseList () {
             return List.of(FluidRegistry.WINE.get(), FluidRegistry.BLAZE_STOUT.get(), FluidRegistry.MINER_PALE_ALE.get()
@@ -71,7 +72,7 @@ public class BeerListHandler {
             return List.of(ItemRegistry.BEER_MUG_APPLE_LAMBIC.get(), ItemRegistry.BEER_MUG_BLAZE_MILK_STOUT.get(), ItemRegistry.BEER_MUG_BLAZE_STOUT.get()
                 , ItemRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get(), ItemRegistry.BEER_MUG_HAARS_ICY_PALE_LAGER.get(), ItemRegistry.BEER_MUG.get()
                 , ItemRegistry.BEER_MUG_NIGHT_HOWL_KVASS.get(), ItemRegistry.BEER_MUG_PUMPKIN_KVASS.get(), ItemRegistry.BEER_MUG_SELTZER.get()
-                , ItemRegistry.BEER_MUG_SWEET_BERRY_KRIEK.get(), ItemRegistry.BEER_MUG_WITHER_STOUT.get());
+                , ItemRegistry.BEER_MUG_SWEET_BERRY_KRIEK.get(), ItemRegistry.BEER_MUG_WITHER_STOUT.get(), ItemRegistry.BEER_MUG_WISEMAN_BREW.get(), ItemRegistry.BEER_MUG_HELLBREW.get());
         }
         //This is here in case we need it, but we probably never will.
         public void BeerBucketList() {

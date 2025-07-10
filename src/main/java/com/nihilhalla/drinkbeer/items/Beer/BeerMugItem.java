@@ -1,6 +1,7 @@
 package com.nihilhalla.drinkbeer.items.Beer;
 
 import com.nihilhalla.drinkbeer.effects.DrunkStatusEffect;
+import com.nihilhalla.drinkbeer.effects.HellbrewEffect;
 import com.nihilhalla.drinkbeer.effects.NightHowlStatusEffect;
 import com.nihilhalla.drinkbeer.effects.WitherStoutEffect;
 import com.nihilhalla.drinkbeer.registries.ItemRegistry;
@@ -92,6 +93,9 @@ public class BeerMugItem extends BeerBlockItem {
         }
         if (stack.getItem() == ItemRegistry.BEER_MUG_WISEMAN_BREW.get() && user instanceof ServerPlayer serverplayer) {
             serverplayer.giveExperiencePoints(ThreadLocalRandom.current().nextInt(50,160));
+        }
+        if (stack.getItem() == ItemRegistry.BEER_MUG_HELLBREW.get() && user instanceof ServerPlayer serverplayer) {
+            HellbrewEffect.addStatusEffect(user);
         }
         //reduce Drunk level if we drank seltzer
         if (stack.getItem() == ItemRegistry.BEER_MUG_SELTZER.get()) {

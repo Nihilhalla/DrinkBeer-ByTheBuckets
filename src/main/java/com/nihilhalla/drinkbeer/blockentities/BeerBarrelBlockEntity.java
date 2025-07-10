@@ -13,6 +13,7 @@ import com.nihilhalla.drinkbeer.utils.beer.Beers;
 import com.nihilhalla.drinkbeer.utils.borrowed.FluidTankAnimated;
 
 import lombok.Getter;
+import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -20,6 +21,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.MenuProvider;
@@ -30,6 +32,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
@@ -49,6 +52,8 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import java.text.BreakIterator;
 import java.util.List;
 
 public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrewingInventory {
@@ -102,7 +107,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
     };
 
@@ -175,11 +180,19 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 //do sweet fuck all because we actually just need this to do it's thing.
             // ingredient slots must have no empty slot
             for (int i = 0; i < 4; i++) {
-                if (items.get(i).getItem() == Items.WATER_BUCKET && waterTank.getFluidAmount() < 5000) {
+                if (items.get(i).getItem() == Items.WATER_BUCKET && waterTank.getFluidAmount() < 5000 && waterTank.getFluid().getFluid() == Fluids.WATER) {
                     //DrinkBeer.LOG.atDebug().log("We see a bucket!");
                     items.set(i, Items.BUCKET.getDefaultInstance());
                     waterTank.fill(waterBucketFill, FluidAction.EXECUTE);
                     //DrinkBeer.LOG.atDebug().log("Water level is now: " + waterTank.getFluidAmount());
+                    setChanged();
+                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
+                }
+                if (items.get(i).getItem() == Items.LAVA_BUCKET && waterTank.getFluidAmount() < 5000 && waterTank.getFluid().getFluid() == Fluids.LAVA) {
+                    //DrinkBeer.LOG.atDebug().log("We see a bucket!");
+                    items.set(i, Items.BUCKET.getDefaultInstance());
+                    waterTank.fill(lavaBucketFill, FluidAction.EXECUTE);
+                    //DrinkBeer.LOG.atDebug().log("Lava level is now: " + waterTank.getFluidAmount());
                     setChanged();
                     level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
                 }
@@ -232,9 +245,12 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     }
     private boolean canBrew(@Nullable BrewingRecipe recipe) {
         if (recipe != null) {
-            //DrinkBeer.LOG.atDebug().log("Recipe is " + recipe);
+            ResourceLocation id = recipe.getId();
+            if (id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew")) && this.level.dimension() != Level.NETHER) {
+                return false;
+            }
+            DrinkBeer.LOG.atDebug().log("Recipe ID: {}", recipe.getId());
             return recipe.matches(this, this.level);
-
         } else {
             return false;
         }
@@ -506,6 +522,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 */
 
     public static FluidStack waterBucketFill = new FluidStack(Fluids.WATER, 1000);
+    public static FluidStack lavaBucketFill = new FluidStack(Fluids.LAVA, 1000);
     public FluidStack boozeBucketFill (ItemStack stack) {
         if (stack.is(DrinkBeer.BOOZE_BUCKET)){
             return new FluidStack(BeerListHandler.BucketConverter(stack), 1000);

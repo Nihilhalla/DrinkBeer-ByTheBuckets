@@ -42,6 +42,7 @@ public class FluidRegistry {
         public static final FlowingFluidObject<ForgeFlowingFluid> FROTHY_PINK_EGGNOG = FLUIDS.register("frothy_pink_egg_nog").type(alcohol("frothy_pink_egg_nog").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
         public static final FlowingFluidObject<ForgeFlowingFluid> MINER_PALE_ALE = FLUIDS.register("miner_pale_ale").type(alcohol("miner_pale_ale").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
         public static final FlowingFluidObject<ForgeFlowingFluid> WISEMAN_BREW = FLUIDS.register("wiseman_brew").type(alcohol("wiseman_brew").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
+        public static final FlowingFluidObject<ForgeFlowingFluid> HELLBREW = FLUIDS.register("hellbrew").type(alcohol("hellbrew").density(800).viscosity(800).temperature(2000)).bucket().block(MapColor.WATER, 0).flowing();
 
     // Whiskies and spirits
         public static final FlowingFluidObject<ForgeFlowingFluid> WHISKY = FLUIDS.register("whisky").type(alcohol("whisky").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
