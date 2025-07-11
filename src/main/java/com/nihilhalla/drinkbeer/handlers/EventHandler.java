@@ -103,7 +103,8 @@ public class EventHandler {
     List<AABB> blockBox = blockState.getShape(playerEntity.level(), playerOn).toAabbs();
     if (!playerEntity.level().isClientSide 
         && ConfigHandler.ENABLE_ALCOHOL_DAMAGE.get() 
-        && playerEntity.hasEffect(MobEffectRegistry.DRUNK.get())) {
+        && playerEntity.hasEffect(MobEffectRegistry.DRUNK.get())
+        && playerEntity.getEffect(MobEffectRegistry.DRUNK.get()).getAmplifier() >= 4) {
             int tickCount = playerEntity.getPersistentData().getInt("drinkbeer.alcoholTick");
 
         if (tickCount >= 20) { // every 20 ticks = once per second

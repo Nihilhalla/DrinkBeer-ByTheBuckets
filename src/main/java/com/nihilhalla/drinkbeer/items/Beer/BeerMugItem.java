@@ -11,7 +11,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -100,6 +102,12 @@ public class BeerMugItem extends BeerBlockItem {
         //reduce Drunk level if we drank seltzer
         if (stack.getItem() == ItemRegistry.BEER_MUG_SELTZER.get()) {
             user.removeEffect(MobEffectRegistry.DRUNK.get());
+            if(user.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)){
+                user.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
+            }
+            if(user.hasEffect(MobEffects.CONFUSION)){
+                user.removeEffect(MobEffects.CONFUSION);
+            }
         }
         //Give empty mug back
         giveEmptyMugBack(user);
