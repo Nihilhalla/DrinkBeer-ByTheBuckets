@@ -62,8 +62,8 @@ public class WineGlassItem extends WineGlassBlockItem {
         if (hasEffectNoticeTooltip() && world != null && world.isClientSide()) {
             tooltip.add(Component.translatable("item.drinkbeer." + name + ".tooltip").setStyle(Style.EMPTY.applyFormat(ChatFormatting.BLUE)));
         }
-        String hunger = String.valueOf(stack.getItem().getFoodProperties().getNutrition());
-        tooltip.add(Component.translatable("drinkbeer.restores_hunger").setStyle(Style.EMPTY.applyFormat(ChatFormatting.BLUE)).append(hunger));
+        //String hunger = String.valueOf(stack.getItem().getFoodProperties().getNutrition());
+        //tooltip.add(Component.translatable("drinkbeer.restores_hunger").setStyle(Style.EMPTY.applyFormat(ChatFormatting.BLUE)).append(hunger));
     }
 
     private boolean hasEffectNoticeTooltip() {
