@@ -42,7 +42,7 @@ public class BartendingTableContainerScreen extends AbstractContainerScreen<Bart
     }
     @Override
     protected void renderLabels(GuiGraphics stack, int x, int y) {
-        stack.drawCenteredString(font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 4210752);
-        stack.drawString(font, this.inventory.getDisplayName(),  this.inventoryLabelX,  this.inventoryLabelY, 4210752);
+        stack.drawCenteredString(font, this.title, (int) this.textureWidth / 2, (int) this.titleLabelY, 16250871);
+        stack.drawString(font, this.inventory.getDisplayName(),  this.inventoryLabelX,  this.inventoryLabelY, 16250871);
     }
 }

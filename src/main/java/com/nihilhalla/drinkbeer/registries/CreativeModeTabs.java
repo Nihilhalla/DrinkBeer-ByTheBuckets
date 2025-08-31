@@ -16,7 +16,7 @@ public class CreativeModeTabs {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DrinkBeer.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_TABS.register(DrinkBeer.MOD_ID, () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup." + DrinkBeer.MOD_ID))
+            .title(Component.translatable("itemGroup." + DrinkBeer.MOD_ID + ".general"))
             .withTabsBefore(net.minecraft.world.item.CreativeModeTabs.SPAWN_EGGS)
             .displayItems((enabledFeatures, output) -> {
                 for(RegistryObject<Item> item : ItemRegistry.ITEMS.getEntries()){
@@ -27,5 +27,6 @@ public class CreativeModeTabs {
                     }
                 }
             })
+            .icon(() -> new ItemStack(ItemRegistry.BEER_MUG.get()))
             .build());
 }

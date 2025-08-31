@@ -58,7 +58,7 @@ public class TradeBoxContainerScreen extends AbstractContainerScreen<TradeBoxCon
         if (container.isCooling()) {
             stack.blit(TRADE_BOX_GUI, x + 84, y + 25, 178, 38, 72, 36);
             String timeStr = convertTickToTime(container.getCoolingTime());
-            stack.drawString(font, timeStr, x + 114, y + 39, new Color(64, 64, 64, 255).getRGB());
+            stack.drawString(font, timeStr, x + 114, y + 39, new Color(247, 247, 247, 255).getRGB());
         } else if (container.isTrading()) {
             if (isHovering(157, 6, 13, 13, (double) mouseX, (double) mouseY)) {
                 stack.blit(TRADE_BOX_GUI, x + 155, y + 4, 178, 19, 16, 16);
@@ -69,12 +69,12 @@ public class TradeBoxContainerScreen extends AbstractContainerScreen<TradeBoxCon
         if (!container.isCooling()) {
             Language language = Language.getInstance();
             String youStr = language.getOrDefault("drinkbeer.resident.you");
-            stack.drawString(font, youStr, x + 85, y + 16, new Color(64, 64, 64, 255).getRGB());
+            stack.drawString(font, youStr, x + 85, y + 16, new Color(247, 247, 247, 255).getRGB());
             String locationAndResidentStr =
                     language.getOrDefault(TradeBoxManager.getLocationTranslationKey(container.getLocationId()))
                             + "-" +
                             language.getOrDefault(TradeBoxManager.getResidentTranslationKey(container.getResidentId()));
-            stack.drawString(font, locationAndResidentStr, x + 85, y + 63, new Color(64, 64, 64, 255).getRGB());
+            stack.drawString(font, locationAndResidentStr, x + 85, y + 63, new Color(247, 247, 247, 255).getRGB());
         }
     }
 
