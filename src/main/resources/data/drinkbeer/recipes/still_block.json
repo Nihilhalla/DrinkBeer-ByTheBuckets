@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XZX",
+    "XZX",
+    "XYX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "minecraft:magma_block"
+    },
+    "Z": {
+      "item": "minecraft:terracotta"
+    }
+  },
+  "result": {
+    "item": "drinkbeer:whisky_still",
+    "count":1
+  }
+}

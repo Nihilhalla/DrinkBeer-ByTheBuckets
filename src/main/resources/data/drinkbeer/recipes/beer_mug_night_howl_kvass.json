@@ -12,13 +12,13 @@
     }
   ],
   "fluid": {
-    "name": "minecraft:water",
+    "fluid": "minecraft:water",
     "amount": 1000
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:night_howl_kvass",
+    "fluid": "drinkbeer:night_howl_kvass",
     "amount": 1000
   }
 }

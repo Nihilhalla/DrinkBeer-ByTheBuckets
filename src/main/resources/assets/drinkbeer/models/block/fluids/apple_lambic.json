@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "drinkbeer:block/fluid/apple_lambic/still",
+        "flowing": "drinkbeer:block/fluid/apple_lambic/flowing"
+    }
+}

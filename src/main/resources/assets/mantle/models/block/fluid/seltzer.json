@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/seltzer/still",
+        "flowing": "mantle:block/fluid/seltzer/flowing"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/apple_lambic/still",
+        "flowing": "mantle:block/fluid/apple_lambic/flowing"
+    }
+}

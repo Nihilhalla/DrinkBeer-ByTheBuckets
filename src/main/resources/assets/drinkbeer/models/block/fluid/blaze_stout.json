@@ -1,7 +1,0 @@
-{
-    "loader": "mantle:fluid_texture",
-    "textures": {
-        "still": "drinkbeer:block/fluid/blaze_stout/still",
-        "flowing": "drinkbeer:block/fluid/blaze_stout/flowing"
-    }
-}

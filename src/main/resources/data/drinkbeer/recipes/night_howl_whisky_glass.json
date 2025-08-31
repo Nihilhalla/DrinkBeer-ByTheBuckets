@@ -1,0 +1,14 @@
+{
+  "type": "drinkbeer:distillation",
+
+  "input": {
+    "fluid": "drinkbeer:night_howl_kvass",
+    "amount": 250
+  },
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:night_howl_whisky",
+    "amount": 125
+  }
+}

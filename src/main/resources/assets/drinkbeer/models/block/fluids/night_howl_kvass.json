@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "drinkbeer:block/fluid/night_howl_kvass/still",
+        "flowing": "drinkbeer:block/fluid/night_howl_kvass/flowing"
+    }
+}

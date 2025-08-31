@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "drinkbeer:block/fluid/wither_whisky/still",
+        "flowing": "drinkbeer:block/fluid/wither_whisky/flowing"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "drinkbeer:block/fluid/haars_icy_pale_lager/still",
+        "flowing": "drinkbeer:block/fluid/haars_icy_pale_lager/flowing"
+    }
+}

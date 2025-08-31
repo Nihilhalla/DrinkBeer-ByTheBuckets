@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/haars_icy_pale_lager/still",
+        "flowing": "mantle:block/fluid/haars_icy_pale_lager/flowing"
+    }
+}

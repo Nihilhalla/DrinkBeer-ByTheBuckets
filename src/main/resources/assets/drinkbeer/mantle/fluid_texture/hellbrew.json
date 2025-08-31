@@ -1,0 +1,6 @@
+{
+    "color": "FFFFFFFF",
+        "still": "drinkbeer:block/fluid/hellbrew/still",
+        "flowing": "drinkbeer:block/fluid/hellbrew/flowing"
+    
+}

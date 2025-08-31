@@ -27,13 +27,13 @@
     ]
   ],
   "fluid": {
-    "name": "minecraft:milk",
+    "fluid": "minecraft:milk",
     "amount": 1000
   },
 
   "brewing_time": 12000,
   "result": {
-    "name": "drinkbeer:frothy_pink_egg_nog",
+    "fluid": "drinkbeer:frothy_pink_egg_nog",
     "amount": 1000
   }
 }
