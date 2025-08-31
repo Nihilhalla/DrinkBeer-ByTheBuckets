@@ -37,6 +37,7 @@ public class EventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDamage(LivingHurtEvent event) {
         if(event.getEntity() != null) {
+        if(event.getEntity() != null) {
             //DrinkBeer.LOG.atDebug().log(event.getEntity().toString() + " has been hit!");
             if (event.getEntity().hasEffect(MobEffectRegistry.WITHER_RESIST.get()) && event.getSource().is(DamageTypes.WITHER)) {
                     @SuppressWarnings("null")
