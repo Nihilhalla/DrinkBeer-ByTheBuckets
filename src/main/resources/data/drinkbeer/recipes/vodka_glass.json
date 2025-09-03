@@ -1,0 +1,14 @@
+{
+  "type": "drinkbeer:distillation",
+
+  "input": {
+    "fluid": "drinkbeer:vodka_mash",
+    "amount": 250
+  },
+
+  "brewing_time": 6000,
+  "result": {
+    "fluid": "drinkbeer:vodka",
+    "amount": 125
+  }
+}

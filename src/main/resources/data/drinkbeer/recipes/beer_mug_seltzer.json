@@ -1,0 +1,39 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "tag": "minecraft:coals"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "tag": "minecraft:coals"
+      }
+    ]
+  ],
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+
+  "brewing_time": 2400,
+  "result": {
+    "fluid": "drinkbeer:seltzer",
+    "amount": 1000
+  }
+}

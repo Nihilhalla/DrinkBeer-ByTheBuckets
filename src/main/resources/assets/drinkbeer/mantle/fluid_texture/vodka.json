@@ -1,0 +1,6 @@
+{
+    "color": "FFFFFFFF",
+        "still": "drinkbeer:block/fluid/vodka/still",
+        "flowing": "drinkbeer:block/fluid/vodka/flowing"
+    
+}

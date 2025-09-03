@@ -1,0 +1,6 @@
+{
+    "color": "FFFFFFFF",
+        "still": "drinkbeer:block/fluid/wiseman_brew/still",
+        "flowing": "drinkbeer:block/fluid/wiseman_brew/flowing"
+    
+}

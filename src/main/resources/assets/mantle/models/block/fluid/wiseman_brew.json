@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/wiseman_brew/still",
+        "flowing": "mantle:block/fluid/wiseman_brew/flowing"
+    }
+}

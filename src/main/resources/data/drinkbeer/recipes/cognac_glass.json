@@ -1,0 +1,14 @@
+{
+  "type": "drinkbeer:distillation",
+
+  "input": {
+    "fluid": "drinkbeer:wine",
+    "amount": 250
+  },
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:cognac",
+    "amount": 125
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/whisky/still",
+        "flowing": "mantle:block/fluid/whisky/flowing"
+    }
+}

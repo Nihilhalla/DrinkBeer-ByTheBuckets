@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/miner_pale_ale/still",
+        "flowing": "mantle:block/fluid/miner_pale_ale/flowing"
+    }
+}

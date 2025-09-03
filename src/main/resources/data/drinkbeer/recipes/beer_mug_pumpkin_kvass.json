@@ -1,0 +1,24 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:pumpkin"
+    }
+  ],
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:pumpkin_kvass",
+    "amount": 1000
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:experience_bottle"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:creeper_head"
+      }
+    ]
+  ],
+  
+  "fluid": {
+    "fluid": "minecraft:water",
+    "amount": 1000
+  },
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:wiseman_brew",
+    "amount": 1000
+  }
+}

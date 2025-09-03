@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "still": "mantle:block/fluid/pumpkin_kvass/still",
+        "flowing": "mantle:block/fluid/pumpkin_kvass/flowing"
+    }
+}

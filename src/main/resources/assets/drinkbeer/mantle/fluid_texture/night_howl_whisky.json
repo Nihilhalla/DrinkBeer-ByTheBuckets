@@ -1,0 +1,6 @@
+{
+    "color": "FFFFFFFF",
+        "still": "drinkbeer:block/fluid/night_howl_whisky/still",
+        "flowing": "drinkbeer:block/fluid/night_howl_whisky/flowing"
+
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mantle:block/beer_barrel"
+    },
+    "facing=east": {
+      "model": "mantle:block/beer_barrel",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "mantle:block/beer_barrel",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mantle:block/beer_barrel",
+      "y": 270
+    }
+  }
+}

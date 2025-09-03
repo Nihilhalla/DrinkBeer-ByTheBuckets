@@ -1,0 +1,17 @@
+{
+    "replace": false,
+    "values": [
+        "drinkbeer:wither_stout_bucket",
+        "drinkbeer:miner_pale_ale_bucket",
+        "drinkbeer:sweet_berry_kriek_bucket",
+        "drinkbeer:haars_icy_pale_lager_bucket",
+        "drinkbeer:frothy_pink_egg_nog_bucket",
+        "drinkbeer:night_howl_kvass_bucket",
+        "drinkbeer:pumpkin_kvass_bucket",
+        "drinkbeer:apple_lambic_bucket",
+        "drinkbeer:blaze_milk_stout_bucket",
+        "drinkbeer:blaze_stout_bucket",
+        "drinkbeer:seltzer_bucket",
+		"drinkbeer:wiseman_brew_bucket"
+    ]
+}
