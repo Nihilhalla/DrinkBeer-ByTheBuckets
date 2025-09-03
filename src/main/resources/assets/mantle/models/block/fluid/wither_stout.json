@@ -1,6 +1,0 @@
-{
-    "textures": {
-        "still": "mantle:block/fluid/wither_stout/still",
-        "flowing": "mantle:block/fluid/wither_stout/flowing"
-    }
-}

@@ -1,6 +1,0 @@
-{
-    "textures": {
-        "still": "drinkbeer:block/fluid/wine/still",
-        "flowing": "drinkbeer:block/fluid/wine/flowing"
-    }
-}
