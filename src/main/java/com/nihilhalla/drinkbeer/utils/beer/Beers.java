@@ -38,8 +38,9 @@ public enum  Beers {
             .addMaterial(2, Items.BREAD).addMaterial(Items.BONE).addMaterial(Items.WATER_BUCKET)*/),
     BEER_MUG_WITHER_STOUT(10, ItemRegistry.BEER_MUG_WITHER_STOUT.get(), true/*, new BeerRecipe()
             .setBeerResultNum(4).setBrewingTime(18000)
-            .addMaterial(2, Items.BREAD).addMaterial(Items.BONE).addMaterial(Items.WATER_BUCKET)*/);
-
+            .addMaterial(2, Items.BREAD).addMaterial(Items.BONE).addMaterial(Items.WATER_BUCKET)*/),
+    BEER_MUG_HELLBREW(11, ItemRegistry.BEER_MUG_HELLBREW.get(), true),
+    BEER_MUG_WISEMAN_BREW(12, ItemRegistry.BEER_MUG_WISEMAN_BREW.get(), true);
     public static final int DEFAULT_BEER_ID = 1;
     public static final Beers DEFAULT_BEER = Beers.BEER_MUG;
     public static final int EMPTY_BEER_ID = 0;

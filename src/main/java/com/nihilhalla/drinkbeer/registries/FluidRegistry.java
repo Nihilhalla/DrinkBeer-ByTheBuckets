@@ -55,24 +55,7 @@ public class FluidRegistry {
         public static final FlowingFluidObject<ForgeFlowingFluid> WINE = FLUIDS.register("wine").type(alcohol("wine").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
         public static final FlowingFluidObject<ForgeFlowingFluid> COGNAC = FLUIDS.register("cognac").type(alcohol("cognac").density(800).viscosity(800).temperature(300)).bucket().block(MapColor.WATER, 0).flowing();
 
-    /* 
-    public static void registerDynamicBuckets() {
-            // Loop through fluids
-        for (Fluid fluid : ForgeRegistries.FLUIDS) {
-            if (fluid.getRegistryName() != null && fluid.getRegistryName().getNamespace().equals(DrinkBeer.MOD_ID)) {
-               // Create a Supplier<Fluid> for the fluid
-                Supplier<Fluid> fluidSupplier = () -> fluid;
 
-                // Register a drinkable dynamic bucket for the fluid
-                RegistryObject<Item> BEER_BUCKET = ItemRegistry.ITEMS.register(
-                        fluid.getRegistryName().getPath() + "_bucket",
-                        () -> new BeerBucket(fluidSupplier, new Item.Properties().stacksTo(1).tab(ModCreativeTab.BEER))
-                );
-            }
-
-        }
-    }
-*/
     private static FluidType.Properties alcohol() {
         return FluidType.Properties.create()
                                     .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
@@ -95,20 +78,5 @@ public class FluidRegistry {
       datagenerator.addProvider(client, new FluidBucketModelProvider(packOutput, DrinkBeer.MOD_ID));
       datagenerator.addProvider(client, new FluidBlockstateModelProvider(packOutput, DrinkBeer.MOD_ID));
     }
-    //All of the code below this comment was written before I decided to make the beer fluid an independent fluid that can be registered in a group calling.
-        /*public static final RegistryObject<UnplaceableFluid> BEER_BASE = FLUIDS.register("beer_base", () -> new UnplaceableFluid(ItemRegistry.BEER_BUCKET, FluidAttributes.builder(WATER_STILL_RL, WATER_FLOWING_RL)
-        .density(15).luminosity(2).viscosity(5).sound(Items.WATER_BUCKET.getEquipSound()).overlay(WATER_OVERLAY_RL)
-        .color(0xbffcba03)));*/
-        
-    //This was the pre-Mantle way.
-    //public static final RegistryObject<FlowingFluid> BEERFLOWING = FLUIDS.register("beer_flowing", () -> new ForgeFlowingFluid.Flowing(FluidHandler.BEERProps));
-    //public static final RegistryObject<FlowingFluid> BEERSOURCE = FLUIDS.register("beer_source", () -> new ForgeFlowingFluid.Source(FluidHandler.BEERProps));
-
-        /*public static final ForgeFlowingFluid.Properties BEERProps = new ForgeFlowingFluid.Properties(() -> BEERSOURCE.get(), () -> BEERFLOWING.get(), FluidAttributes.builder(WATER_STILL_RL, WATER_FLOWING_RL)
-        .density(15).luminosity(2).viscosity(5).sound(Items.WATER_BUCKET.getEquipSound()).overlay(WATER_OVERLAY_RL)
-        .color(0xbffcba03)).slopeFindDistance(2).levelDecreasePerBlock(2)
-        .block(() -> BlockRegistry.BEERBLOCK.get()).bucket(() -> ItemRegistry.BEER_BUCKET.get());
-
-*/
 
 }

@@ -115,39 +115,5 @@ public class EventHandler {
             playerEntity.getPersistentData().putInt("drinkbeer.alcoholTick", tickCount + 1); // increment
         }
     }
-/*      //This bit of code was the old laggy stupid way of changing out the beers, I found a better way.
-        if (event.player.getInventory().contains(DrinkBeer.EMPTY_BEER)) {
-            event.player.getInventory();
-            for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
-                ItemStack itemStack = event.player.getInventory().getItem(i);
-                //DrinkBeer.LOG.atDebug().log(EmptyBeerMugItem.getFluid(itemStack) != null);
-                if (itemStack != ItemStack.EMPTY && itemStack.getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && BeerListHandler.BeerList().contains(EmptyBeerMugItem.getFluid(itemStack))) {
-                    int iCount = itemStack.getCount();
-                    newStack = new ItemStack(BeerListHandler.buildMugMap(EmptyBeerMugItem.getFluid(itemStack)), iCount);
-                    event.player.getInventory().removeItem(itemStack);
-                    event.player.getInventory().add(newStack);
-                    //DrinkBeer.LOG.atDebug().log("Updated Mug to: " + newStack.getItem().getRegistryName());
-                    event.player.getInventory().setChanged();
-                }
-            }    
-        }*/
     }
-/*     @SubscribeEvent
-    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-    ItemStack itemStack = event.getItemStack();
-    Player player = event.getPlayer();
-    Level world = event.getWorld();
-
-       // Check if the player is holding a bucket
-        if (itemStack.getItem() instanceof BeerBucket) {
-            BeerBucket bucket = (BeerBucket) itemStack.getItem();
-            Fluid fluid = bucket.getFluid();
-
-            if (BeerListHandler.beers.contains(fluid)) {
-                // Cancel the event to prevent further processing
-                event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-            }
-        }
-    } */
 }

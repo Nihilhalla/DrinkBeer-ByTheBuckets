@@ -38,6 +38,8 @@
   "block.drinkbeer.recipe_board_beer_mug_wither_stout": "Wither Stout Recipe Board",
   "block.drinkbeer.recipe_board_beer_mug_frothy_pink_eggnog": "Frothy Pink Eggnog Recipe Board",
   "block.drinkbeer.recipe_board_beer_mug_seltzer": "Seltzer Recipe Board",
+  "block.drinkbeer.recipe_board_beer_mug_hellbrew": "Hellbrew Recipe Board",
+  "block.drinkbeer.recipe_board_beer_mug_wiseman_brew": "Wiseman's Brew Recipe Board",
 
   "item.drinkbeer.beer_mug.tooltip": "Haste 1:00",
   "item.drinkbeer.beer_mug_blaze_stout.tooltip":"Fire Resistance 1:30",
