@@ -32,6 +32,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RECIPE_BOARD_BEER_MUG_FROTHY_PINK_EGGNOG = BLOCKS.register("recipe_board_beer_mug_frothy_pink_eggnog", () -> new RecipeBoardBlock(true));
     public static final RegistryObject<Block> RECIPE_BOARD_BEER_MUG_WITHER_STOUT = BLOCKS.register("recipe_board_beer_mug_wither_stout", () -> new RecipeBoardBlock(true));
     public static final RegistryObject<Block> RECIPE_BOARD_BEER_MUG_SELTZER = BLOCKS.register("recipe_board_beer_mug_seltzer", () -> new RecipeBoardBlock(true));
+    public static final RegistryObject<Block> RECIPE_BOARD_BEER_MUG_HELLBREW = BLOCKS.register("recipe_board_beer_mug_hellbrew", () -> new RecipeBoardBlock(true));
+    public static final RegistryObject<Block> RECIPE_BOARD_BEER_MUG_WISEMAN_BREW = BLOCKS.register("recipe_board_beer_mug_wiseman_brew", () -> new RecipeBoardBlock(true));
 
     public static final RegistryObject<Block> RECIPE_BOARD_PACKAGE = BLOCKS.register("recipe_board_package", RecipeBoardPackageBlock::new);
 
