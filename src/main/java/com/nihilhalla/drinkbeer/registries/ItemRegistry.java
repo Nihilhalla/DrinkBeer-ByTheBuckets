@@ -50,6 +50,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RECIPE_BOARD_BEER_MUG_FROTHY_PINK_EGGNOG = ITEMS.register("recipe_board_beer_mug_frothy_pink_eggnog", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_BEER_MUG_FROTHY_PINK_EGGNOG.get(), new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> RECIPE_BOARD_BEER_MUG_WITHER_STOUT = ITEMS.register("recipe_board_beer_mug_wither_stout", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_BEER_MUG_WITHER_STOUT.get(), new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> RECIPE_BOARD_BEER_MUG_SELTZER = ITEMS.register("recipe_board_beer_mug_seltzer", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_BEER_MUG_SELTZER.get(), new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> RECIPE_BOARD_BEER_MUG_HELLBREW = ITEMS.register("recipe_board_beer_mug_hellbrew", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_BEER_MUG_HELLBREW.get(), new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> RECIPE_BOARD_BEER_MUG_WISEMAN_BREW = ITEMS.register("recipe_board_beer_mug_wiseman_brew", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_BEER_MUG_WISEMAN_BREW.get(), new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RECIPE_BOARD_PACKAGE = ITEMS.register("recipe_board_package", () -> new BlockItem(BlockRegistry.RECIPE_BOARD_PACKAGE.get(), new Item.Properties().stacksTo(1)));
 

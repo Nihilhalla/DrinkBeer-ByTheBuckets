@@ -4,7 +4,7 @@
 	"textures": {
 		"1": "drinkbeer:block/recipe_board_back_beer_mug_hellbrew",
 		"3": "drinkbeer:block/recipe_board_beer_mug_hellbrew",
-		"particle": "drinkbeer:block/recipe_board_beer_mug"
+		"particle": "drinkbeer:block/recipe_board_beer_mug_hellbrew"
 	},
 	"elements": [
 		{
