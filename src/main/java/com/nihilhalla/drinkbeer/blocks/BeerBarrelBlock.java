@@ -4,6 +4,7 @@ import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.blockentities.BeerBarrelBlockEntity;
 import com.nihilhalla.drinkbeer.blockentities.TradeBoxBlockEntity;
 import com.nihilhalla.drinkbeer.items.Beer.BeerBlockItem;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;

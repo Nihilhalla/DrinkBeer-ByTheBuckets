@@ -125,7 +125,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         //DrinkBeer.LOG.atDebug().log(statusCode);
         //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluidAmount());
         //DrinkBeer.LOG.atDebug().log("Water: " + waterTank.getFluidAmount());
-        if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250&& fluidTank.getFluid().getFluid() != FluidRegistry.WINE.get()) {
+        if (items.get(4).getItem() == ItemRegistry.EMPTY_BEER_MUG.get() && fluidTank.getFluidAmount() >= 250 && fluidTank.getFluid().getFluid() != FluidRegistry.WINE.get() && BeerListHandler.beers.contains(fluidTank.getFluid().getFluid())) {
             int amountServed = (fluidTank.getFluidAmount() / 250);
             //DrinkBeer.LOG.atDebug().log("There should be this many cups worth of fluid: " + amountServed);
             //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluid().getFluid().getRegistryName().toString() + ", Amount: " + fluidTank.getFluidAmount());
@@ -149,7 +149,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
             }
         }
-        if (items.get(4).getItem() == ItemRegistry.EMPTY_WINE_GLASS.get() && fluidTank.getFluidAmount() >= 250 && fluidTank.getFluid().getFluid() == FluidRegistry.WINE.get()) {
+        if (items.get(4).getItem() == ItemRegistry.EMPTY_WINE_GLASS.get() && fluidTank.getFluidAmount() >= 250 && fluidTank.getFluid().getFluid() == FluidRegistry.WINE.get() && !BeerListHandler.beers.contains(fluidTank.getFluid().getFluid())) {
             int amountServed = (fluidTank.getFluidAmount() / 250);
             //DrinkBeer.LOG.atDebug().log("There should be this many cups worth of fluid: " + amountServed);
             //DrinkBeer.LOG.atDebug().log("Fluid: " + fluidTank.getFluid().getFluid().getRegistryName().toString() + ", Amount: " + fluidTank.getFluidAmount());
