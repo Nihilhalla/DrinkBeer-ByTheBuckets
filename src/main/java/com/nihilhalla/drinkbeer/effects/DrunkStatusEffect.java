@@ -1,6 +1,7 @@
 package com.nihilhalla.drinkbeer.effects;
 
 import com.nihilhalla.drinkbeer.DrinkBeer;
+import com.nihilhalla.drinkbeer.handlers.ConfigHandler;
 import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffect;
@@ -63,7 +64,12 @@ public class DrunkStatusEffect extends MobEffect {
     }
 
     public static void addStatusEffect(LivingEntity user) {
-        addStatusEffect(user,1);
+        if (ConfigHandler.ENABLE_DRUNK_EFFECT.get()) {
+            addStatusEffect(user,1);
+        }
+        else {
+            
+        }
     }
 
     @Override
