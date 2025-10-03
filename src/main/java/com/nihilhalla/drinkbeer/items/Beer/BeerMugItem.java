@@ -90,15 +90,18 @@ public class BeerMugItem extends BeerBlockItem {
         //Give Night Vision status effect if drank Night Howl Kvass
         NightHowlStatusEffect.addStatusEffect(stack,world,user);
         //Give Wither Resistance if drank Wither Stout
-        if (stack.getItem() == ItemRegistry.BEER_MUG_WITHER_STOUT.get()) {
+        /*if (stack.getItem() == ItemRegistry.BEER_MUG_WITHER_STOUT.get()) {
             WitherStoutEffect.addStatusEffect(user);
-        }
+        }*/
         if (stack.getItem() == ItemRegistry.BEER_MUG_WISEMAN_BREW.get() && user instanceof ServerPlayer serverplayer) {
             serverplayer.giveExperiencePoints(ThreadLocalRandom.current().nextInt(50,160));
         }
+        /* 
         if (stack.getItem() == ItemRegistry.BEER_MUG_HELLBREW.get() && user instanceof ServerPlayer serverplayer) {
             HellbrewEffect.addStatusEffect(user);
         }
+        */
+
         //reduce Drunk level if we drank seltzer
         if (stack.getItem() == ItemRegistry.BEER_MUG_SELTZER.get()) {
             user.removeEffect(MobEffectRegistry.DRUNK.get());

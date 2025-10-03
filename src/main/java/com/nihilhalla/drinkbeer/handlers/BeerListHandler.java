@@ -117,7 +117,8 @@ public class BeerListHandler {
             .put(FluidRegistry.NIGHT_HOWL_KVASS.get(), new MobEffectInstance(MobEffects.NIGHT_VISION, 9600, 4))
             .put(FluidRegistry.PUMPKIN_KVASS.get(), new MobEffectInstance(MobEffects.SATURATION, 1200))
             .put(FluidRegistry.SELTZER.get(), new MobEffectInstance(MobEffects.HUNGER, 5, 20))
-            .put(FluidRegistry.SWEET_BERRY_KRIEK.get(), new MobEffectInstance( MobEffects.REGENERATION, 400, 4))
-            .put(FluidRegistry.WITHER_STOUT.get(), new MobEffectInstance(MobEffects.BLINDNESS, 10, 4))
+            .put(FluidRegistry.SWEET_BERRY_KRIEK.get(), new MobEffectInstance( MobEffects.REGENERATION, 1600, 4))
+            .put(FluidRegistry.WITHER_STOUT.get(), new MobEffectInstance(MobEffectRegistry.WITHER_RESIST.get(), 4800, 4))
+            .put(FluidRegistry.HELLBREW.get(), new MobEffectInstance(MobEffectRegistry.HELLBREW.get(), 4800, 4))
             .build();
 }

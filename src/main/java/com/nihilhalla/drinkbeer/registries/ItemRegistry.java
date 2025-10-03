@@ -12,6 +12,7 @@ import com.nihilhalla.drinkbeer.items.Wine.WineGlassItem;
 //import com.nihilhalla.drinkbeer.utils.ModCreativeTab;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -65,10 +66,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BEER_MUG_PUMPKIN_KVASS = ITEMS.register("beer_mug_pumpkin_kvass", () -> new BeerMugItem(BlockRegistry.BEER_MUG_PUMPKIN_KVASS.get(), 9, false));
     public static final RegistryObject<Item> BEER_MUG_NIGHT_HOWL_KVASS = ITEMS.register("beer_mug_night_howl_kvass", () -> new BeerMugItem(BlockRegistry.BEER_MUG_NIGHT_HOWL_KVASS.get(), 4, true));
     public static final RegistryObject<Item> BEER_MUG_FROTHY_PINK_EGGNOG = ITEMS.register("beer_mug_frothy_pink_eggnog", () -> new BeerMugItem(BlockRegistry.BEER_MUG_FROTHY_PINK_EGGNOG.get(), new MobEffectInstance(MobEffects.ABSORPTION, 2400),2, true));
-    public static final RegistryObject<Item> BEER_MUG_WITHER_STOUT = ITEMS.register("beer_mug_wither_stout", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WITHER_STOUT.get(),2, true));
+    public static final RegistryObject<Item> BEER_MUG_WITHER_STOUT = ITEMS.register("beer_mug_wither_stout", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WITHER_STOUT.get(), new MobEffectInstance(MobEffectRegistry.WITHER_RESIST.get()),2, true));
     public static final RegistryObject<Item> BEER_MUG_SELTZER = ITEMS.register("beer_mug_seltzer", () -> new BeerMugItem(BlockRegistry.BEER_MUG_SELTZER.get(),-15, true));
     public static final RegistryObject<Item> BEER_MUG_WISEMAN_BREW = ITEMS.register("beer_mug_wiseman_brew", () -> new BeerMugItem(BlockRegistry.BEER_MUG_WISEMAN_BREW.get(),0, true));
-    public static final RegistryObject<Item> BEER_MUG_HELLBREW = ITEMS.register("beer_mug_hellbrew", () -> new BeerMugItem(BlockRegistry.BEER_MUG_HELLBREW.get(), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 2400, 2),0, true));    
+    public static final RegistryObject<Item> BEER_MUG_HELLBREW = ITEMS.register("beer_mug_hellbrew", () -> new BeerMugItem(BlockRegistry.BEER_MUG_HELLBREW.get(), new MobEffectInstance(MobEffectRegistry.HELLBREW.get()),2, true));    
     public static final RegistryObject<Item> MIXED_BEER = ITEMS.register("mixed_beer", () -> new MixedBeerBlockItem(BlockRegistry.MIXED_BEER.get()));
 
     // NOT FINISHED YET

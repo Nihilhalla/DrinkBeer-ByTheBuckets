@@ -8,24 +8,34 @@ import org.apache.logging.log4j.Level;
 import com.nihilhalla.drinkbeer.DrinkBeer;
 import com.nihilhalla.drinkbeer.effects.DrunkStatusEffect;
 import com.nihilhalla.drinkbeer.registries.DamageRegistry;
+import com.nihilhalla.drinkbeer.registries.FluidRegistry;
 import com.nihilhalla.drinkbeer.registries.MobEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -74,6 +84,82 @@ public class EventHandler {
         }
     }
 
+
+    @SuppressWarnings("null")
+    @SubscribeEvent
+    public static void onBucketRightClick(PlayerInteractEvent.RightClickItem event) {
+        LivingEntity player = event.getEntity();
+        net.minecraft.world.level.Level level = event.getLevel();
+        ItemStack stack = event.getItemStack();
+
+        // Only intercept BucketItems
+        if (!(stack.getItem() instanceof BucketItem bucketItem)) return;
+
+        Fluid fluid = bucketItem.getFluid();
+
+        // Only accepted fluids
+        if (!BeerListHandler.acceptedFluids.contains(fluid)) return;
+
+        // Ray trace using player's reach (modded reach supported)
+        Vec3 eyePos = player.getEyePosition(0.0F);
+        Vec3 lookVec = player.getLookAngle();
+        double reach = player.getAttribute(ForgeMod.BLOCK_REACH.get()) != null
+            ? player.getAttribute(ForgeMod.BLOCK_REACH.get()).getValue()
+            : 5.0D;
+        Vec3 endVec = eyePos.add(lookVec.scale(reach));
+
+        BlockHitResult hit = level.clip(new ClipContext(
+            eyePos,
+            endVec,
+            ClipContext.Block.OUTLINE,
+            ClipContext.Fluid.SOURCE_ONLY,
+            player
+        ));
+        // If targeting a block, let vanilla bucket placement happen
+        if (hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) return;
+
+        // Otherwise, drink it
+        event.setCanceled(true);
+        event.setCancellationResult(InteractionResult.SUCCESS);
+
+        if (!level.isClientSide) {
+            // Get base effect from FLUID_EFFECTS_MAP
+            if (BeerListHandler.FLUID_EFFECTS_MAP.containsKey(fluid)) {
+                var base = BeerListHandler.FLUID_EFFECTS_MAP.get(fluid);
+
+                // Apply amplified effect (×4)
+                player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        base.getEffect(),
+                        base.getDuration(),
+                        base.getAmplifier()
+                ));
+                if (ConfigHandler.ENABLE_DRUNK_EFFECT.get()) {
+                    DrunkStatusEffect.addStatusEffect(player, 4);;
+                }
+                /* 
+                if (fluid == FluidRegistry.WITHER_STOUT.get()){
+                    for (int i = 0; i < 4; i++) {
+                        player.addEffect(new MobEffectInstance(MobEffectRegistry.WITHER_RESIST.get()));
+                    }
+                }
+                if (fluid == FluidRegistry.HELLBREW.get()){
+                    for (int i = 0; i < 4; i++) {
+                        player.addEffect(new MobEffectInstance(MobEffectRegistry.HELLBREW.get()));
+                    }
+                }
+                */
+            }
+
+            // Replace bucket with empty bucket
+            player.setItemInHand(event.getHand(), new ItemStack(Items.BUCKET));
+        } else {
+            // Play drinking sound client-side
+            level.playSound(player, player.blockPosition(),
+                    net.minecraft.sounds.SoundEvents.GENERIC_DRINK,
+                    net.minecraft.sounds.SoundSource.PLAYERS,
+                    1.0F, 1.0F);
+        }
+    }
     //Checking for a collision
     public boolean isColliding(List<AABB> blockBox, AABB playerBox) {
         for (AABB aabb : blockBox) { 
