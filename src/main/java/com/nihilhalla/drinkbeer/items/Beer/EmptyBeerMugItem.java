@@ -139,7 +139,7 @@ public class EmptyBeerMugItem extends BlockItem {
         }
         return Fluids.EMPTY;
     }
-
+/*
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -149,7 +149,7 @@ public class EmptyBeerMugItem extends BlockItem {
         }
         return InteractionResultHolder.sidedSuccess(stack, worldIn.isClientSide);
     }
-
+*/ 
     /** Gets the fluid NBT from the given stack */
     @Nullable
     public static CompoundTag getFluidTag(ItemStack stack) {
