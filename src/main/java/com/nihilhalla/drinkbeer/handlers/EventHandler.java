@@ -84,7 +84,7 @@ public class EventHandler {
         }
     }
 
-
+    /*
     @SuppressWarnings("null")
     @SubscribeEvent
     public static void onBucketRightClick(PlayerInteractEvent.RightClickItem event) {
@@ -136,18 +136,18 @@ public class EventHandler {
                 if (ConfigHandler.ENABLE_DRUNK_EFFECT.get()) {
                     DrunkStatusEffect.addStatusEffect(player, 4);;
                 }
-                /* 
-                if (fluid == FluidRegistry.WITHER_STOUT.get()){
-                    for (int i = 0; i < 4; i++) {
-                        player.addEffect(new MobEffectInstance(MobEffectRegistry.WITHER_RESIST.get()));
-                    }
-                }
-                if (fluid == FluidRegistry.HELLBREW.get()){
-                    for (int i = 0; i < 4; i++) {
-                        player.addEffect(new MobEffectInstance(MobEffectRegistry.HELLBREW.get()));
-                    }
-                }
-                */
+ 
+            //    if (fluid == FluidRegistry.WITHER_STOUT.get()){
+            //        for (int i = 0; i < 4; i++) {
+            //            player.addEffect(new MobEffectInstance(MobEffectRegistry.WITHER_RESIST.get()));
+            //        }
+            //    }
+            //    if (fluid == FluidRegistry.HELLBREW.get()){
+            //        for (int i = 0; i < 4; i++) {
+            //            player.addEffect(new MobEffectInstance(MobEffectRegistry.HELLBREW.get()));
+            //        }
+            //    }
+                
             }
 
             // Replace bucket with empty bucket
@@ -160,6 +160,7 @@ public class EventHandler {
                     1.0F, 1.0F);
         }
     }
+    */
     //Checking for a collision
     public boolean isColliding(List<AABB> blockBox, AABB playerBox) {
         for (AABB aabb : blockBox) { 
