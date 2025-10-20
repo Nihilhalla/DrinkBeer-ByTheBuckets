@@ -29,6 +29,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
@@ -179,40 +180,23 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 //DrinkBeer.LOG.atDebug().log(getIngredients().toString());
                 //do sweet fuck all because we actually just need this to do it's thing.
             // ingredient slots must have no empty slot
-            for (int i = 0; i < 4; i++) {
-                if (items.get(i).getItem() == Items.WATER_BUCKET && waterTank.getFluidAmount() < 5000 && waterTank.getFluid().getFluid() == Fluids.WATER) {
-                    //DrinkBeer.LOG.atDebug().log("We see a bucket!");
-                    items.set(i, Items.BUCKET.getDefaultInstance());
-                    waterTank.fill(waterBucketFill, FluidAction.EXECUTE);
-                    //DrinkBeer.LOG.atDebug().log("Water level is now: " + waterTank.getFluidAmount());
-                    setChanged();
-                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
-                }
-                if (items.get(i).getItem() == Items.LAVA_BUCKET && waterTank.getFluidAmount() < 5000 && waterTank.getFluid().getFluid() == Fluids.LAVA) {
-                    //DrinkBeer.LOG.atDebug().log("We see a bucket!");
-                    items.set(i, Items.BUCKET.getDefaultInstance());
-                    waterTank.fill(lavaBucketFill, FluidAction.EXECUTE);
-                    //DrinkBeer.LOG.atDebug().log("Lava level is now: " + waterTank.getFluidAmount());
-                    setChanged();
-                    level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
-                }
-                setChanged();
-                level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
-            }
             // Try match Recipe
             BrewingRecipe recipe = level.getRecipeManager().getRecipeFor(RecipeRegistry.RECIPE_TYPE_BREWING.get(), this, this.level).orElse(null);
             if (recipe != null) {
+                DrinkBeer.LOG.atDebug().log("canBrew: " + canBrew(recipe));
                 //DrinkBeer.LOG.atDebug().log("Recipe is: " + recipe.getResult().getFluid().getRegistryName().toString());
             }
             //DrinkBeer.LOG.atDebug().log(recipe.getResult().getFluid().getRegistryName().toString());
-            if (canBrew(recipe) && (waterTank.getFluidAmount() >= recipe.getResult().getAmount()) && ((fluidTank.getFluid().getFluid() == recipe.getResult().getFluid()) || (fluidTank.getFluid().getFluid() == FluidStack.EMPTY.getFluid()))) {
-            // Show Standard Brewing Time & Result
+            if (recipe != null && (canBrew(recipe) && (
+                    (waterTank.getFluidAmount() >= recipe.getResult().getAmount())
+                    || (barrelHasBucket() &&
+                        (fluidTank.getFluid().getFluid() == recipe.getResult().getFluid() ||
+                        fluidTank.getFluidAmount() == 0))
+                ))) {
                 startBrewing(recipe);
                 setChanged();
                 level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
-                
-                // Check Weather have enough cup.
-            } 
+            }
         } else if (statusCode == 1) {
             // brewing
                     if (remainingBrewTime > 0) {
@@ -243,10 +227,22 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 }
                 
     }
+    private boolean barrelHasBucket() {
+        for (int i = 0; i < 4; i++) {
+            ItemStack stack = items.get(i);
+            if (!stack.isEmpty() && (stack.getItem() == Items.WATER_BUCKET || stack.getItem() == Items.LAVA_BUCKET || stack.getItem() == Items.MILK_BUCKET)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean canBrew(@Nullable BrewingRecipe recipe) {
         if (recipe != null) {
             ResourceLocation id = recipe.getId();
-            if (id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew")) && this.level.dimension() != Level.NETHER) {
+            if (id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew")) 
+            || id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew_usebucket"))  
+            && this.level.dimension() != Level.NETHER) {
                 return false;
             }
             DrinkBeer.LOG.atDebug().log("Recipe ID: {}", recipe.getId());
@@ -270,8 +266,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 //Do Fuck All, because we don't have an item in this slot.
             } else if (isBucket(items.get(i))) {
                 items.set(i, Items.BUCKET.getDefaultInstance());
-            } else {
-
+            } else if (!isBucket(items.get(i))) {
                 ItemStack ingred = items.get(i);
                 ingred.shrink(1);
 
@@ -290,7 +285,16 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     }
 
     private boolean isBucket(ItemStack itemStack) {
-        return itemStack.getItem() instanceof MilkBucketItem;
+        if (itemStack.getItem() != null && itemStack.getItem() == Items.WATER_BUCKET) {
+            return true;    
+        }
+        if (itemStack.getItem() != null && itemStack.getItem() == Items.LAVA_BUCKET) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     private void clearPreview() {

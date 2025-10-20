@@ -1,0 +1,37 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    {
+      "item": "minecraft:apple"
+    },
+    [
+      {
+        "item": "minecraft:water_bucket"
+      }
+    ]
+    
+  ],
+
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:apple_lambic",
+    "amount": 1000
+  }
+}

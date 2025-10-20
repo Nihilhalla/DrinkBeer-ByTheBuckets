@@ -1,0 +1,41 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:water_bucket"
+      }
+    ]
+  ],
+  
+
+  "brewing_time": 6000,
+  "result": {
+    "fluid": "drinkbeer:miner_pale_ale",
+    "amount": 1000
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:beetroot"
+      },
+      {
+        "tag": "forge:crops/beetroot"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:egg"
+      },
+      {
+        "tag": "forge:egg"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:milk_bucket"
+      }
+    ]
+  ],
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:frothy_pink_egg_nog",
+    "amount": 1000
+  }
+}

@@ -12,13 +12,17 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import javax.annotation.Nullable;
@@ -82,33 +86,42 @@ public class BrewingRecipe implements ICustomOutputRecipe<IBrewingInventory> {
  */
 @Override
 public boolean matches(IBrewingInventory brewInv, Level level) {
-    List<Ingredient> recipeList = Lists.newArrayList(input);
-    List<ItemStack> invItems = brewInv.getIngredients();
-    List<ItemStack> iterableListItems = Lists.newArrayList(invItems);
-    Consumer<ItemStack> removeEmpty = itemStack -> {
-        if (itemStack == ItemStack.EMPTY) {
-            iterableListItems.remove(itemStack);
-        }
-    };
-    for (int i = iterableListItems.size() - 1; i >= 0; i--) {
-        if (iterableListItems.get(i) == ItemStack.EMPTY) {
-            iterableListItems.remove(i);
+    // 1️⃣ Match recipe ingredients (ignoring buckets)
+    List<Ingredient> remainingIngredients = Lists.newArrayList(input);
+    List<ItemStack> invItems = Lists.newArrayList(brewInv.getIngredients());
+    invItems.removeIf(ItemStack::isEmpty);
+
+    for (ItemStack stack : invItems) {
+        // Skip buckets here; we'll check them separately
+        if (stack.getItem() instanceof BucketItem) continue;
+
+        int index = getLatestMatched(remainingIngredients, stack);
+        if (index == -1) return false; // unmatched ingredient
+        remainingIngredients.remove(index);
+    }
+    if (!remainingIngredients.isEmpty()) return false; // leftover ingredients
+
+    // 2️⃣ Match fluid requirement (tank or bucket)
+    FluidStack invFluid = brewInv.getFluidIngredient();
+    if (!invFluid.isEmpty() && invFluid.getAmount() > 0) {
+        if (invFluid.getFluid() == fluid.getFluid()) return true;
+        if (fluid.getFluid() == ForgeMod.MILK.get() && invFluid.getFluid() == ForgeMod.MILK.get()) return true;
+    }
+
+    for (ItemStack stack : brewInv.getIngredients()) {
+        if (stack.getItem() instanceof BucketItem) {
+            FluidStack bucketFluid = FluidUtil.getFluidContained(stack).orElse(FluidStack.EMPTY);
+            if (!bucketFluid.isEmpty() && bucketFluid.getFluid() == fluid.getFluid()) return true;
+            if (stack.getItem() == Items.MILK_BUCKET && fluid.getFluid() == ForgeMod.MILK.get()) return true;
         }
     }
-        //iterableListItems.forEach(removeEmpty);
-    if (!iterableListItems.isEmpty()) {
-        for (ItemStack itemStack : iterableListItems) {
-            int j = getLatestMatched(recipeList, itemStack);
-            if (j == -1) return false;
-            else recipeList.remove(j);
-            //DrinkBeer.LOG.atDebug().log();
-        }
-    }
-    if (recipeList.isEmpty() && fluid.equals(brewInv.getFluidIngredient())) {
-        return true;
-    }
+
+    // No valid fluid found
     return false;
 }
+
+
+
 
 private int getLatestMatched(List<Ingredient> recipeList, ItemStack invItem) {
     for (int i = 0; i < recipeList.size(); i++) {

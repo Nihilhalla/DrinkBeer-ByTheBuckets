@@ -1,0 +1,35 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    [
+      {
+        "item": "minecraft:water_bucket"
+      }
+    ]
+  ],
+
+  "brewing_time": 12000,
+  "result": {
+    "fluid": "drinkbeer:sweet_berry_kriek",
+    "amount": 1000
+  }
+}

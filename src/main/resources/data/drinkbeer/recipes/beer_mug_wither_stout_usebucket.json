@@ -1,0 +1,30 @@
+{
+  "type": "drinkbeer:brewing",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:wheat"
+      },
+      {
+        "tag": "forge:crops/wheat"
+      }
+    ],
+    {
+      "tag": "forge:crops/nether_wart"
+    },
+    {
+      "item": "minecraft:wither_rose"
+    },
+    [
+      {
+        "item": "minecraft:water_bucket"
+      }
+    ]
+  ],
+
+  "brewing_time": 24000,
+  "result": {
+    "fluid": "drinkbeer:wither_stout",
+    "amount": 1000
+  }
+}
