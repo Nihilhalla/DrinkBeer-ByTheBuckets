@@ -135,7 +135,8 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 int amountPoured = Math.min(amountServed, items.get(4).getCount());
                 //DrinkBeer.LOG.atDebug().log("We've made a beer!");
                 if (items.get(5) != null) {
-                    if (items.get(5) == ItemStack.EMPTY) {
+                    ItemStack slot5 = items.get(5);
+                    if (slot5.isEmpty()) {
                         items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), amountPoured));
                         //DrinkBeer.LOG.atDebug().log(items.get(5).toString());
                     } else if (BeerListHandler.MugList().contains(items.get(5).getItem())) {
@@ -159,7 +160,8 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
                 int amountPoured = Math.min(amountServed, items.get(4).getCount());
                 //DrinkBeer.LOG.atDebug().log("We've made a beer!");
                 if (items.get(5) != null) {
-                    if (items.get(5) == ItemStack.EMPTY) {
+                    ItemStack slot5 = items.get(5);
+                    if (slot5.isEmpty()) {
                         items.set(5, new ItemStack(ItemRegistry.WINE_GLASS.get(), amountPoured));
                         //DrinkBeer.LOG.atDebug().log(items.get(5).toString());
                     } else if (items.get(5).getItem() == ItemRegistry.WINE_GLASS.get()) {
@@ -240,8 +242,8 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     private boolean canBrew(@Nullable BrewingRecipe recipe) {
         if (recipe != null) {
             ResourceLocation id = recipe.getId();
-            if (id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew")) 
-            || id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew_usebucket"))  
+            if ((id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew")) 
+            || id.equals(new ResourceLocation(DrinkBeer.MOD_ID, "beer_mug_hellbrew_usebucket")))  
             && this.level.dimension() != Level.NETHER) {
                 return false;
             }
@@ -262,14 +264,18 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
         //DrinkBeer.LOG.atDebug().log("Starting a Brew!");
         // Consume Ingredient & Cup;
         for (int i = 0; i < 4; i++) {
-            if (items.get(i) == null || items.get(i) == ItemStack.EMPTY) {
+            if (items.get(i).isEmpty()) {
                 //Do Fuck All, because we don't have an item in this slot.
             } else if (isBucket(items.get(i))) {
                 items.set(i, Items.BUCKET.getDefaultInstance());
             } else if (!isBucket(items.get(i))) {
                 ItemStack ingred = items.get(i);
                 ingred.shrink(1);
-
+                if (ingred.getCount() <= 0) {
+                    items.set(i, ItemStack.EMPTY);
+                } else {
+                    items.set(i, ingred);
+                }
             }
             statusCode = 1;
         }
@@ -279,7 +285,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
 
 
         
-        outPour = recipe.getResult();
+        outPour = recipe.getResult().copy();
         setChanged();
         level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
     }
@@ -304,7 +310,7 @@ public class BeerBarrelBlockEntity extends InventoryBlockEntity implements IBrew
     }
 
     private void showPreview() {
-        if (items.get(4).getItem() == ItemStack.EMPTY.getItem() && fluidTank.getFluidAmount() >= 250) {
+        if (items.get(4).isEmpty() && fluidTank.getFluidAmount() >= 250) {
 
             items.set(5, new ItemStack(BeerListHandler.buildMugMap(fluidTank.getFluid().getFluid()), 1));
             setChanged();
